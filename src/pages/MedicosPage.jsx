@@ -65,6 +65,10 @@ const MedicosPage = () => {
     setUtmParams(utms);
   }, []);
 
+  const onInvalid = (validationErrors) => {
+    alert(`Errores de validación: ${JSON.stringify(validationErrors)}`);
+  };
+
   const onSubmit = async (data) => {
     setStatus('loading');
 
@@ -360,7 +364,7 @@ const MedicosPage = () => {
                 {isLoading ? (
                   <FormSkeleton />
                 ) : (
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                  <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="space-y-6">
                     <div className="space-y-2">
                       <Label htmlFor="nombre">Nombre Completo</Label>
                       <Input id="nombre" name="given-name" autoComplete="given-name" placeholder="Dr. Nombre Apellido" {...register('nombre')} />
