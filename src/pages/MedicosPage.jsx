@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { 
@@ -22,24 +22,34 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import FormSkeleton from '@/components/FormSkeleton';
-import { db } from '@/lib/firebase';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { medicoSchema } from '@/validators/medico';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { toE164 } from '@/services/phones';
+import { createMedicoUniqueByPhone } from '@/services/medicos';
 
 const MedicosPage = () => {
-  const [formData, setFormData] = useState({
-    nombre: '',
-    email: '',
-    telefono: '',
-    especialidad: '',
-    clinica: '',
-  });
   const [isLoading, setIsLoading] = useState(true);
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMessage, setErrorMessage] = useState('');
   const [utmParams, setUtmParams] = useState({});
+  const [t0, setT0] = useState(0);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(medicoSchema),
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
+      setT0(Date.now());
     }, 1500); // Simulate loading time
     return () => clearTimeout(timer);
   }, []);
@@ -55,30 +65,41 @@ const MedicosPage = () => {
     setUtmParams(utms);
   }, []);
 
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
+  const onSubmit = async (data) => {
+    setStatus('loading');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.nombre || !formData.email) {
-      setStatus('error');
-      return;
+    // Honeypot check
+    if (data.website) {
+        console.warn("Honeypot triggered");
+        setStatus('success');
+        return;
     }
 
-    setStatus('loading');
+    // Time-trap check
+    const elapsed = Date.now() - t0;
+    if (elapsed < 1500) {
+      setStatus("error");
+      setErrorMessage("Por favor verifica los datos e inténtalo de nuevo.");
+      return;
+    }
+    
     try {
-      await addDoc(collection(db, 'medicos_registros'), {
-        ...formData,
-        createdAt: serverTimestamp(),
-        ...utmParams,
-      });
+      const phoneE164 = toE164(data.phoneRaw);
+      if (!phoneE164) {
+        setStatus('error');
+        setErrorMessage('Teléfono inválido.');
+        return;
+      }
+
+      await createMedicoUniqueByPhone({ ...data, ...utmParams }, phoneE164);
       setStatus('success');
     } catch (error) {
       console.error('Error adding document: ', error);
+      if (error.message === 'duplicate_phone') {
+        setErrorMessage('Este teléfono ya está registrado.');
+      } else {
+        setErrorMessage('Hubo un problema al procesar tu solicitud. Por favor, verifica tus datos e inténtalo de nuevo.');
+      }
       setStatus('error');
     }
   };
@@ -147,7 +168,7 @@ const MedicosPage = () => {
               Error en el Registro
             </h2>
             <p className="text-muted-foreground mb-4">
-              Hubo un problema al procesar tu solicitud. Por favor, verifica tus datos e inténtalo de nuevo.
+             {errorMessage}
             </p>
             <Button 
               className="w-full mt-6 cta-button"
@@ -339,26 +360,35 @@ const MedicosPage = () => {
                 {isLoading ? (
                   <FormSkeleton />
                 ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     <div className="space-y-2">
                       <Label htmlFor="nombre">Nombre Completo</Label>
-                      <Input id="nombre" placeholder="Dr. Nombre Apellido" required onChange={(e) => handleInputChange('nombre', e.target.value)} aria-label="Nombre Completo del Médico" />
+                      <Input id="nombre" name="given-name" autoComplete="given-name" placeholder="Dr. Nombre Apellido" {...register('nombre')} />
+                      {errors.nombre && <p className="text-red-500 text-sm">{errors.nombre.message}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="nombre@email.com" required onChange={(e) => handleInputChange('email', e.target.value)} aria-label="Email del Médico" />
+                      <Input id="email" type="email" inputMode="email" name="email" autoComplete="email" placeholder="nombre@email.com" {...register('email')} />
+                      {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="telefono">Teléfono</Label>
-                      <Input id="telefono" type="tel" placeholder="55 1234 5678" required onChange={(e) => handleInputChange('telefono', e.target.value)} aria-label="Teléfono del Médico"/>
+                      <Label htmlFor="phoneRaw">Teléfono</Label>
+                      <PhoneInput
+                        id="phoneRaw"
+                        name="tel"
+                        autoComplete="tel"
+                        inputMode="tel"
+                        placeholder="55 1234 5678"
+                        {...register('phoneRaw')}
+                        onChange={(value) => setValue('phoneRaw', value)}
+                        defaultCountry="MX"
+                      />
+                      {errors.phoneRaw && <p className="text-red-500 text-sm">{errors.phoneRaw.message}</p>}
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="especialidad">Especialidad</Label>
-                      <Input id="especialidad" placeholder="Urología" required onChange={(e) => handleInputChange('especialidad', e.target.value)} aria-label="Especialidad del Médico"/>
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="clinica">Hospital/Clínica</Label>
-                      <Input id="clinica" placeholder="Nombre del Hospital" required onChange={(e) => handleInputChange('clinica', e.target.value)} aria-label="Hospital o Clínica del Médico"/>
+                    {/* Honeypot field */}
+                    <div className="hidden">
+                      <Label htmlFor="website">Website</Label>
+                      <Input id="website" {...register('website')} tabIndex="-1" autoComplete="off" />
                     </div>
                     <Button type="submit" className="w-full cta-button text-lg py-3 transform hover:scale-105 transition-transform duration-300" disabled={status === 'loading'}>
                       {status === 'loading' ? (

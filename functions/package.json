@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "lint": "eslint . --ext .js || true"
+  },
+  "engines": { "node": "20" },
+  "main": "index.js",
+  "type": "commonjs"
+}
