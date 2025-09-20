@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 // Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ErrorBoundary from './components/ErrorBoundary';
 
 // Pages
 import HomePage from './pages/HomePage'
@@ -43,7 +44,7 @@ function MainLayout() {
           <Route path="/servicios" element={<ServiciosPage />} />
           <Route path="/servicios/:serviceSlug" element={<ServicioPage />} />
           <Route path="/pacientes" element={<PacientesPage />} />
-          <Route path="/medicos" element={<MedicosPage />} />
+          <Route path="/medicos" element={<ErrorBoundary><MedicosPage /></ErrorBoundary>} />
           <Route path="/nosotros" element={<NosotrosPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
           <Route path="/agendar" element={<AgendarPage />} />

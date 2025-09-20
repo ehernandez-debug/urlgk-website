@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
+
+import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { motion } from 'framer-motion';
 import { 
   UserCheck, 
   Award, 
@@ -12,25 +14,28 @@ import {
   Activity,
   CheckCircle,
   Star,
-  Loader2
-} from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+  Loader2,
+  AlertCircle
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import FormSkeleton from '@/components/FormSkeleton';
+import { db } from '@/lib/firebase';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 
 const MedicosPage = () => {
   const [formData, setFormData] = useState({
     nombre: '',
-    cedulaProfesional: '',
-    especialidad: '',
-    hospital: '',
+    email: '',
     telefono: '',
-  })
+    especialidad: '',
+    clinica: '',
+  });
   const [isLoading, setIsLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [utmParams, setUtmParams] = useState({});
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -39,23 +44,44 @@ const MedicosPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const utms = {};
+    for (const [key, value] of urlParams.entries()) {
+      if (key.startsWith('utm_')) {
+        utms[key] = value;
+      }
+    }
+    setUtmParams(utms);
+  }, []);
+
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simular envío a Notion/Sheets
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitted(true)
-    }, 2000)
-  }
+    e.preventDefault();
+    if (!formData.nombre || !formData.email) {
+      setStatus('error');
+      return;
+    }
+
+    setStatus('loading');
+    try {
+      await addDoc(collection(db, 'medicos_registros'), {
+        ...formData,
+        createdAt: serverTimestamp(),
+        ...utmParams,
+      });
+      setStatus('success');
+    } catch (error) {
+      console.error('Error adding document: ', error);
+      setStatus('error');
+    }
+  };
 
   const testimoniosMedicos = [
     {
@@ -79,9 +105,9 @@ const MedicosPage = () => {
       testimonio: 'Especialmente valioso para casos pediátricos. El equipo especializado hace la diferencia en el diagnóstico.',
       rating: 5
     }
-  ]
+  ];
 
-  if (submitted) {
+  if (status === 'success') {
     return (
       <div className="min-h-screen hero-section flex items-center justify-center">
         <Card className="medical-card text-center w-full max-w-md mx-auto">
@@ -89,7 +115,7 @@ const MedicosPage = () => {
             <motion.div
               initial={{ scale: 0 }} 
               animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             >
               <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
             </motion.div>
@@ -99,25 +125,40 @@ const MedicosPage = () => {
             <p className="text-muted-foreground mb-4">
               Hemos recibido tu solicitud. Nuestro equipo te contactará en 24 horas.
             </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="min-h-screen hero-section flex items-center justify-center">
+        <Card className="medical-card text-center w-full max-w-md mx-auto">
+          <CardContent className="pt-6">
+            <motion.div
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+            >
+              <AlertCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
+            </motion.div>
+            <h2 className="text-2xl font-bold text-foreground mb-2">
+              Error en el Registro
+            </h2>
+            <p className="text-muted-foreground mb-4">
+              Hubo un problema al procesar tu solicitud. Por favor, verifica tus datos e inténtalo de nuevo.
+            </p>
             <Button 
               className="w-full mt-6 cta-button"
-              onClick={() => {
-                setSubmitted(false)
-                setFormData({
-                  nombre: '',
-                  cedulaProfesional: '',
-                  especialidad: '',
-                  hospital: '',
-                  telefono: '',
-                })
-              }}
+              onClick={() => setStatus('idle')}
             >
-              Registrar Otro Médico
+              Volver al Formulario
             </Button>
           </CardContent>
         </Card>
       </div>
-    )
+    );
   }
 
   return (
@@ -304,23 +345,23 @@ const MedicosPage = () => {
                       <Input id="nombre" placeholder="Dr. Nombre Apellido" required onChange={(e) => handleInputChange('nombre', e.target.value)} aria-label="Nombre Completo del Médico" />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="cedula">Cédula Profesional</Label>
-                      <Input id="cedula" placeholder="12345678" required onChange={(e) => handleInputChange('cedulaProfesional', e.target.value)} aria-label="Cédula Profesional del Médico"/>
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" placeholder="nombre@email.com" required onChange={(e) => handleInputChange('email', e.target.value)} aria-label="Email del Médico" />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="telefono">Teléfono</Label>
+                      <Input id="telefono" type="tel" placeholder="55 1234 5678" required onChange={(e) => handleInputChange('telefono', e.target.value)} aria-label="Teléfono del Médico"/>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="especialidad">Especialidad</Label>
                       <Input id="especialidad" placeholder="Urología" required onChange={(e) => handleInputChange('especialidad', e.target.value)} aria-label="Especialidad del Médico"/>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="hospital">Hospital/Clínica</Label>
-                      <Input id="hospital" placeholder="Nombre del Hospital" required onChange={(e) => handleInputChange('hospital', e.target.value)} aria-label="Hospital o Clínica del Médico"/>
+                      <Label htmlFor="clinica">Hospital/Clínica</Label>
+                      <Input id="clinica" placeholder="Nombre del Hospital" required onChange={(e) => handleInputChange('clinica', e.target.value)} aria-label="Hospital o Clínica del Médico"/>
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="telefono">Teléfono</Label>
-                      <Input id="telefono" type="tel" placeholder="55 1234 5678" required onChange={(e) => handleInputChange('telefono', e.target.value)} aria-label="Teléfono del Médico"/>
-                    </div>
-                    <Button type="submit" className="w-full cta-button text-lg py-3 transform hover:scale-105 transition-transform duration-300" disabled={isSubmitting}>
-                      {isSubmitting ? (
+                    <Button type="submit" className="w-full cta-button text-lg py-3 transform hover:scale-105 transition-transform duration-300" disabled={status === 'loading'}>
+                      {status === 'loading' ? (
                         <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Enviando... </> 
                       ) : 'Solicitar Información Confidencial'}
                     </Button>
@@ -364,7 +405,7 @@ const MedicosPage = () => {
         </section>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default MedicosPage
+export default MedicosPage;
