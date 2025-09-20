@@ -1,157 +1,52 @@
-import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Stethoscope, 
   Shield, 
   Users, 
-  Clock, 
-  CheckCircle,
-  ArrowRight,
-  FileText,
-  Award,
-  Heart,
-  Baby,
   Activity,
-  Zap
+  Zap,
+  ArrowRight,
+  Heart,
+  Baby
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 const ServiciosPage = () => {
-  const [activeService, setActiveService] = useState('uroflujometria')
+  const navigate = useNavigate();
+
+  const handleAgendarClick = (service) => {
+    navigate(`/agendar?service=${service}`);
+  };
 
   const servicios = {
     uroflujometria: {
       title: 'Uroflujometría',
-      subtitle: 'Evaluación precisa del flujo urinario',
-      icon: <Activity className="h-12 w-12 text-primary" />,
-      description: 'Estudio no invasivo que mide la velocidad y volumen del flujo urinario para detectar obstrucciones y evaluar la función vesical.',
-      duracion: '10-15 minutos',
-      preparacion: 'Vejiga llena',
-      precio: 'Desde $800 MXN',
-      indicaciones: [
-        'Dificultad para orinar',
-        'Chorro urinario débil',
-        'Sensación de vaciado incompleto',
-        'Goteo post-miccional',
-        'Evaluación prostática',
-        'Seguimiento post-cirugía'
-      ],
-      proceso: [
-        'Llegada con vejiga llena',
-        'Registro de datos del paciente',
-        'Micción en uroflujómetro',
-        'Análisis automático de resultados',
-        'Interpretación médica',
-        'Entrega de reporte'
-      ],
-      ventajas: [
-        'Completamente no invasivo',
-        'Resultados inmediatos',
-        'Alta precisión diagnóstica',
-        'Sin efectos secundarios',
-        'Procedimiento rápido',
-        'Costo accesible'
-      ]
+      slug: 'uroflujometria',
+      description: 'Mide la fuerza y velocidad del flujo de orina. Ideal para diagnosticar problemas de próstata y vejiga.',
+      icon: <Activity className="h-10 w-10 text-primary" />,
+      precio: 'Desde $1,500 MXN',
     },
     urodinamia: {
       title: 'Urodinamia',
-      subtitle: 'Estudio integral de la función vesical',
-      icon: <Shield className="h-12 w-12 text-primary" />,
-      description: 'Evaluación completa de la función de almacenamiento y vaciado de la vejiga mediante medición de presiones y flujos.',
-      duracion: '45-60 minutos',
-      preparacion: 'Suspender medicamentos específicos',
+      slug: 'urodinamia',
+      description: 'Estudio completo de la función de la vejiga para casos complejos de incontinencia y retención.',
+      icon: <Shield className="h-10 w-10 text-primary" />,
       precio: 'Desde $2,500 MXN',
-      indicaciones: [
-        'Incontinencia urinaria',
-        'Vejiga hiperactiva',
-        'Retención urinaria',
-        'Dolor pélvico crónico',
-        'Evaluación pre-quirúrgica',
-        'Disfunción neurógena'
-      ],
-      proceso: [
-        'Evaluación médica inicial',
-        'Colocación de catéteres',
-        'Llenado vesical controlado',
-        'Medición de presiones',
-        'Estudio de vaciado',
-        'Análisis e interpretación'
-      ],
-      ventajas: [
-        'Diagnóstico definitivo',
-        'Evaluación integral',
-        'Guía terapéutica precisa',
-        'Tecnología avanzada',
-        'Especialistas certificados',
-        'Reporte detallado'
-      ]
-    },
-    renta: {
-      title: 'Renta de Equipos',
-      subtitle: 'Equipos especializados para profesionales',
-      icon: <Users className="h-12 w-12 text-primary" />,
-      description: 'Servicio de renta de equipos urológicos de última generación para médicos y clínicas que buscan expandir sus servicios.',
-      duracion: 'Flexible',
-      preparacion: 'Capacitación incluida',
-      precio: 'Desde $5,000 MXN/mes',
-      indicaciones: [
-        'Expansión de servicios',
-        'Evaluación de inversión',
-        'Demanda temporal alta',
-        'Especialización urológica',
-        'Modernización de equipo',
-        'Práctica privada'
-      ],
-      proceso: [
-        'Evaluación de necesidades',
-        'Propuesta personalizada',
-        'Instalación y calibración',
-        'Capacitación del personal',
-        'Soporte técnico continuo',
-        'Mantenimiento incluido'
-      ],
-      ventajas: [
-        'Sin inversión inicial',
-        'Mantenimiento incluido',
-        'Soporte técnico 24/7',
-        'Capacitación completa',
-        'Flexibilidad de contrato',
-        'Tecnología actualizada'
-      ]
     },
     consulta: {
       title: 'Consulta Especializada',
-      subtitle: 'Evaluación médica integral',
-      icon: <Stethoscope className="h-12 w-12 text-primary" />,
-      description: 'Consulta urológica completa con especialistas certificados, incluyendo evaluación clínica y recomendaciones terapéuticas.',
-      duracion: '30-45 minutos',
-      preparacion: 'Historia clínica completa',
+      slug: 'consulta',
+      description: 'Evaluación integral por un urólogo certificado para diagnóstico y plan de tratamiento personalizado.',
+      icon: <Stethoscope className="h-10 w-10 text-primary" />,
       precio: 'Desde $1,200 MXN',
-      indicaciones: [
-        'Primera consulta urológica',
-        'Síntomas urinarios',
-        'Evaluación prostática',
-        'Problemas de fertilidad',
-        'Dolor pélvico',
-        'Seguimiento post-tratamiento'
-      ],
-      proceso: [
-        'Historia clínica detallada',
-        'Exploración física',
-        'Evaluación de síntomas',
-        'Solicitud de estudios',
-        'Diagnóstico preliminar',
-        'Plan de tratamiento'
-      ],
-      ventajas: [
-        'Especialistas certificados',
-        'Evaluación integral',
-        'Diagnóstico preciso',
-        'Plan personalizado',
-        'Seguimiento continuo',
-        'Segunda opinión'
-      ]
+    },
+    renta: {
+      title: 'Renta de Equipos',
+      slug: 'renta-de-equipos',
+      description: 'Equipos de urodinamia y uroflujometría para médicos que buscan ampliar sus servicios.',
+      icon: <Users className="h-10 w-10 text-primary" />,
+      precio: 'Desde $5,000 MXN/mes',
     }
   }
 
@@ -197,163 +92,46 @@ const ServiciosPage = () => {
     }
   ]
 
-  const currentService = servicios[activeService]
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
-      <section className="hero-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Nuestros Servicios
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Estudios urológicos especializados con I.A. biomédica y 
-              atención médica de la más alta calidad.
-            </p>
-          </div>
+      <section className="hero-section bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 text-center">
+          <h1 className="text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mb-4">
+            Servicios Urológicos de Vanguardia
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            Utilizamos tecnología de punta y la experiencia de nuestros especialistas para ofrecer diagnósticos urológicos precisos y confiables en la Ciudad de México.
+          </p>
         </div>
       </section>
 
       {/* Servicios Principales */}
-      <section className="section-padding bg-background">
+      <section className="section-padding">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Tabs value={activeService} onValueChange={setActiveService} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-8">
-              <TabsTrigger value="uroflujometria">Uroflujometría</TabsTrigger>
-              <TabsTrigger value="urodinamia">Urodinamia</TabsTrigger>
-              <TabsTrigger value="renta">Renta Equipos</TabsTrigger>
-              <TabsTrigger value="consulta">Consulta</TabsTrigger>
-            </TabsList>
-
-            {Object.entries(servicios).map(([key, servicio]) => (
-              <TabsContent key={key} value={key}>
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  {/* Información Principal */}
-                  <div className="lg:col-span-2 space-y-6">
-                    <Card className="medical-card">
-                      <CardHeader>
-                        <div className="flex items-center space-x-4 mb-4">
-                          {servicio.icon}
-                          <div>
-                            <CardTitle className="text-2xl">{servicio.title}</CardTitle>
-                            <CardDescription className="text-lg">{servicio.subtitle}</CardDescription>
-                          </div>
-                        </div>
-                        <p className="text-muted-foreground text-base leading-relaxed">
-                          {servicio.description}
-                        </p>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                          <div className="flex items-center space-x-2">
-                            <Clock className="h-5 w-5 text-primary" />
-                            <div>
-                              <p className="font-medium text-sm">Duración</p>
-                              <p className="text-sm text-muted-foreground">{servicio.duracion}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <FileText className="h-5 w-5 text-primary" />
-                            <div>
-                              <p className="font-medium text-sm">Preparación</p>
-                              <p className="text-sm text-muted-foreground">{servicio.preparacion}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Zap className="h-5 w-5 text-primary" />
-                            <div>
-                              <p className="font-medium text-sm">Precio</p>
-                              <p className="text-sm text-muted-foreground">{servicio.precio}</p>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <Button className="cta-button">
-                          <ArrowRight className="h-4 w-4 mr-2" />
-                          Agendar {servicio.title}
+            <div className="text-center mb-12">
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Nuestros Estudios y Consultas</h2>
+                <p className="text-md text-muted-foreground mt-2">Da clic en un servicio para conocer los detalles, preparación y precios.</p>
+            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {Object.values(servicios).map((service) => (
+                <Card key={service.slug} className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                    <CardHeader>
+                        <div className="mb-4">{service.icon}</div>
+                        <CardTitle className="text-xl">{service.title}</CardTitle>
+                        <CardDescription className="pt-2">{service.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-lg font-semibold text-primary mb-4">{service.precio}</p>
+                        <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+                        <Link to={`/servicios/${service.slug}`}>
+                            Ver Detalles <ArrowRight className="h-4 w-4 ml-2" />
+                        </Link>
                         </Button>
-                      </CardContent>
-                    </Card>
-
-                    {/* Proceso del Estudio */}
-                    <Card className="medical-card">
-                      <CardHeader>
-                        <CardTitle>Proceso del Estudio</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          {servicio.proceso.map((paso, index) => (
-                            <div key={index} className="flex items-start space-x-3">
-                              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">
-                                {index + 1}
-                              </div>
-                              <div>
-                                <p className="text-foreground font-medium">{paso}</p>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Sidebar */}
-                  <div className="space-y-6">
-                    {/* Indicaciones */}
-                    <Card className="medical-card">
-                      <CardHeader>
-                        <CardTitle className="text-lg">Indicaciones Principales</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {servicio.indicaciones.map((indicacion, index) => (
-                            <li key={index} className="flex items-start space-x-2">
-                              <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-muted-foreground">{indicacion}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    {/* Ventajas */}
-                    <Card className="medical-card">
-                      <CardHeader>
-                        <CardTitle className="text-lg">Ventajas del Estudio</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {servicio.ventajas.map((ventaja, index) => (
-                            <li key={index} className="flex items-start space-x-2">
-                              <Award className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                              <span className="text-sm text-muted-foreground">{ventaja}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-
-                    {/* CTA */}
-                    <Card className="medical-card bg-gradient-to-br from-primary/5 to-accent/5">
-                      <CardContent className="pt-6 text-center">
-                        <h3 className="font-bold text-lg text-foreground mb-2">
-                          ¿Necesitas este estudio?
-                        </h3>
-                        <p className="text-muted-foreground text-sm mb-4">
-                          Agenda tu cita y recibe atención especializada
-                        </p>
-                        <Button className="w-full cta-button">
-                          Agendar Ahora
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  </div>
-                </div>
-              </TabsContent>
+                    </CardContent>
+              </Card>
             ))}
-          </Tabs>
+          </div>
         </div>
       </section>
 
@@ -446,11 +224,11 @@ const ServiciosPage = () => {
             Nuestros especialistas están listos para atenderte con la mejor tecnología
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
+            <Button size="lg" variant="secondary" className="text-lg px-8 py-4" onClick={() => handleAgendarClick('general')}>
               Agendar Cita
             </Button>
             <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
-              Consultar Precios
+              Ver todos los servicios
             </Button>
           </div>
         </div>
@@ -460,4 +238,3 @@ const ServiciosPage = () => {
 }
 
 export default ServiciosPage
-

@@ -5,7 +5,6 @@ import { HelmetProvider } from 'react-helmet-async';
 // Components
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import Breadcrumbs from './components/Breadcrumbs'
 
 // Pages
 import HomePage from './pages/HomePage'
@@ -14,6 +13,7 @@ import PacientesPage from './pages/PacientesPage'
 import MedicosPage from './pages/MedicosPage'
 import NosotrosPage from './pages/NosotrosPage'
 import ContactoPage from './pages/ContactoPage'
+import ServicioPage from './pages/servicios/ServicioPage'
 
 function App() {
   return (
@@ -29,14 +29,18 @@ function MainLayout() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
+  // Hide breadcrumbs on service pages, as they have their own
+  const isServicioPage = location.pathname.startsWith('/servicios/') && location.pathname.length > '/servicios/'.length;
+
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
-      {!isHomePage && <Breadcrumbs />}
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/servicios" element={<ServiciosPage />} />
+          <Route path="/servicios/:serviceSlug" element={<ServicioPage />} />
           <Route path="/pacientes" element={<PacientesPage />} />
           <Route path="/medicos" element={<MedicosPage />} />
           <Route path="/nosotros" element={<NosotrosPage />} />
