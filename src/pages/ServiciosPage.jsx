@@ -76,19 +76,19 @@ const ServiciosPage = () => {
 
   const tecnologia = [
     {
-      equipo: 'Uroflujómetro MMS',
+      equipo: 'Uroflujómetro Inalámbrico con EMG',
       descripcion: 'Tecnología de precisión para medición de flujo urinario',
       caracteristicas: ['Medición automática', 'Gráficos en tiempo real', 'Base de datos normativa']
     },
     {
-      equipo: 'Sistema Urodinámico Laborie',
+      equipo: 'Sistema Urodinámico Con catéteres de H2O',
       descripcion: 'Equipo de última generación para estudios completos',
       caracteristicas: ['Multicanal', 'Software avanzado', 'Reportes automáticos']
     },
     {
-      equipo: 'Equipos Pediátricos',
-      descripcion: 'Tecnología adaptada específicamente para niños',
-      caracteristicas: ['Tamaño apropiado', 'Interfaz amigable', 'Protocolos pediátricos']
+      equipo: 'Plataforma tecnológica de salud',
+      descripcion: 'Tecnología adaptada a cada sub-especializad',
+      caracteristicas: ['Tamaño apropiado', 'Interfaz amigable', 'Protocolos pediátricos, adultos']
     }
   ]
 
