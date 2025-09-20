@@ -14,6 +14,7 @@ import MedicosPage from './pages/MedicosPage'
 import NosotrosPage from './pages/NosotrosPage'
 import ContactoPage from './pages/ContactoPage'
 import ServicioPage from './pages/servicios/ServicioPage'
+import AgendarPage from './pages/AgendarPage';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function MainLayout() {
           <Route path="/medicos" element={<MedicosPage />} />
           <Route path="/nosotros" element={<NosotrosPage />} />
           <Route path="/contacto" element={<ContactoPage />} />
+          <Route path="/agendar" element={<AgendarPage />} />
         </Routes>
       </main>
       <Footer />
