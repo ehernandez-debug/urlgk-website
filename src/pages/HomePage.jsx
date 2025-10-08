@@ -335,13 +335,17 @@ const HomePage = () => {
             Agenda tu cita hoy mismo y da el primer paso hacia tu bienestar
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
-              <Calendar className="h-5 w-5 mr-2" />
-              Agendar Cita Ahora
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
-              Llamar Ahora
-            </Button>
+            <Link to="/pacientes">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
+                <Calendar className="h-5 w-5 mr-2" />
+                Agendar Cita Ahora
+              </Button>
+            </Link>
+            <a href="tel:5547675205">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+                Llamar Ahora
+              </Button>
+            </a>
           </div>
         </div>
       </section>
@@ -350,4 +354,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-
