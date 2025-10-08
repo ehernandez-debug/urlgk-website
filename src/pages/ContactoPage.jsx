@@ -85,22 +85,25 @@ const ContactoPage = () => {
       icon: <Phone className="h-6 w-6 text-primary" />,
       titulo: 'Teléfono',
       descripcion: 'Llámanos directamente',
-      contacto: '55-XXXX-XXXX',
-      disponibilidad: 'Lun - Vie: 8:00 - 18:00'
+      contacto: '55-47-67-52-05',
+      disponibilidad: 'Lun - Vie: 8:00 - 18:00',
+      link: 'tel:5547675205'
     },
     {
       icon: <Mail className="h-6 w-6 text-primary" />,
       titulo: 'Email',
       descripcion: 'Envíanos un correo',
       contacto: 'contacto@urologik.com',
-      disponibilidad: 'Respuesta en 24 horas'
+      disponibilidad: 'Respuesta en 24 horas',
+      link: 'mailto:contacto@urologik.com'
     },
     {
       icon: <MessageCircle className="h-6 w-6 text-primary" />,
       titulo: 'WhatsApp',
       descripcion: 'Chatea con nosotros',
-      contacto: '55-XXXX-XXXX',
-      disponibilidad: 'Lun - Sáb: 9:00 - 19:00'
+      contacto: '55-47-67-52-05',
+      disponibilidad: 'Lun - Sáb: 9:00 - 19:00',
+      link: 'https://wa.me/5215547675205'
     }
   ]
 
@@ -176,7 +179,7 @@ const ContactoPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {metodosContacto.map((metodo, index) => (
-              <Card key={index} className="medical-card text-center">
+              <Card key={index} className="medical-card text-center flex flex-col">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     {metodo.icon}
@@ -184,16 +187,20 @@ const ContactoPage = () => {
                   <CardTitle className="text-xl">{metodo.titulo}</CardTitle>
                   <CardDescription>{metodo.descripcion}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="font-semibold text-primary text-lg mb-2">
-                    {metodo.contacto}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {metodo.disponibilidad}
-                  </p>
-                  <Button variant="outline" className="w-full mt-4">
-                    Contactar Ahora
-                  </Button>
+                <CardContent className="flex-grow flex flex-col justify-between">
+                  <div>
+                    <p className="font-semibold text-primary text-lg mb-2 break-all">
+                      {metodo.contacto}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {metodo.disponibilidad}
+                    </p>
+                  </div>
+                  <a href={metodo.link} target="_blank" rel="noopener noreferrer" className="w-full mt-4">
+                    <Button variant="outline" className="w-full">
+                      Contactar Ahora
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             ))}
@@ -237,7 +244,7 @@ const ContactoPage = () => {
                           type="tel"
                           value={formData.telefono}
                           onChange={(e) => handleInputChange('telefono', e.target.value)}
-                          placeholder="55-XXXX-XXXX"
+                          placeholder="55-XX-XX-XX-XX"
                         />
                       </div>
                     </div>
@@ -335,7 +342,7 @@ const ContactoPage = () => {
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-semibold">Línea Directa</p>
-                      <p className="text-muted-foreground">55-XXXX-XXXX</p>
+                      <p className="text-muted-foreground">55-47-67-52-05</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -366,14 +373,18 @@ const ContactoPage = () => {
                     contáctanos directamente por teléfono o WhatsApp.
                   </p>
                   <div className="space-y-2">
-                    <Button className="w-full cta-button">
-                      <Phone className="h-4 w-4 mr-2" />
-                      Llamar Ahora
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      WhatsApp
-                    </Button>
+                    <a href="tel:5547675205" className="w-full block">
+                      <Button className="w-full cta-button">
+                        <Phone className="h-4 w-4 mr-2" />
+                        Llamar Ahora
+                      </Button>
+                    </a>
+                    <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="w-full block">
+                      <Button variant="outline" className="w-full">
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        WhatsApp
+                      </Button>
+                    </a>
                   </div>
                 </CardContent>
               </Card>
@@ -469,4 +480,3 @@ const ContactoPage = () => {
 }
 
 export default ContactoPage
-
