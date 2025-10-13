@@ -61,7 +61,7 @@ const ContactoPage = () => {
       ],
       servicios: ['Uroflujometría', 'Urodinamia', 'Consulta adultos'],
       especialidad: 'Urología General y Ginecourología',
-      mapa: 'https://maps.google.com/?q=19.3895,-99.1677'
+      mapa: 'https://maps.app.goo.gl/9XQKWkLySr5J5BZLA'
     },
     {
       nombre: 'Hospital Infantil Privado',
@@ -76,7 +76,7 @@ const ContactoPage = () => {
       ],
       servicios: ['Uroflujometría pediátrica', 'Urodinamia pediátrica', 'Consulta especializada'],
       especialidad: 'Uropediatría',
-      mapa: 'https://maps.google.com/?q=19.4126,-99.1553'
+      mapa: 'https://maps.app.goo.gl/ncn5HwTKDBR1CMsa7'
     }
   ]
 
@@ -461,10 +461,12 @@ const ContactoPage = () => {
                   </div>
                   
                   <div className="flex space-x-2">
-                    <Button variant="outline" className="flex-1">
-                      <Navigation className="h-4 w-4 mr-2" />
-                      Ver en Mapa
-                    </Button>
+                    <a href={ubicacion.mapa} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button variant="outline" className="w-full">
+                        <Navigation className="h-4 w-4 mr-2" />
+                        Ver en Mapa
+                      </Button>
+                    </a>
                     <Button className="flex-1 cta-button">
                       Agendar Aquí
                     </Button>
