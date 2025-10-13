@@ -2,18 +2,11 @@ import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { 
-  Calendar, 
   Clock, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  User, 
-  FileText,
-  CheckCircle,
-  AlertCircle,
   Heart,
   Shield,
   Star,
+  CheckCircle,
   Loader2
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -21,29 +14,63 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from '@/components/ui/badge'
 import FormSkeleton from '@/components/FormSkeleton';
 import { Progress } from '@/components/ui/progress';
 
+const RequiredAst = () => <span className="text-red-500">*</span>;
+
 const PacientesPage = () => {
   const [formData, setFormData] = useState({
-    nombre: '',
+    // Colonia del Valle fields
+    nombres: '',
+    apellidoPaterno: '',
+    apellidoMaterno: '',
+    // Hospital Infantil Privado fields
+    tutorNombres: '',
+    tutorApellidoPaterno: '',
+    tutorApellidoMaterno: '',
+    menorNombres: '',
+    menorApellidoPaterno: '',
+    menorApellidoMaterno: '',
+    // Common fields
     telefono: '',
     tipoEstudio: '',
-    fechaPreferida: '',
+    location: 'colonia-del-valle',
   })
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [countdown, setCountdown] = useState('23:59:59')
-  const [formStep, setFormStep] = useState(0);
 
-  const totalFields = Object.keys(formData).length;
-  const completedFields = Object.values(formData).filter(Boolean).length;
-  const progress = (completedFields / totalFields) * 100;
+  const requiredFields = {
+    'colonia-del-valle': ['nombres', 'apellidoPaterno', 'telefono', 'tipoEstudio'],
+    'hospital-infantil': ['tutorNombres', 'tutorApellidoPaterno', 'menorNombres', 'menorApellidoPaterno', 'telefono', 'tipoEstudio']
+  };
+
+  const currentRequired = requiredFields[formData.location];
+  const completedFields = currentRequired.filter(field => !!formData[field]).length;
+  const totalFields = currentRequired.length;
+  const progress = totalFields > 0 ? (completedFields / totalFields) * 100 : 0;
+
+  const calendlyLinks = {
+    'colonia-del-valle': 'https://calendly.com/pablo-urologik/cita-colonia-del-valle?hide_event_type_details=1&primary_color=2c5f7a',
+    'hospital-infantil': 'https://calendly.com/pablo-urologik/30min?hide_event_type_details=1&primary_color=2c5f7a',
+  };
 
   useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+
     const timer = setInterval(() => {
       const now = new Date()
       const endOfDay = new Date(now)
@@ -54,13 +81,18 @@ const PacientesPage = () => {
       const seconds = String(Math.floor((diff / 1000) % 60)).padStart(2, '0')
       setCountdown(`${hours}:${minutes}:${seconds}`)
     }, 1000)
-    return () => clearInterval(timer)
+    
+    return () => {
+        clearInterval(timer);
+        document.head.removeChild(link);
+        document.head.removeChild(script);
+    }
   }, [])
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 1500); // Simulate loading time
+    }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -75,13 +107,19 @@ const PacientesPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simular envío 
     setTimeout(() => {
       setIsSubmitting(false)
       setSubmitted(true)
     }, 2000)
   }
+
+  const openCalendly = (e) => {
+    e.preventDefault();
+    const url = calendlyLinks[formData.location];
+    if (window.Calendly && url) {
+      window.Calendly.initPopupWidget({ url });
+    }
+  };
   
   const testimonials = [
     {
@@ -129,10 +167,18 @@ const PacientesPage = () => {
               onClick={() => {
                 setSubmitted(false)
                 setFormData({
-                  nombre: '',
+                  nombres: '',
+                  apellidoPaterno: '',
+                  apellidoMaterno: '',
+                  tutorNombres: '',
+                  tutorApellidoPaterno: '',
+                  tutorApellidoMaterno: '',
+                  menorNombres: '',
+                  menorApellidoPaterno: '',
+                  menorApellidoMaterno: '',
                   telefono: '',
                   tipoEstudio: '',
-                  fechaPreferida: '',
+                  location: 'colonia-del-valle',
                 })
               }}
             >
@@ -154,12 +200,10 @@ const PacientesPage = () => {
         <meta property="og:type" content="website" />
       </Helmet>
       <div className="min-h-screen bg-background text-foreground">
-        {/* Banner de Urgencia */}
         <div className="bg-yellow-400 text-black text-center p-2 font-bold">
           <p>¡Solo 3 espacios disponibles esta semana! | Promoción especial termina en: {countdown}</p>
         </div>
 
-        {/* Hero Section */}
         <section className="hero-section text-center py-12 md:py-20 px-4">
           <Badge color="success" className="mb-4 bg-green-500 text-white">Disponible Hoy</Badge>
           <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-3">
@@ -176,10 +220,8 @@ const PacientesPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            {/* Columna principal con formulario y precios */}
             <div className="lg:col-span-2 space-y-8">
               
-              {/* Precios Transparentes */}
               <Card className="medical-card">
                 <CardHeader>
                   <CardTitle>Precios Transparentes</CardTitle>
@@ -197,11 +239,10 @@ const PacientesPage = () => {
                 </CardContent>
               </Card>
 
-              {/* Formulario */}
               <Card className="medical-card">
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>
-                  <CardDescription>Completa estos 4 campos y confirma por WhatsApp.</CardDescription>
+                  <CardDescription>Completa estos campos y agenda tu cita.</CardDescription>
                   <Progress value={progress} className="mt-2" />
                 </CardHeader>
                 <CardContent>
@@ -210,17 +251,81 @@ const PacientesPage = () => {
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
-                        <Label htmlFor="nombre">Nombre</Label>
-                        <Input id="nombre" placeholder="Tu nombre completo" required 
-                              value={formData.nombre} onChange={e => handleInputChange('nombre', e.target.value)} aria-label="Nombre Completo del Paciente"/>
+                        <Label>Ubicación <RequiredAst /></Label>
+                        <RadioGroup
+                          defaultValue="colonia-del-valle"
+                          className="flex items-center space-x-4 pt-2"
+                          onValueChange={(value) => handleInputChange('location', value)}
+                        >
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="colonia-del-valle" id="colonia-del-valle" />
+                            <Label htmlFor="colonia-del-valle">Colonia del Valle</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="hospital-infantil" id="hospital-infantil" />
+                            <Label htmlFor="hospital-infantil">Hospital Infantil Privado</Label>
+                          </div>
+                        </RadioGroup>
                       </div>
+
+                      {formData.location === 'colonia-del-valle' ? (
+                        <>
+                          <div>
+                            <Label htmlFor="nombres">Nombre(s) <RequiredAst /></Label>
+                            <Input id="nombres" placeholder="Tu(s) nombre(s)" required value={formData.nombres} onChange={e => handleInputChange('nombres', e.target.value)} />
+                          </div>
+                          <div>
+                            <Label htmlFor="apellidoPaterno">Apellido Paterno <RequiredAst /></Label>
+                            <Input id="apellidoPaterno" placeholder="Tu apellido paterno" required value={formData.apellidoPaterno} onChange={e => handleInputChange('apellidoPaterno', e.target.value)} />
+                          </div>
+                          <div>
+                            <Label htmlFor="apellidoMaterno">Apellido Materno</Label>
+                            <Input id="apellidoMaterno" placeholder="Tu apellido materno" value={formData.apellidoMaterno} onChange={e => handleInputChange('apellidoMaterno', e.target.value)} />
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <Label className="font-bold">Datos del Tutor</Label>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                              <div>
+                                  <Label htmlFor="tutorNombres">Nombre(s) del Tutor <RequiredAst /></Label>
+                                  <Input id="tutorNombres" placeholder="Nombre(s)" required value={formData.tutorNombres} onChange={e => handleInputChange('tutorNombres', e.target.value)} />
+                              </div>
+                              <div>
+                                  <Label htmlFor="tutorApellidoPaterno">Apellido Paterno del Tutor <RequiredAst /></Label>
+                                  <Input id="tutorApellidoPaterno" placeholder="Apellido Paterno" required value={formData.tutorApellidoPaterno} onChange={e => handleInputChange('tutorApellidoPaterno', e.target.value)} />
+                              </div>
+                          </div>
+                           <div>
+                                <Label htmlFor="tutorApellidoMaterno">Apellido Materno del Tutor</Label>
+                                <Input id="tutorApellidoMaterno" placeholder="Apellido Materno" value={formData.tutorApellidoMaterno} onChange={e => handleInputChange('tutorApellidoMaterno', e.target.value)} />
+                           </div>
+
+                          <Label className="font-bold pt-4">Datos del Menor</Label>
+                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                              <div>
+                                <Label htmlFor="menorNombres">Nombre(s) del Menor <RequiredAst /></Label>
+                                <Input id="menorNombres" placeholder="Nombre(s)" required value={formData.menorNombres} onChange={e => handleInputChange('menorNombres', e.target.value)} />
+                              </div>
+                              <div>
+                                <Label htmlFor="menorApellidoPaterno">Apellido Paterno del Menor <RequiredAst /></Label>
+                                <Input id="menorApellidoPaterno" placeholder="Apellido Paterno" required value={formData.menorApellidoPaterno} onChange={e => handleInputChange('menorApellidoPaterno', e.target.value)} />
+                              </div>
+                          </div>
+                          <div>
+                            <Label htmlFor="menorApellidoMaterno">Apellido Materno del Menor</Label>
+                            <Input id="menorApellidoMaterno" placeholder="Apellido Materno" value={formData.menorApellidoMaterno} onChange={e => handleInputChange('menorApellidoMaterno', e.target.value)} />
+                          </div>
+                        </>
+                      )}
+
                       <div>
-                        <Label htmlFor="telefono">Teléfono (WhatsApp)</Label>
+                        <Label htmlFor="telefono">Teléfono (WhatsApp) <RequiredAst /></Label>
                         <Input id="telefono" type="tel" placeholder="10 dígitos" required
                               value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} aria-label="Teléfono del Paciente"/>
                       </div>
                       <div>
-                        <Label>Tipo de estudio</Label>
+                        <Label>Tipo de estudio <RequiredAst /></Label>
                         <Select onValueChange={value => handleInputChange('tipoEstudio', value)} required>
                           <SelectTrigger aria-label="Tipo de Estudio">
                             <SelectValue placeholder="Selecciona el estudio" />
@@ -233,11 +338,12 @@ const PacientesPage = () => {
                         </Select>
                       </div>
                       <div>
-                        <Label htmlFor="fechaPreferida">Fecha preferida</Label>
-                        <Input id="fechaPreferida" type="date" required
-                              min={new Date().toISOString().split('T')[0]}
-                              value={formData.fechaPreferida} onChange={e => handleInputChange('fechaPreferida', e.target.value)} aria-label="Fecha Preferida para la Cita"/>
+                        <Label>Fecha preferida <RequiredAst /></Label>
+                        <Button onClick={openCalendly} className="w-full" variant="outline">
+                           Selecciona una fecha y hora
+                        </Button>
                       </div>
+                      <p className="text-sm text-muted-foreground"><RequiredAst /> Campos obligatorios</p>
                       <Button type="submit" className="w-full text-lg py-3 cta-button transform hover:scale-105 transition-transform duration-300" disabled={isSubmitting}>
                         {isSubmitting ? (
                           <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Agendando...
@@ -251,9 +357,7 @@ const PacientesPage = () => {
               </Card>
             </div>
 
-            {/* Sidebar */}
             <div className="space-y-8">
-              {/* Testimonios */}
               <Card className="medical-card hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
                       <CardTitle>Nuestros Pacientes Opinan</CardTitle>
@@ -276,7 +380,6 @@ const PacientesPage = () => {
                   </CardContent>
               </Card>
 
-              {/* Seguros */}
               <Card className="medical-card">
                   <CardHeader>
                       <CardTitle>Aceptamos Seguros de Gastos Médicos</CardTitle>
@@ -288,7 +391,6 @@ const PacientesPage = () => {
                   </CardContent>
               </Card>
 
-              {/* Garantías */}
               <Card className="medical-card">
                 <CardHeader>
                   <CardTitle>Tu Tranquilidad es Nuestra Prioridad</CardTitle>
