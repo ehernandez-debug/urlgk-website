@@ -187,7 +187,7 @@ const PacientesPage = () => {
                 <CardContent className="space-y-4">
                     <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
                         <p className="font-semibold">Uroflujometría</p>
-                        <p className="font-bold text-lg">$1,800 MXN</p>
+                        <p className="font-bold text-lg">DESDE $1,500 MXN</p>
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
                         <p className="font-semibold">Urodinamia completa</p>
