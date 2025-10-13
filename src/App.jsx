@@ -1,58 +1,46 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
 import { HelmetProvider } from 'react-helmet-async';
 
 // Components
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
+import Layout from './components/Layout';
 import ErrorBoundary from './components/ErrorBoundary';
 
 // Pages
-import HomePage from './pages/HomePage'
-import ServiciosPage from './pages/ServiciosPage'
-import PacientesPage from './pages/PacientesPage'
-import MedicosPage from './pages/MedicosPage'
-import NosotrosPage from './pages/NosotrosPage'
-import ContactoPage from './pages/ContactoPage'
-import ServicioPage from './pages/servicios/ServicioPage'
+import HomePage from './pages/HomePage';
+import ServiciosPage from './pages/ServiciosPage';
+import PacientesPage from './pages/PacientesPage';
+import MedicosPage from './pages/MedicosPage';
+import NosotrosPage from './pages/NosotrosPage';
+import ContactoPage from './pages/ContactoPage';
+import ServicioPage from './pages/servicios/ServicioPage';
 import AgendarPage from './pages/AgendarPage';
+import PediatriaPage from './pages/servicios/PediatriaPage';
+import AdultosPage from './pages/servicios/AdultosPage';
 
 function App() {
   return (
     <HelmetProvider>
       <Router>
-        <MainLayout />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="servicios">
+              <Route index element={<ServiciosPage />} />
+              <Route path="pediatria" element={<PediatriaPage />} />
+              <Route path="adultos" element={<AdultosPage />} />
+              <Route path=":especialidad/:serviceSlug" element={<ServicioPage />} />
+            </Route>
+            <Route path="pacientes" element={<PacientesPage />} />
+            <Route path="medicos" element={<ErrorBoundary><MedicosPage /></ErrorBoundary>} />
+            <Route path="nosotros" element={<NosotrosPage />} />
+            <Route path="contacto" element={<ContactoPage />} />
+            <Route path="agendar" element={<AgendarPage />} />
+          </Route>
+        </Routes>
       </Router>
     </HelmetProvider>
-  )
+  );
 }
 
-function MainLayout() {
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
-
-  // Hide breadcrumbs on service pages, as they have their own
-  const isServicioPage = location.pathname.startsWith('/servicios/') && location.pathname.length > '/servicios/'.length;
-
-
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/servicios" element={<ServiciosPage />} />
-          <Route path="/servicios/:serviceSlug" element={<ServicioPage />} />
-          <Route path="/pacientes" element={<PacientesPage />} />
-          <Route path="/medicos" element={<ErrorBoundary><MedicosPage /></ErrorBoundary>} />
-          <Route path="/nosotros" element={<NosotrosPage />} />
-          <Route path="/contacto" element={<ContactoPage />} />
-          <Route path="/agendar" element={<AgendarPage />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
-  )
-}
-
-export default App
+export default App;
