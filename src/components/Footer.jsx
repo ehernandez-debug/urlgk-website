@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Phone, Mail, Clock, Facebook, Instagram, Linkedin } from 'lucide-react'
+import { Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react'
 import urologikLogo from '../assets/urologik-logo.png'
 
 const Footer = () => {
@@ -26,9 +26,6 @@ const Footer = () => {
               </a>
               <a href="https://www.instagram.com/urologik_oficial?igsh=MTZ5OWU2a3gyN3I3ZQ==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -91,13 +88,6 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-foreground mb-4">Contacto</h3>
             <div className="space-y-3 text-sm">
-              <div className="flex items-start space-x-2">
-                <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-muted-foreground">Colonia del Valle</p>
-                  <p className="text-muted-foreground">Ciudad de México</p>
-                </div>
-              </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
                 <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">55-47-67-52-05</a>
