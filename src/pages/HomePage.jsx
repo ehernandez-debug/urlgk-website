@@ -83,12 +83,14 @@ const HomePage = () => {
 
   const ubicaciones = [
     {
+      id: "colonia-del-valle",
       nombre: 'Colonia del Valle',
       direccion: 'Para adultos hombres y mujeres',
       horario: 'Lun - Vie: 8:00 - 18:00',
       especialidad: 'Urología general'
     },
     {
+      id: "hospital-infantil",
       nombre: 'Hospital Infantil Privado',
       direccion: 'Especializado en pediatría',
       horario: 'Lun - Vie: 9:00 - 17:00',
@@ -279,10 +281,12 @@ const HomePage = () => {
                       <span className="text-sm text-muted-foreground">{ubicacion.especialidad}</span>
                     </div>
                   </div>
-                  <Button className="w-full mt-4 cta-button">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    Agendar en esta ubicación
-                  </Button>
+                  <Link to={`/pacientes?location=${ubicacion.id}#agenda`}>
+                    <Button className="w-full mt-4 cta-button">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      Agendar en esta ubicación
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             ))}
@@ -335,7 +339,7 @@ const HomePage = () => {
             Agenda tu cita hoy mismo y da el primer paso hacia tu bienestar
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/pacientes">
+            <Link to="/pacientes#agenda">
               <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
                 <Calendar className="h-5 w-5 mr-2" />
                 Agendar Cita Ahora

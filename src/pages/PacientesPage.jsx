@@ -93,6 +93,20 @@ const PacientesPage = () => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
+
+    const params = new URLSearchParams(window.location.search);
+    const location = params.get('location');
+    if (location) {
+      handleInputChange('location', location);
+    }
+
+    if (window.location.hash === '#agenda') {
+      const agendaSection = document.getElementById('agenda');
+      if (agendaSection) {
+        agendaSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -239,7 +253,7 @@ const PacientesPage = () => {
                 </CardContent>
               </Card>
 
-              <Card className="medical-card">
+              <Card className="medical-card" id="agenda">
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>
                   <CardDescription>Completa estos campos y agenda tu cita.</CardDescription>
@@ -253,7 +267,7 @@ const PacientesPage = () => {
                       <div>
                         <Label>Ubicación <RequiredAst /></Label>
                         <RadioGroup
-                          defaultValue="colonia-del-valle"
+                          value={formData.location}
                           className="flex items-center space-x-4 pt-2"
                           onValueChange={(value) => handleInputChange('location', value)}
                         >

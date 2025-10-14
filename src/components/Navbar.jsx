@@ -53,7 +53,7 @@ const Navbar = () => {
                 <span>55-47-67-52-05</span>
               </Button>
             </a>
-            <Link to="/pacientes">
+            <Link to="/pacientes#agenda">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>Agendar Cita</span>
@@ -105,7 +105,7 @@ const Navbar = () => {
                     <span>55-47-67-52-05</span>
                   </Button>
                 </a>
-                <Link to="/pacientes" onClick={() => setIsOpen(false)}>
+                <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)}>
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />
                     <span>Agendar Cita</span>
