@@ -50,6 +50,23 @@ const HomePage = () => {
     }
   ]
 
+    useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+        document.head.removeChild(link);
+        document.head.removeChild(script);
+    }
+  }, [])
+
   // Rotar hero sections cada 5 segundos
   useEffect(() => {
     const interval = setInterval(() => {
@@ -234,11 +251,19 @@ const HomePage = () => {
                       </li>
                     ))}
                   </ul>
-                  <Link to="/servicios">
-                    <Button variant="outline" className="w-full mt-4">
-                      Más Información
-                    </Button>
-                  </Link>
+                  {servicio.title === 'Renta de Equipos' ? (
+                    <Link to="/medicos#renta">
+                      <Button variant="outline" className="w-full mt-4">
+                        Más Información
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link to="/servicios">
+                      <Button variant="outline" className="w-full mt-4">
+                        Más Información
+                      </Button>
+                    </Link>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -281,12 +306,23 @@ const HomePage = () => {
                       <span className="text-sm text-muted-foreground">{ubicacion.especialidad}</span>
                     </div>
                   </div>
-                  <Link to={`/pacientes?location=${ubicacion.id}#agenda`}>
-                    <Button className="w-full mt-4 cta-button">
+                  {ubicacion.id === 'hospital-infantil' ? (
+                    <Button 
+                      className="w-full mt-4 cta-button"
+                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'})}
+                    >
                       <Calendar className="h-4 w-4 mr-2" />
                       Agendar en esta ubicación
                     </Button>
-                  </Link>
+                  ) : (
+                    <Button 
+                      className="w-full mt-4 cta-button"
+                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'})}
+                    >
+                      <Calendar className="h-4 w-4 mr-2" />
+                      Agendar en esta ubicación
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             ))}

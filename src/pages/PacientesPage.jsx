@@ -278,7 +278,7 @@ const PacientesPage = () => {
                         </>
                       )}
                       <div>
-                        <Button onClick={openCalendly} className="w-full" variant="outline">
+                        <Button onClick={openCalendly} className="w-full" variant="outline" style={{ backgroundColor: '#2C5F7A', color: 'white' }}>
                            {formData.location === 'colonia-del-valle' ? "Agenda tu estudio ahora en Colonia del Valle" : "Agenda tu estudio ahora en Hospital Infantil Privado"}
                         </Button>
                       </div>
