@@ -163,11 +163,19 @@ const HomePage = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/pacientes">
-                  <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto">
-                    {currentHeroData.cta}
-                  </Button>
-                </Link>
+                {currentHeroData.id === 'padres' ? (
+                  <Link to="/servicios/pediatria">
+                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto">
+                      {currentHeroData.cta}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/pacientes">
+                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto">
+                      {currentHeroData.cta}
+                    </Button>
+                  </Link>
+                )}
                 <Link to="/servicios">
                   <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto">
                     Conocer Más

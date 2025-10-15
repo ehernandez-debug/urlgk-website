@@ -1,5 +1,6 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import { useEffect } from 'react';
 import { Clock, CheckCircle, ArrowRight, FileText, Award, MessageCircle, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +15,23 @@ const ServicioPage = () => {
   const { especialidad, serviceSlug } = useParams();
   const location = useLocation();
   
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+
+    return () => {
+        if (link.parentNode) document.head.removeChild(link);
+        if (script.parentNode) document.head.removeChild(script);
+    }
+  }, []);
+
   const service = servicesData[especialidad]?.[serviceSlug];
 
   const handleCtaClick = (cta, locationName) => {
@@ -40,6 +58,8 @@ const ServicioPage = () => {
       </div>
     );
   }
+
+  const isCalendlyService = especialidad === 'pediatria' && (serviceSlug === 'urodinamia-multicanal' || serviceSlug === 'urodinamia-emg-upp' || serviceSlug === 'uroflujometria-pediatrica-emg');
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -98,11 +118,20 @@ const ServicioPage = () => {
               <h1 className="text-4xl lg:text-5xl font-extrabold text-foreground tracking-tight mb-4">{service.title}</h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8">{service.subtitle}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button size="lg" asChild>
-                  <Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'hero')}>
+                {isCalendlyService ? (
+                  <Button size="lg" onClick={() => {
+                    handleCtaClick('agendar', 'hero');
+                    window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'});
+                  }}>
                     <ArrowRight className="h-5 w-5 mr-2" /> Agendar Estudio
-                  </Link>
-                </Button>
+                  </Button>
+                ) : (
+                  <Button size="lg" asChild>
+                    <Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'hero')}>
+                      <ArrowRight className="h-5 w-5 mr-2" /> Agendar Estudio
+                    </Link>
+                  </Button>
+                )}
                 <Button size="lg" variant="outline" asChild>
                   <a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
                     <MessageCircle className="h-5 w-5 mr-2" /> Contactar
@@ -149,7 +178,20 @@ const ServicioPage = () => {
                     <div className="flex items-center space-x-3"><Clock className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Duración:</span> <span className="text-muted-foreground">{service.duracion}</span></p></div>
                     <div className="flex items-center space-x-3"><FileText className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Preparación:</span> <span className="text-muted-foreground">{service.preparacion}</span></p></div>
                 </div>
-                <Button size="lg" className="w-full text-base" asChild><Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'sidebar')}>Agendar Estudio</Link></Button>
+                {isCalendlyService ? (
+                  <Button size="lg" className="w-full text-base" onClick={() => {
+                    handleCtaClick('agendar', 'sidebar');
+                    window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'});
+                  }}>
+                    Agendar Estudio
+                  </Button>
+                ) : (
+                  <Button size="lg" className="w-full text-base" asChild>
+                    <Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'sidebar')}>
+                      Agendar Estudio
+                    </Link>
+                  </Button>
+                )}
                 <Button size="lg" variant="outline" className="w-full text-base" asChild><a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'sidebar')}><MessageCircle className="h-5 w-5 mr-2" /> Contactar por WhatsApp</a></Button>
               </CardContent>
             </Card>
