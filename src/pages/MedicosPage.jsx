@@ -29,6 +29,18 @@ const MedicosPage = () => {
   } = useForm({ resolver: zodResolver(medicoSchema) });
 
   useEffect(() => {
+    // Load Calendly widget scripts
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.head.appendChild(script);
+    
+    // Set initial timestamp and UTM params
     setT0(Date.now());
     const urlParams = new URLSearchParams(window.location.search);
     const utms = {};
@@ -36,6 +48,12 @@ const MedicosPage = () => {
       if (key.startsWith('utm_')) utms[key] = value;
     }
     setUtmParams(utms);
+
+    // Cleanup function
+    return () => {
+      if (link.parentNode) document.head.removeChild(link);
+      if (script.parentNode) document.head.removeChild(script);
+    };
   }, []);
 
   const onSubmit = async (data) => {
@@ -56,6 +74,12 @@ const MedicosPage = () => {
       setStatus('error');
     }
   };
+  
+  const handleCalendlyClick = () => {
+    if (window.Calendly) {
+      window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/medicos-interesados?hide_gdpr_banner=1'});
+    }
+  }
 
   if (status === 'success') {
     return <FormStatus title="¡Registro Exitoso!" message="Hemos recibido tu solicitud. Nuestro equipo te contactará en 24 horas." Icon={CheckCircle} iconClass="text-green-500" />;
@@ -76,8 +100,8 @@ const MedicosPage = () => {
         <ValueProposition />
         <OperationalModels />
         <BillingFlow />
-        <AdvisoryCommittee />
-        <EquipmentRental />
+        <AdvisoryCommittee onCalendlyClick={handleCalendlyClick} />
+        <EquipmentRental onCalendlyClick={handleCalendlyClick} />
         <Testimonials />
         <SimplifiedProcess />
         <ProfessionalForm {...{ register, handleSubmit, errors, setValue, status, onSubmit }} />
@@ -130,10 +154,10 @@ const OperationalModels = () => (
       <div className="text-center mb-12"><h2 className="text-3xl lg:text-4xl font-bold">Modelos Operativos Flexibles</h2></div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ModelCard title="Modelo A: Referencia" Icon={Share2} description="Tú refieres al paciente, nosotros nos encargamos del resto.">
-          <CommissionTable title="Comisión por Referencia" data={[['1-5 estudios/mes', '10%'], ['6-10 estudios/mes', '15%'], ['>10 estudios/mes', '20%']]} />
+          <CommissionTable title="Comisión por Referencia" data={[[ '1-5 estudios/mes', '10%'], ['6-10 estudios/mes', '15%'], ['>10 estudios/mes', '20%']]} />
         </ModelCard>
         <ModelCard title="Modelo B: Uso de Equipo" Icon={Users} description="Tú realizas el estudio utilizando nuestro equipo en tu consultorio.">
-          <CommissionTable title="Revenue Share para Ti" data={[['1-3 estudios/mes', '50%'], ['4-6 estudios/mes', '55%'], ['7-10 estudios/mes', '60%'], ['>10 estudios/mes', '65%']]} />
+          <CommissionTable title="Revenue Share para Ti" data={[[ '1-3 estudios/mes', '50%'], ['4-6 estudios/mes', '55%'], ['7-10 estudios/mes', '60%'], ['>10 estudios/mes', '65%']]} />
         </ModelCard>
       </div>
     </div>
@@ -157,18 +181,18 @@ const BillingFlow = () => (
     </section>
 );
 
-const AdvisoryCommittee = () => (
+const AdvisoryCommittee = ({ onCalendlyClick }) => (
     <section className="section-padding bg-primary/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <Info className="h-12 w-12 text-primary mx-auto mb-4" />
             <h2 className="text-3xl font-bold mb-4">Únete a Nuestro Comité Asesor Clínico</h2>
             <p className="text-muted-foreground mb-6">Buscamos expertos como tú para co-desarrollar nuestro uroflujómetro con IA. Participa, aporta tu visión clínica y obtén beneficios exclusivos como descuentos y un revenue share preferencial.</p>
-            <Button asChild><a href="#registro">Quiero ser parte</a></Button>
+            <Button onClick={onCalendlyClick}>Quiero ser parte</Button>
         </div>
     </section>
 );
 
-const EquipmentRental = () => (
+const EquipmentRental = ({ onCalendlyClick }) => (
   <section id="renta" className="section-padding">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-12"><h2 className="text-3xl lg:text-4xl font-bold">Renta de Equipos de Urodinamia</h2></div>
@@ -180,7 +204,7 @@ const EquipmentRental = () => (
       <div className="text-center mt-12">
           <p className="text-lg text-muted-foreground mb-2">Contamos con 1 año de operación exitosa con equipo propio.</p>
           <p className="font-semibold mb-6">Soporte técnico garantizado por nuestro equipo de ingeniería biomédica.</p>
-          <Button asChild variant="outline"><a href="#registro">Agendar Demostración</a></Button>
+          <Button variant="outline" onClick={onCalendlyClick}>Agendar Demostración</Button>
       </div>
     </div>
   </section>
