@@ -21,10 +21,10 @@ const Footer = () => {
               Democratizando el acceso a diagnósticos de vanguardia.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://www.facebook.com/share/1Cxxwe14nj/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/urologik_oficial?igsh=MTZ5OWU2a3gyN3I3ZQ==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
               <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
@@ -100,7 +100,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">55-XXXX-XXXX</span>
+                <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">55-47-67-52-05</a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
@@ -142,4 +142,3 @@ const Footer = () => {
 }
 
 export default Footer
-
