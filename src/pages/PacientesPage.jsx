@@ -28,12 +28,6 @@ const PacientesPage = () => {
     apellidoPaterno: '',
     apellidoMaterno: '',
     // Hospital Infantil Privado fields
-    tutorNombres: '',
-    tutorApellidoPaterno: '',
-    tutorApellidoMaterno: '',
-    menorNombres: '',
-    menorApellidoPaterno: '',
-    menorApellidoMaterno: '',
     // Common fields
     telefono: '',
     tipoEstudio: '',
@@ -46,8 +40,8 @@ const PacientesPage = () => {
   const [countdown, setCountdown] = useState('23:59:59')
 
   const requiredFields = {
-    'colonia-del-valle': ['nombres', 'apellidoPaterno', 'telefono', 'tipoEstudio'],
-    'hospital-infantil': ['tutorNombres', 'tutorApellidoPaterno', 'menorNombres', 'menorApellidoPaterno', 'telefono', 'tipoEstudio']
+    'colonia-del-valle': [],
+    'hospital-infantil': []
   };
 
   const currentRequired = requiredFields[formData.location];
@@ -56,8 +50,8 @@ const PacientesPage = () => {
   const progress = totalFields > 0 ? (completedFields / totalFields) * 100 : 0;
 
   const calendlyLinks = {
-    'colonia-del-valle': 'https://calendly.com/pablo-urologik/cita-colonia-del-valle?hide_event_type_details=1&primary_color=2c5f7a',
-    'hospital-infantil': 'https://calendly.com/pablo-urologik/30min?hide_event_type_details=1&primary_color=2c5f7a',
+    'colonia-del-valle': 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1',
+    'hospital-infantil': 'https://calendly.com/urologik/30min?hide_gdpr_banner=1',
   };
 
   useEffect(() => {
@@ -93,6 +87,20 @@ const PacientesPage = () => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
+
+    const params = new URLSearchParams(window.location.search);
+    const location = params.get('location');
+    if (location) {
+      handleInputChange('location', location);
+    }
+
+    if (window.location.hash === '#agenda') {
+      const agendaSection = document.getElementById('agenda');
+      if (agendaSection) {
+        agendaSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
     return () => clearTimeout(timer);
   }, []);
 
@@ -170,12 +178,6 @@ const PacientesPage = () => {
                   nombres: '',
                   apellidoPaterno: '',
                   apellidoMaterno: '',
-                  tutorNombres: '',
-                  tutorApellidoPaterno: '',
-                  tutorApellidoMaterno: '',
-                  menorNombres: '',
-                  menorApellidoPaterno: '',
-                  menorApellidoMaterno: '',
                   telefono: '',
                   tipoEstudio: '',
                   location: 'colonia-del-valle',
@@ -239,7 +241,7 @@ const PacientesPage = () => {
                 </CardContent>
               </Card>
 
-              <Card className="medical-card">
+              <Card className="medical-card" id="agenda">
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>
                   <CardDescription>Completa estos campos y agenda tu cita.</CardDescription>
@@ -253,7 +255,7 @@ const PacientesPage = () => {
                       <div>
                         <Label>Ubicación <RequiredAst /></Label>
                         <RadioGroup
-                          defaultValue="colonia-del-valle"
+                          value={formData.location}
                           className="flex items-center space-x-4 pt-2"
                           onValueChange={(value) => handleInputChange('location', value)}
                         >
@@ -270,86 +272,17 @@ const PacientesPage = () => {
 
                       {formData.location === 'colonia-del-valle' ? (
                         <>
-                          <div>
-                            <Label htmlFor="nombres">Nombre(s) <RequiredAst /></Label>
-                            <Input id="nombres" placeholder="Tu(s) nombre(s)" required value={formData.nombres} onChange={e => handleInputChange('nombres', e.target.value)} />
-                          </div>
-                          <div>
-                            <Label htmlFor="apellidoPaterno">Apellido Paterno <RequiredAst /></Label>
-                            <Input id="apellidoPaterno" placeholder="Tu apellido paterno" required value={formData.apellidoPaterno} onChange={e => handleInputChange('apellidoPaterno', e.target.value)} />
-                          </div>
-                          <div>
-                            <Label htmlFor="apellidoMaterno">Apellido Materno</Label>
-                            <Input id="apellidoMaterno" placeholder="Tu apellido materno" value={formData.apellidoMaterno} onChange={e => handleInputChange('apellidoMaterno', e.target.value)} />
-                          </div>
                         </>
                       ) : (
                         <>
-                          <Label className="font-bold">Datos del Tutor</Label>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                              <div>
-                                  <Label htmlFor="tutorNombres">Nombre(s) del Tutor <RequiredAst /></Label>
-                                  <Input id="tutorNombres" placeholder="Nombre(s)" required value={formData.tutorNombres} onChange={e => handleInputChange('tutorNombres', e.target.value)} />
-                              </div>
-                              <div>
-                                  <Label htmlFor="tutorApellidoPaterno">Apellido Paterno del Tutor <RequiredAst /></Label>
-                                  <Input id="tutorApellidoPaterno" placeholder="Apellido Paterno" required value={formData.tutorApellidoPaterno} onChange={e => handleInputChange('tutorApellidoPaterno', e.target.value)} />
-                              </div>
-                          </div>
-                           <div>
-                                <Label htmlFor="tutorApellidoMaterno">Apellido Materno del Tutor</Label>
-                                <Input id="tutorApellidoMaterno" placeholder="Apellido Materno" value={formData.tutorApellidoMaterno} onChange={e => handleInputChange('tutorApellidoMaterno', e.target.value)} />
-                           </div>
-
-                          <Label className="font-bold pt-4">Datos del Menor</Label>
-                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                              <div>
-                                <Label htmlFor="menorNombres">Nombre(s) del Menor <RequiredAst /></Label>
-                                <Input id="menorNombres" placeholder="Nombre(s)" required value={formData.menorNombres} onChange={e => handleInputChange('menorNombres', e.target.value)} />
-                              </div>
-                              <div>
-                                <Label htmlFor="menorApellidoPaterno">Apellido Paterno del Menor <RequiredAst /></Label>
-                                <Input id="menorApellidoPaterno" placeholder="Apellido Paterno" required value={formData.menorApellidoPaterno} onChange={e => handleInputChange('menorApellidoPaterno', e.target.value)} />
-                              </div>
-                          </div>
-                          <div>
-                            <Label htmlFor="menorApellidoMaterno">Apellido Materno del Menor</Label>
-                            <Input id="menorApellidoMaterno" placeholder="Apellido Materno" value={formData.menorApellidoMaterno} onChange={e => handleInputChange('menorApellidoMaterno', e.target.value)} />
-                          </div>
                         </>
                       )}
-
                       <div>
-                        <Label htmlFor="telefono">Teléfono (WhatsApp) <RequiredAst /></Label>
-                        <Input id="telefono" type="tel" placeholder="10 dígitos" required
-                              value={formData.telefono} onChange={e => handleInputChange('telefono', e.target.value)} aria-label="Teléfono del Paciente"/>
-                      </div>
-                      <div>
-                        <Label>Tipo de estudio <RequiredAst /></Label>
-                        <Select onValueChange={value => handleInputChange('tipoEstudio', value)} required>
-                          <SelectTrigger aria-label="Tipo de Estudio">
-                            <SelectValue placeholder="Selecciona el estudio" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="uroflujometria">Uroflujometría</SelectItem>
-                            <SelectItem value="urodinamia">Urodinamia Completa</SelectItem>
-                            <SelectItem value="no_seguro">No estoy seguro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Fecha preferida <RequiredAst /></Label>
-                        <Button onClick={openCalendly} className="w-full" variant="outline">
-                           Selecciona una fecha y hora
+                        <Button onClick={openCalendly} className="w-full" variant="outline" style={{ backgroundColor: '#2C5F7A', color: 'white' }}>
+                           {formData.location === 'colonia-del-valle' ? "Agenda tu estudio ahora en Colonia del Valle" : "Agenda tu estudio ahora en Hospital Infantil Privado"}
                         </Button>
                       </div>
-                      <p className="text-sm text-muted-foreground"><RequiredAst /> Campos obligatorios</p>
-                      <Button type="submit" className="w-full text-lg py-3 cta-button transform hover:scale-105 transition-transform duration-300" disabled={isSubmitting}>
-                        {isSubmitting ? (
-                          <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Agendando...
-                          </>
-                        ) : 'Agendar Cita Ahora'}
-                      </Button>
+                      <p className="text-sm text-muted-foreground"><RequiredAst /> Recuerda llenar todos los campos obligatorios para poder agendar tu cita.</p>
                       <p className="text-center text-sm text-muted-foreground">Confirmación inmediata por WhatsApp</p>
                     </form>
                   )}
