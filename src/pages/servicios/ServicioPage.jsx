@@ -14,7 +14,7 @@ import IndicacionesPorPatologia from '@/components/IndicacionesPorPatologia';
 const ServicioPage = () => {
   const { especialidad, serviceSlug } = useParams();
   const location = useLocation();
-  
+
   useEffect(() => {
     const link = document.createElement('link');
     link.href = "https://assets.calendly.com/assets/external/widget.css";
@@ -27,9 +27,9 @@ const ServicioPage = () => {
     document.head.appendChild(script);
 
     return () => {
-        if (link.parentNode) document.head.removeChild(link);
-        if (script.parentNode) document.head.removeChild(script);
-    }
+      if (link.parentNode) document.head.removeChild(link);
+      if (script.parentNode) document.head.removeChild(script);
+    };
   }, []);
 
   const service = servicesData[especialidad]?.[serviceSlug];
@@ -59,7 +59,22 @@ const ServicioPage = () => {
     );
   }
 
-  const isCalendlyService = especialidad === 'pediatria' && (serviceSlug === 'urodinamia-multicanal' || serviceSlug === 'urodinamia-emg-upp' || serviceSlug === 'uroflujometria-pediatrica-emg');
+  const pediatriaCalendlySlugs = ['urodinamia-multicanal', 'urodinamia-emg-upp', 'uroflujometria-pediatrica-emg'];
+  const adultosCalendlySlugs = ['uroflujometria-basica', 'uroflujometria-ultrasonido', 'uroflujometria-interpretacion'];
+
+  const isCalendlyService = 
+    (especialidad === 'pediatria' && pediatriaCalendlySlugs.includes(serviceSlug)) ||
+    (especialidad === 'adultos' && adultosCalendlySlugs.includes(serviceSlug));
+
+  const getCalendlyUrl = () => {
+    if (especialidad === 'pediatria') {
+      return 'https://calendly.com/urologik/30min?hide_gdpr_banner=1';
+    }
+    if (especialidad === 'adultos') {
+      return 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1';
+    }
+    return getAgendarUrl(serviceSlug, location.search); // Fallback
+  };
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -121,7 +136,7 @@ const ServicioPage = () => {
                 {isCalendlyService ? (
                   <Button size="lg" onClick={() => {
                     handleCtaClick('agendar', 'hero');
-                    window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'});
+                    window.Calendly.initPopupWidget({ url: getCalendlyUrl() });
                   }}>
                     <ArrowRight className="h-5 w-5 mr-2" /> Agendar Estudio
                   </Button>
@@ -140,7 +155,7 @@ const ServicioPage = () => {
               </div>
             </div>
             <div className="hidden lg:flex justify-center">
-                <div className="p-6 bg-primary/10 rounded-full">{service.icon}</div>
+              <div className="p-6 bg-primary/10 rounded-full">{service.icon}</div>
             </div>
           </div>
         </div>
@@ -158,13 +173,13 @@ const ServicioPage = () => {
                 </AlertDescription>
               </Alert>
             )}
-            
+
             <Card><CardHeader><CardTitle className="text-2xl">Descripción del Estudio</CardTitle></CardHeader><CardContent><p className="text-muted-foreground leading-relaxed">{service.description}</p></CardContent></Card>
 
             <Card><CardHeader><CardTitle className="text-2xl">Proceso del Estudio: Paso a Paso</CardTitle></CardHeader><CardContent><div className="space-y-4">{service.proceso.map((paso, index) => (<div key={index} className="flex items-start space-x-4"><div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">{index + 1}</div><p className="text-foreground font-semibold text-base pt-2">{paso}</p></div>))}</div></CardContent></Card>
 
             <Card><CardHeader><CardTitle className="text-2xl">¿Cuándo se recomienda?</CardTitle><CardDescription>Este estudio es clave en las siguientes situaciones:</CardDescription></CardHeader><CardContent><ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">{service.indicaciones.map((indicacion, index) => (<li key={index} className="flex items-start space-x-3"><CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" /><span className="text-base text-muted-foreground">{indicacion}</span></li>))}</ul></CardContent></Card>
-            
+
             <IndicacionesPorPatologia especialidad={especialidad} />
 
             <Card><CardHeader><CardTitle className="text-2xl">Preguntas Frecuentes</CardTitle></CardHeader><CardContent><Accordion type="single" collapsible className="w-full">{service.faq.map((item, index) => (<AccordionItem value={`item-${index}`} key={index}><AccordionTrigger className="text-base font-semibold text-left">{item.question}</AccordionTrigger><AccordionContent className="text-base text-muted-foreground leading-relaxed">{item.answer}</AccordionContent></AccordionItem>))}</Accordion></CardContent></Card>
@@ -175,13 +190,13 @@ const ServicioPage = () => {
               <CardHeader className="text-center"><p className="text-sm font-medium text-muted-foreground">Precio</p><p className="text-4xl font-bold text-primary">{service.precio}</p></CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
-                    <div className="flex items-center space-x-3"><Clock className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Duración:</span> <span className="text-muted-foreground">{service.duracion}</span></p></div>
-                    <div className="flex items-center space-x-3"><FileText className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Preparación:</span> <span className="text-muted-foreground">{service.preparacion}</span></p></div>
+                  <div className="flex items-center space-x-3"><Clock className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Duración:</span> <span className="text-muted-foreground">{service.duracion}</span></p></div>
+                  <div className="flex items-center space-x-3"><FileText className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Preparación:</span> <span className="text-muted-foreground">{service.preparacion}</span></p></div>
                 </div>
                 {isCalendlyService ? (
                   <Button size="lg" className="w-full text-base" onClick={() => {
                     handleCtaClick('agendar', 'sidebar');
-                    window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'});
+                    window.Calendly.initPopupWidget({ url: getCalendlyUrl() });
                   }}>
                     Agendar Estudio
                   </Button>
@@ -196,7 +211,7 @@ const ServicioPage = () => {
               </CardContent>
             </Card>
 
-             <Card><CardHeader><CardTitle className="text-xl">Beneficios Clave</CardTitle></CardHeader><CardContent><ul className="space-y-3">{service.ventajas.map((ventaja, index) => (<li key={index} className="flex items-start space-x-3"><Award className="h-5 w-5 text-primary mt-0.5" /><span className="text-base text-muted-foreground">{ventaja}</span></li>))}</ul></CardContent></Card>
+            <Card><CardHeader><CardTitle className="text-xl">Beneficios Clave</CardTitle></CardHeader><CardContent><ul className="space-y-3">{service.ventajas.map((ventaja, index) => (<li key={index} className="flex items-start space-x-3"><Award className="h-5 w-5 text-primary mt-0.5" /><span className="text-base text-muted-foreground">{ventaja}</span></li>))}</ul></CardContent></Card>
           </aside>
         </div>
       </div>
