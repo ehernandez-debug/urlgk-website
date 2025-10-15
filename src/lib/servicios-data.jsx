@@ -129,7 +129,7 @@ export const servicesData = {
         description: 'Este es un estudio fundamental y no invasivo que mide la velocidad y el patrón del flujo de orina. Proporciona información objetiva sobre la posible presencia de una obstrucción en el tracto urinario inferior.',
         duracion: '10-15 minutos',
         preparacion: 'Asistir con la vejiga confortablemente llena (ganas de orinar).',
-        precio: '$1,500 MXN',
+        precio: '$1,800 MXN',
         indicaciones: [
             'Síntomas del tracto urinario inferior (LUTS).',
             'Chorro urinario débil o intermitente.',
@@ -167,7 +167,7 @@ export const servicesData = {
         description: 'Este estudio combina la uroflujometría estándar con un ultrasonido vesical antes y después de la micción. El objetivo es medir con precisión cuánta orina queda en la vejiga (residuo post-miccional), un dato clave para el diagnóstico.',
         duracion: '15-20 minutos',
         preparacion: 'Vejiga llena, sin necesidad de ayuno.',
-        precio: '$2,000 MXN',
+        precio: '$2,200 MXN',
         indicaciones: [
             'Sospecha de vaciamiento incompleto de la vejiga.',
             'Hiperplasia Prostática Benigna (HPB).',
@@ -205,7 +205,7 @@ export const servicesData = {
         description: 'Esta es la opción más completa. Incluye la uroflujometría, la medición del residuo con ultrasonido, y un reporte detallado firmado por un médico urólogo, quien interpreta los hallazgos en el contexto clínico del paciente.',
         duracion: '15-20 minutos el estudio, reporte en 24h.',
         preparacion: 'Vejiga llena.',
-        precio: '$2,500 MXN',
+        precio: '$2,800 MXN',
         indicaciones: [
             'Cuando se requiere una segunda opinión experta.',
             'Para pacientes con casos complejos o múltiples patologías.',
