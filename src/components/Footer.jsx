@@ -94,7 +94,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                <span className="text-muted-foreground">contacto@urologik.com</span>
+                <a href="/contacto#formulario-contacto" className="text-muted-foreground hover:text-primary transition-colors">contactourologik@gmail.com</a>
               </div>
               <div className="flex items-start space-x-2">
                 <Clock className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
