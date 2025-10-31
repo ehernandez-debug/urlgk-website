@@ -47,11 +47,13 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="flex items-center space-x-2">
-              <Phone className="h-4 w-4" />
-              <span>55-XXXX-XXXX</span>
-            </Button>
-            <Link to="/pacientes">
+            <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                <Phone className="h-4 w-4" />
+                <span>55-47-67-52-05</span>
+              </Button>
+            </a>
+            <Link to="/pacientes#agenda">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>Agendar Cita</span>
@@ -97,11 +99,13 @@ const Navbar = () => {
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-2">
-                <Button variant="outline" className="w-full flex items-center justify-center space-x-2">
-                  <Phone className="h-4 w-4" />
-                  <span>55-XXXX-XXXX</span>
-                </Button>
-                <Link to="/pacientes" onClick={() => setIsOpen(false)}>
+                <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="block w-full">
+                  <Button variant="outline" className="w-full flex items-center justify-center space-x-2">
+                    <Phone className="h-4 w-4" />
+                    <span>55-47-67-52-05</span>
+                  </Button>
+                </a>
+                <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)}>
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />
                     <span>Agendar Cita</span>
@@ -117,4 +121,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

@@ -432,11 +432,11 @@ const NosotrosPage = () => {
             Forma parte del futuro de la medicina urológica con I.A. biomédica
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
-              Conoce Nuestros Servicios
+            <Button asChild size="lg" variant="secondary" className="text-lg px-8 py-4">
+              <a href="/servicios">Conoce Nuestros Servicios</a>
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
-              Únete como Médico
+            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+              <a href="/medicos">Únete como Médico</a>
             </Button>
           </div>
         </div>
@@ -446,4 +446,3 @@ const NosotrosPage = () => {
 }
 
 export default NosotrosPage
-

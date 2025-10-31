@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { 
   MapPin, 
   Phone, 
@@ -23,11 +23,31 @@ const ContactoPage = () => {
     telefono: '',
     asunto: '',
     mensaje: '',
-    ubicacion: ''
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    const link = document.createElement('link');
+    link.href = "https://assets.calendly.com/assets/external/widget.css";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    return () => {
+      if (script.parentNode) {
+        document.body.removeChild(script);
+      }
+      if (link.parentNode) {
+        document.head.removeChild(link);
+      }
+    }
+  }, []);
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({
@@ -50,7 +70,7 @@ const ContactoPage = () => {
   const ubicaciones = [
     {
       nombre: 'Colonia del Valle',
-      direccion: 'Av. Universidad 123, Col. del Valle Centro',
+      direccion: 'Amores 942, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX',
       ciudad: 'Ciudad de México, CDMX 03100',
       telefono: '55-1234-5678',
       email: 'delvalle@urologik.com',
@@ -61,11 +81,12 @@ const ContactoPage = () => {
       ],
       servicios: ['Uroflujometría', 'Urodinamia', 'Consulta adultos'],
       especialidad: 'Urología General y Ginecourología',
-      mapa: 'https://maps.google.com/?q=19.3895,-99.1677'
+      mapa: 'https://maps.app.goo.gl/2SoBT9AnhvQdxyvS7',
+      calendlyUrl: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'
     },
     {
       nombre: 'Hospital Infantil Privado',
-      direccion: 'Av. Insurgentes Sur 456, Col. Roma Norte',
+      direccion: 'C Nueva York 7, Nápoles, Benito Juárez, 03810 Ciudad de México, CDMX',
       ciudad: 'Ciudad de México, CDMX 06700',
       telefono: '55-8765-4321',
       email: 'infantil@urologik.com',
@@ -76,7 +97,8 @@ const ContactoPage = () => {
       ],
       servicios: ['Uroflujometría pediátrica', 'Urodinamia pediátrica', 'Consulta especializada'],
       especialidad: 'Uropediatría',
-      mapa: 'https://maps.google.com/?q=19.4126,-99.1553'
+      mapa: 'https://maps.app.goo.gl/pq12zJgHWkSdrsNi6',
+      calendlyUrl: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'
     }
   ]
 
@@ -85,22 +107,25 @@ const ContactoPage = () => {
       icon: <Phone className="h-6 w-6 text-primary" />,
       titulo: 'Teléfono',
       descripcion: 'Llámanos directamente',
-      contacto: '55-XXXX-XXXX',
-      disponibilidad: 'Lun - Vie: 8:00 - 18:00'
+      contacto: '55-47-67-52-05',
+      disponibilidad: 'Lun - Vie: 8:00 - 18:00',
+      link: 'tel:5547675205'
     },
     {
       icon: <Mail className="h-6 w-6 text-primary" />,
       titulo: 'Email',
       descripcion: 'Envíanos un correo',
-      contacto: 'contacto@urologik.com',
-      disponibilidad: 'Respuesta en 24 horas'
+      contacto: 'contactourologik@gmail.com',
+      disponibilidad: 'Respuesta en 24 horas',
+      link: 'mailto:contactourologik@gmail.com'
     },
     {
       icon: <MessageCircle className="h-6 w-6 text-primary" />,
       titulo: 'WhatsApp',
       descripcion: 'Chatea con nosotros',
-      contacto: '55-XXXX-XXXX',
-      disponibilidad: 'Lun - Sáb: 9:00 - 19:00'
+      contacto: '55-47-67-52-05',
+      disponibilidad: 'Lun - Sáb: 9:00 - 19:00',
+      link: 'https://wa.me/5215547675205'
     }
   ]
 
@@ -132,7 +157,6 @@ const ContactoPage = () => {
                     telefono: '',
                     asunto: '',
                     mensaje: '',
-                    ubicacion: ''
                   })
                 }}
               >
@@ -176,7 +200,7 @@ const ContactoPage = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {metodosContacto.map((metodo, index) => (
-              <Card key={index} className="medical-card text-center">
+              <Card key={index} className="medical-card text-center flex flex-col">
                 <CardHeader>
                   <div className="flex justify-center mb-4">
                     {metodo.icon}
@@ -184,16 +208,20 @@ const ContactoPage = () => {
                   <CardTitle className="text-xl">{metodo.titulo}</CardTitle>
                   <CardDescription>{metodo.descripcion}</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <p className="font-semibold text-primary text-lg mb-2">
-                    {metodo.contacto}
-                  </p>
-                  <p className="text-sm text-muted-foreground">
-                    {metodo.disponibilidad}
-                  </p>
-                  <Button variant="outline" className="w-full mt-4">
-                    Contactar Ahora
-                  </Button>
+                <CardContent className="flex-grow flex flex-col justify-between">
+                  <div>
+                    <p className="font-semibold text-primary text-lg mb-2 break-all">
+                      {metodo.contacto}
+                    </p>
+                    <p className="text-sm text-muted-foreground">
+                      {metodo.disponibilidad}
+                    </p>
+                  </div>
+                  <a href={metodo.link} target="_blank" rel="noopener noreferrer" className="w-full mt-4">
+                    <Button variant="outline" className="w-full">
+                      Contactar Ahora
+                    </Button>
+                  </a>
                 </CardContent>
               </Card>
             ))}
@@ -237,7 +265,7 @@ const ContactoPage = () => {
                           type="tel"
                           value={formData.telefono}
                           onChange={(e) => handleInputChange('telefono', e.target.value)}
-                          placeholder="55-XXXX-XXXX"
+                          placeholder="55-XX-XX-XX-XX"
                         />
                       </div>
                     </div>
@@ -254,7 +282,7 @@ const ContactoPage = () => {
                       />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1">
                       <div>
                         <Label>Asunto *</Label>
                         <Select value={formData.asunto} onValueChange={(value) => handleInputChange('asunto', value)}>
@@ -269,19 +297,6 @@ const ContactoPage = () => {
                             <SelectItem value="resultados">Consulta de Resultados</SelectItem>
                             <SelectItem value="queja">Queja o Sugerencia</SelectItem>
                             <SelectItem value="otro">Otro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Ubicación de Interés</Label>
-                        <Select value={formData.ubicacion} onValueChange={(value) => handleInputChange('ubicacion', value)}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecciona ubicación" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="del_valle">Colonia del Valle</SelectItem>
-                            <SelectItem value="infantil">Hospital Infantil</SelectItem>
-                            <SelectItem value="cualquiera">Cualquiera</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -335,7 +350,7 @@ const ContactoPage = () => {
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-semibold">Línea Directa</p>
-                      <p className="text-muted-foreground">55-XXXX-XXXX</p>
+                      <p className="text-muted-foreground">55-47-67-52-05</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -366,14 +381,18 @@ const ContactoPage = () => {
                     contáctanos directamente por teléfono o WhatsApp.
                   </p>
                   <div className="space-y-2">
-                    <Button className="w-full cta-button">
-                      <Phone className="h-4 w-4 mr-2" />
-                      Llamar Ahora
-                    </Button>
-                    <Button variant="outline" className="w-full">
-                      <MessageCircle className="h-4 w-4 mr-2" />
-                      WhatsApp
-                    </Button>
+                    <a href="tel:5547675205" className="w-full block">
+                      <Button className="w-full cta-button">
+                        <Phone className="h-4 w-4 mr-2" />
+                        Llamar Ahora
+                      </Button>
+                    </a>
+                    <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="w-full block">
+                      <Button variant="outline" className="w-full">
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        WhatsApp
+                      </Button>
+                    </a>
                   </div>
                 </CardContent>
               </Card>
@@ -450,11 +469,15 @@ const ContactoPage = () => {
                   </div>
                   
                   <div className="flex space-x-2">
-                    <Button variant="outline" className="flex-1">
-                      <Navigation className="h-4 w-4 mr-2" />
-                      Ver en Mapa
-                    </Button>
-                    <Button className="flex-1 cta-button">
+                    <a href={ubicacion.mapa} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button variant="outline" className="w-full">
+                        <Navigation className="h-4 w-4 mr-2" />
+                        Ver en Mapa
+                      </Button>
+                    </a>
+                    <Button 
+                      className="flex-1 cta-button"
+                      onClick={() => window.Calendly.initPopupWidget({url: ubicacion.calendlyUrl})}>
                       Agendar Aquí
                     </Button>
                   </div>
@@ -469,4 +492,3 @@ const ContactoPage = () => {
 }
 
 export default ContactoPage
-
