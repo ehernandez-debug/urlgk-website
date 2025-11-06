@@ -235,7 +235,7 @@ const PacientesPage = () => {
                     </div>
                     <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
                         <p className="font-semibold">Urodinamia completa</p>
-                        <p className="font-bold text-lg">$4,500 MXN</p>
+                        <p className="font-bold text-lg">$5,300 MXN</p>
                     </div>
                     <p className="text-xs text-muted-foreground text-center">* Precios no incluyen impuestos.</p>
                 </CardContent>
