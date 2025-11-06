@@ -3,13 +3,13 @@ import { Activity, Shield, Stethoscope } from 'lucide-react';
 export const servicesData = {
   pediatria: {
     'urodinamia-multicanal': {
-        title: 'Urodinamia Multicanal (3 canales)',
+        title: 'Urodinamia Multicanal y EMG',
         subtitle: 'Evaluación detallada de la función vesical y uretral.',
         icon: <Shield className="h-12 w-12 text-primary" />,
-        description: 'Este estudio mide las presiones en la vejiga (cistometría), el abdomen y la uretra para evaluar de forma integral cómo funciona el tracto urinario inferior. Es el estándar de oro para diagnosticar problemas complejos.',
+        description: 'Este estudio mide las presiones en la vejiga (cistometría), el abdomen y la uretra para evaluar de forma integral cómo funciona el tracto urinario inferior. Es el estándar de oro para diagnosticar problemas complejos. Incluye electromiografía (EMG) para evaluar la coordinación de los músculos del piso pélvico',
         duracion: '45-60 minutos',
         preparacion: 'Llegar con ganas de orinar. Se le pedirá que suspenda ciertos medicamentos. Traer estudios previos si los tiene.',
-        precio: '$3,500 MXN',
+        precio: '$5,300 MXN',
         indicaciones: [
             'Vejiga neurogénica (mielomeningocele, parálisis cerebral).',
             'Enuresis (mojar la cama) que no responde a tratamiento.',
@@ -40,44 +40,6 @@ export const servicesData = {
             {
                 question: '¿Qué tan seguro es el estudio?',
                 answer: 'Es un procedimiento muy seguro. El riesgo principal, aunque bajo, es una infección urinaria. Se realiza bajo estrictas condiciones de asepsia y en algunos casos se puede indicar un antibiótico profiláctico.'
-            }
-        ]
-    },
-    'urodinamia-emg-upp': {
-        title: 'Urodinamia con EMG y UPP',
-        subtitle: 'Análisis avanzado de la coordinación muscular y la presión del esfínter.',
-        icon: <Shield className="h-12 w-12 text-primary" />,
-        description: 'Este estudio añade dos componentes clave a la urodinamia: la Electromiografía (EMG) de superficie para evaluar los músculos del piso pélvico y el Perfil de Presión Uretral (UPP) para medir la fuerza del esfínter. Es crucial para entender la causa de la incontinencia.',
-        duracion: '60-75 minutos',
-        preparacion: 'Similar a la urodinamia multicanal. Vejiga llena y posible suspensión de medicamentos.',
-        precio: '$4,500 MXN',
-        indicaciones: [
-            'Incontinencia de esfuerzo o mixta.',
-            'Obstrucción de la salida de la vejiga de causa no clara.',
-            'Disfunción del esfínter urinario.',
-            'Evaluación detallada de la coordinación entre la vejiga y los músculos pélvicos.',
-            'Casos de incontinencia postquirúrgicos.'
-        ],
-        proceso: [
-            'Se realiza el mismo procedimiento que la urodinamia multicanal.',
-            'Adicionalmente, se colocan electrodos de superficie (stickers) cerca del ano para el registro de EMG.',
-            'Durante el estudio, se realiza una retirada lenta del catéter uretral para medir el perfil de presión (UPP).',
-            'Se analiza la sincronía entre la contracción de la vejiga y la relajación de los músculos pélvicos.',
-        ],
-        ventajas: [
-            'Máxima información diagnóstica en un solo estudio.',
-            'Diferencia claramente entre tipos de incontinencia.',
-            'Evalúa la función muscular, clave para la rehabilitación.',
-            'Guía decisiones quirúrgicas complejas.',
-        ],
-        faq: [
-            {
-                question: '¿Los electrodos de EMG son dolorosos?',
-                answer: 'No, son electrodos de superficie, similares a los que se usan en un electrocardiograma. Simplemente se pegan en la piel y no causan dolor.'
-            },
-            {
-                question: '¿Qué información extra aporta el UPP?',
-                answer: 'El Perfil de Presión Uretral (UPP) mide la fuerza con la que el esfínter es capaz de cerrar la uretra. Es un dato fundamental para decidir si un paciente es candidato a ciertos tipos de cirugía para la incontinencia.'
             }
         ]
     },
@@ -239,18 +201,11 @@ export const servicesData = {
   },
   pediatriaResumen: [
     {
-      title: 'Urodinamia Multicanal (3 canales)',
+      title: 'Urodinamia Multicanal y EMG',
       slug: 'urodinamia-multicanal',
       description: 'Estudio de 3 canales (abdominal, vesical y uretral) para evaluar la función del tracto urinario inferior. Ideal para patologías complejas como vejiga neurogénica.',
-      precio: '$3,500 MXN',
+      precio: '$5,300 MXN',
       indicaciones: ['Vejiga neurogénica', 'Enuresis resistente a tratamiento', 'Disfunción miccional compleja'],
-    },
-    {
-      title: 'Urodinamia con EMG y UPP',
-      slug: 'urodinamia-emg-upp',
-      description: 'Incluye electromiografía (EMG) para evaluar la coordinación de los músculos del piso pélvico y perfil de presión uretral (UPP) para medir la función del esfínter.',
-      precio: '$4,500 MXN',
-      indicaciones: ['Incontinencia urinaria de esfuerzo', 'Obstrucción de la salida de la vejiga', 'Evaluación prequirúrgica'],
     },
     {
       title: 'Uroflujometría Pediátrica con EMG',

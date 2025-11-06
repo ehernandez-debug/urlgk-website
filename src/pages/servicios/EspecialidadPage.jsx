@@ -5,6 +5,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import IndicacionesPorPatologia from '@/components/IndicacionesPorPatologia';
 
 const EspecialidadPage = ({ title, description, estudios, especialidad }) => {
+  const gridLayout = estudios.length === 2
+    ? 'grid grid-cols-1 md:grid-cols-2 gap-8 lg:max-w-4xl mx-auto'
+    : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8';
+
   return (
     <div className="min-h-screen bg-background">
       <section className="hero-section bg-muted/30">
@@ -23,7 +27,7 @@ const EspecialidadPage = ({ title, description, estudios, especialidad }) => {
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Estudios Disponibles</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={gridLayout}>
             {estudios.map((estudio) => (
               <Card key={estudio.slug} className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardHeader>

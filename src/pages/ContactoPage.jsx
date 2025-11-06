@@ -56,16 +56,17 @@ const ContactoPage = () => {
     }))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simular envío
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitted(true)
-    }, 2000)
-  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subject = "Dudas (From Urologik Web Site)";
+    const body = `Un usuario ha mandado este mensaje desde la página de Urologik:%0D%0A%0D%0A
+      Nombre: ${formData.nombre}%0D%0A
+      Teléfono: ${formData.telefono}%0D%0A
+      Email: ${formData.email}%0D%0A
+      Asunto: ${formData.asunto}%0D%0A
+      Mensaje: ${formData.mensaje}%0D%0A`;
+    window.location.href = `mailto:contactourologik@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   const ubicaciones = [
     {
@@ -239,7 +240,7 @@ const ContactoPage = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Send className="h-6 w-6 text-primary" />
-                    <span>Envíanos un Mensaje</span>
+                    <span>Envíanos un mensaje a nuestro correo</span>
                   </CardTitle>
                   <CardDescription>
                     Completa el formulario y te responderemos pronto
@@ -249,7 +250,7 @@ const ContactoPage = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="nombre">Nombre Completo *</Label>
+                        <Label htmlFor="nombre">Nombre Completo <span className="text-primary">*</span></Label>
                         <Input
                           id="nombre"
                           value={formData.nombre}
@@ -259,19 +260,21 @@ const ContactoPage = () => {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="telefono">Teléfono</Label>
+                        <Label htmlFor="telefono">Teléfono/Celular (10 dígitos) <span className="text-primary">*</span></Label>
                         <Input
                           id="telefono"
                           type="tel"
                           value={formData.telefono}
                           onChange={(e) => handleInputChange('telefono', e.target.value)}
                           placeholder="55-XX-XX-XX-XX"
+                          required
+                          minLength={10}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="email">Email *</Label>
+                      <Label htmlFor="email">Email <span className="text-primary">*</span></Label>
                       <Input
                         id="email"
                         type="email"
@@ -284,8 +287,8 @@ const ContactoPage = () => {
 
                     <div className="grid grid-cols-1">
                       <div>
-                        <Label>Asunto *</Label>
-                        <Select value={formData.asunto} onValueChange={(value) => handleInputChange('asunto', value)}>
+                        <Label>Asunto <span className="text-primary">*</span></Label>
+                        <Select value={formData.asunto} onValueChange={(value) => handleInputChange('asunto', value)} required>
                           <SelectTrigger>
                             <SelectValue placeholder="Selecciona un asunto" />
                           </SelectTrigger>
@@ -303,7 +306,7 @@ const ContactoPage = () => {
                     </div>
 
                     <div>
-                      <Label htmlFor="mensaje">Mensaje *</Label>
+                      <Label htmlFor="mensaje">Mensaje <span className="text-primary">*</span></Label>
                       <Textarea
                         id="mensaje"
                         value={formData.mensaje}
@@ -314,10 +317,12 @@ const ContactoPage = () => {
                       />
                     </div>
 
+                    <p className="text-sm text-muted-foreground"><span className="text-primary">*</span> Campos obligatorios</p>
+
                     <Button 
                       type="submit" 
                       className="w-full cta-button text-lg py-3"
-                      disabled={isSubmitting || !formData.nombre || !formData.email || !formData.asunto || !formData.mensaje}
+                      disabled={isSubmitting || !formData.nombre || !formData.email || !formData.telefono || !formData.asunto || !formData.mensaje}
                     >
                       {isSubmitting ? (
                         <>
