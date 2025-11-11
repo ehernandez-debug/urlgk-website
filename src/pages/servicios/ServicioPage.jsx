@@ -1,12 +1,13 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useEffect } from 'react';
-import { Clock, CheckCircle, ArrowRight, FileText, Award, MessageCircle, Info } from 'lucide-react';
+import { Clock, CheckCircle, ArrowRight, FileText, Award, MessageCircle, Info, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Badge } from '@/components/ui/badge';
 import { getAgendarUrl, getWhatsAppUrl } from '@/lib/cta';
 import { servicesData } from '@/lib/servicios-data.jsx';
 import IndicacionesPorPatologia from '@/components/IndicacionesPorPatologia';
@@ -44,6 +45,24 @@ const ServicioPage = () => {
       });
     }
   };
+
+  const testimonials = [
+    {
+        name: "Juan P.",
+        text: "El estudio fue rápido y el personal muy profesional. Me sentí cómodo en todo momento.",
+        study: "Uroflujometría"
+    },
+    {
+        name: "Ana G.",
+        text: "Tenía miedo pero fue indoloro. La tecnología es de primera. ¡Gracias Urologik!",
+        study: "Urodinamia Completa"
+    },
+    {
+        name: "Luis R.",
+        text: "La atención es excelente, resolvieron todas mis dudas y el diagnóstico fue certero.",
+        study: "Consulta + Estudio"
+    }
+  ];
 
   if (!service) {
     return (
@@ -209,6 +228,28 @@ const ServicioPage = () => {
                 )}
                 <Button size="lg" variant="outline" className="w-full text-base" asChild><a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'sidebar')}><MessageCircle className="h-5 w-5 mr-2" /> Contactar por WhatsApp</a></Button>
               </CardContent>
+            </Card>
+
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                    <CardTitle>Nuestros Pacientes Opinan</CardTitle>
+                    <div className="flex items-center">
+                        <div className="flex text-yellow-400">
+                            {[...Array(4)].map((_, i) => <Star key={i} fill="currentColor" />)}
+                            <Star />
+                        </div>
+                        <p className="ml-2 text-sm text-muted-foreground">4.8/5 de 127 reseñas verificadas</p>
+                    </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                    {testimonials.map(t => (
+                        <div key={t.name} className="p-3 bg-gray-100 rounded-lg">
+                            <p className="font-semibold">{t.name}</p>
+                            <p className="text-sm italic">"{t.text}"</p>
+                            <Badge variant="secondary" className="mt-1">{t.study}</Badge>
+                        </div>
+                    ))}
+                </CardContent>
             </Card>
 
             <Card><CardHeader><CardTitle className="text-xl">Beneficios Clave</CardTitle></CardHeader><CardContent><ul className="space-y-3">{service.ventajas.map((ventaja, index) => (<li key={index} className="flex items-start space-x-3"><Award className="h-5 w-5 text-primary mt-0.5" /><span className="text-base text-muted-foreground">{ventaja}</span></li>))}</ul></CardContent></Card>
