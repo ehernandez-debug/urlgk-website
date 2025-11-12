@@ -76,9 +76,9 @@ const ContactoPage = () => {
       telefono: '55-1234-5678',
       email: 'delvalle@urologik.com',
       horarios: [
-        'Lunes a Viernes: 8:00 - 18:00',
-        'Sábados: 9:00 - 14:00',
-        'Domingos: Cerrado'
+        'Lunes - Viernes: 9:00 am a 5:00 pm',
+        'Sábado: 9:00 am a 1:00 pm',
+        'Domingo: Cerrado'
       ],
       servicios: ['Uroflujometría', 'Urodinamia', 'Consulta adultos'],
       especialidad: 'Urología General y Ginecourología',
@@ -92,9 +92,9 @@ const ContactoPage = () => {
       telefono: '55-8765-4321',
       email: 'infantil@urologik.com',
       horarios: [
-        'Lunes a Viernes: 9:00 - 17:00',
-        'Sábados: 10:00 - 14:00',
-        'Domingos: Cerrado'
+        'Lunes - Viernes: 9:00 am a 5:00 pm',
+        'Sábado: 9:00 am a 1:00 pm',
+        'Domingo: Cerrado'
       ],
       servicios: ['Uroflujometría pediátrica', 'Urodinamia pediátrica', 'Consulta especializada'],
       especialidad: 'Uropediatría',
@@ -109,7 +109,7 @@ const ContactoPage = () => {
       titulo: 'Teléfono',
       descripcion: 'Llámanos directamente',
       contacto: '55-47-67-52-05',
-      disponibilidad: 'Lun - Vie: 8:00 - 18:00',
+      disponibilidad: 'Lunes - Viernes: 9:00 am a 6:00 pm<br/>Sábado: 9:00 am a 2:00 pm',
       link: 'tel:5547675205'
     },
     {
@@ -125,7 +125,7 @@ const ContactoPage = () => {
       titulo: 'WhatsApp',
       descripcion: 'Chatea con nosotros',
       contacto: '55-47-67-52-05',
-      disponibilidad: 'Lun - Sáb: 9:00 - 19:00',
+      disponibilidad: 'Lunes - Viernes: 9:00 am a 6:00 pm<br/>Sábado: 9:00 am a 2:00 pm',
       link: 'https://wa.me/5215547675205'
     }
   ]
@@ -214,9 +214,7 @@ const ContactoPage = () => {
                     <p className="font-semibold text-primary text-lg mb-2 break-all">
                       {metodo.contacto}
                     </p>
-                    <p className="text-sm text-muted-foreground">
-                      {metodo.disponibilidad}
-                    </p>
+                    <p className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: metodo.disponibilidad }}></p>
                   </div>
                   <a href={metodo.link} target="_blank" rel="noopener noreferrer" className="w-full mt-4">
                     <Button variant="outline" className="w-full">
@@ -369,8 +367,8 @@ const ContactoPage = () => {
                     <Clock className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-semibold">Horario de Atención</p>
-                      <p className="text-muted-foreground">Lun - Vie: 8:00 - 18:00</p>
-                      <p className="text-muted-foreground">Sáb: 9:00 - 14:00</p>
+                      <p className="text-muted-foreground">Lunes - Viernes: 9:00 am a 6:00 pm</p>
+                      <p className="text-muted-foreground">Sábado: 9:00 am a 2:00 pm</p>
                     </div>
                   </div>
                 </CardContent>

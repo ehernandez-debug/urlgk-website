@@ -222,23 +222,6 @@ const PacientesPage = () => {
             
             <div className="lg:col-span-2 space-y-8">
               
-              <Card className="medical-card">
-                <CardHeader>
-                  <CardTitle>Precios Transparentes</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                        <p className="font-semibold">Uroflujometría</p>
-                        <p className="font-bold text-lg">DESDE $1,500 MXN</p>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                        <p className="font-semibold">Urodinamia completa</p>
-                        <p className="font-bold text-lg">$5,300 MXN</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground text-center">* Precios no incluyen impuestos.</p>
-                </CardContent>
-              </Card>
-
               <Card className="medical-card" id="agenda">
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>

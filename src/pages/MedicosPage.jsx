@@ -192,6 +192,7 @@ const InteractiveCalculator = () => {
             {model === 'a' ? (
               <div className="space-y-4">
                 <h3 className="font-semibold">Selecciona los Estudios Referidos al Mes:</h3>
+                <p className="text-sm text-muted-foreground italic">*Precios únicamente ilustrativos.</p>
                 {predefinedServices.map(service => (
                   <div key={service.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/50">
                     <div className="flex items-center space-x-3">

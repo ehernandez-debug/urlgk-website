@@ -103,14 +103,14 @@ const HomePage = () => {
       id: "colonia-del-valle",
       nombre: 'Colonia del Valle',
       direccion: 'Para adultos hombres y mujeres',
-      horario: 'Lun - Vie: 8:00 - 18:00',
+      horario: 'Lunes - Viernes: 9:00 am a 17:00 pm<br/>Sábado: 9:00 am a 1:00 pm',
       especialidad: 'Urología general'
     },
     {
       id: "hospital-infantil",
       nombre: 'Hospital Infantil Privado',
       direccion: 'Especializado en pediatría',
-      horario: 'Lun - Vie: 9:00 - 17:00',
+      horario: 'Lunes - Viernes: 9:00 am a 17:00 pm<br/>Sábado: 9:00 am a 1:00 pm',
       especialidad: 'Urología pediátrica'
     }
   ]
@@ -307,7 +307,7 @@ const HomePage = () => {
                   <div className="space-y-3">
                     <div className="flex items-center space-x-2">
                       <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{ubicacion.horario}</span>
+                      <span className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: ubicacion.horario }}></span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <Award className="h-4 w-4 text-muted-foreground" />

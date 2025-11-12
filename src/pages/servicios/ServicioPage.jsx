@@ -104,13 +104,16 @@ const ServicioPage = () => {
       '@type': 'MedicalBusiness',
       name: 'UROLOGIK',
     },
-    offers: {
+    procedureType: especialidad === 'pediatria' ? 'Pediatric' : 'Adult',
+  };
+
+  if (service.precio) {
+    jsonLd.offers = {
       '@type': 'Offer',
       priceCurrency: 'MXN',
       price: service.precio.replace(/[^0-9.]/g, ''),
-    },
-    procedureType: especialidad === 'pediatria' ? 'Pediatric' : 'Adult',
-  };
+    };
+  }
 
   const especialidadTitle = especialidad.charAt(0).toUpperCase() + especialidad.slice(1);
 
@@ -206,8 +209,10 @@ const ServicioPage = () => {
 
           <aside className="space-y-8 lg:sticky lg:top-24 self-start">
             <Card className="shadow-lg border-primary/20">
-              <CardHeader className="text-center"><p className="text-sm font-medium text-muted-foreground">Precio</p><p className="text-4xl font-bold text-primary">{service.precio}</p></CardHeader>
-              <CardContent className="space-y-6">
+              {service.precio && (
+                <CardHeader className="text-center"><p className="text-sm font-medium text-muted-foreground">Precio</p><p className="text-4xl font-bold text-primary">{service.precio}</p></CardHeader>
+              )}
+              <CardContent className="space-y-6 pt-6">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3"><Clock className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Duración:</span> <span className="text-muted-foreground">{service.duracion}</span></p></div>
                   <div className="flex items-center space-x-3"><FileText className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Preparación:</span> <span className="text-muted-foreground">{service.preparacion}</span></p></div>
