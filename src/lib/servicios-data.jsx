@@ -9,7 +9,6 @@ export const servicesData = {
         description: 'Este estudio mide las presiones en la vejiga (cistometría), el abdomen y la uretra para evaluar de forma integral cómo funciona el tracto urinario inferior. Es el estándar de oro para diagnosticar problemas complejos. Incluye electromiografía (EMG) para evaluar la coordinación de los músculos del piso pélvico',
         duracion: '45-60 minutos',
         preparacion: 'Llegar con ganas de orinar. Se le pedirá que suspenda ciertos medicamentos. Traer estudios previos si los tiene.',
-        precio: '$5,300 MXN',
         indicaciones: [
             'Vejiga neurogénica (mielomeningocele, parálisis cerebral).',
             'Enuresis (mojar la cama) que no responde a tratamiento.',
@@ -204,7 +203,6 @@ export const servicesData = {
       title: 'Urodinamia Multicanal y EMG',
       slug: 'urodinamia-multicanal',
       description: 'Estudio de 3 canales (abdominal, vesical y uretral) para evaluar la función del tracto urinario inferior. Ideal para patologías complejas como vejiga neurogénica.',
-      precio: '$5,300 MXN',
       indicaciones: ['Vejiga neurogénica', 'Enuresis resistente a tratamiento', 'Disfunción miccional compleja'],
     },
     {

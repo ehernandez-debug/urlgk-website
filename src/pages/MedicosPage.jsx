@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { DollarSign, Zap, Briefcase, PlusCircle, Award, TrendingUp, CheckCircle, Star, Users, Share2, Info } from 'lucide-react';
+import { DollarSign, Zap, Briefcase, PlusCircle, Award, TrendingUp, CheckCircle, Star, Users, Share2, Info, Plus, Minus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
 
 const MedicosPage = () => {
   return (
@@ -16,6 +20,7 @@ const MedicosPage = () => {
         <HeroB2B />
         <ValueProposition />
         <OperationalModels />
+        <InteractiveCalculator />
         <BillingFlow />
         <AdvisoryCommittee />
         <EquipmentRental />
@@ -65,6 +70,181 @@ const OperationalModels = () => (
     </div>
   </section>
 );
+
+const InteractiveCalculator = () => {
+  const [model, setModel] = useState('a');
+  const [modelAServices, setModelAServices] = useState({});
+  
+  // State for Model B
+  const [modelBServices, setModelBServices] = useState([]);
+  const [newServiceName, setNewServiceName] = useState("");
+  const [newServicePrice, setNewServicePrice] = useState("");
+
+  const predefinedServices = [
+    { id: 'urodinamia-multicanal', name: 'Urodinamia Multicanal y EMG (Pediátrica)', price: 5300 },
+    { id: 'uroflujometria-pediatrica-emg', name: 'Uroflujometría Pediátrica con EMG', price: 2000 },
+    { id: 'uroflujometria-basica', name: 'Uroflujometría Básica (Adultos)', price: 1500 },
+    { id: 'uroflujometria-ultrasonido', name: 'Uroflujometría con Ultrasonido (Adultos)', price: 2000 },
+    { id: 'uroflujometria-interpretacion', name: 'Uroflujometría con Interpretación (Adultos)', price: 2500 },
+  ];
+
+  // Model A handlers
+  const handleModelACheck = (serviceId, isChecked) => {
+    setModelAServices(prev => {
+        const newSelection = {...prev};
+        if (isChecked) newSelection[serviceId] = 1;
+        else delete newSelection[serviceId];
+        return newSelection;
+    });
+  };
+
+  const handleModelAQuantityChange = (serviceId, change) => {
+    setModelAServices(prev => {
+        const currentQuantity = prev[serviceId] || 0;
+        const newQuantity = currentQuantity + change;
+        if (newQuantity <= 0) {
+            const newSelection = {...prev};
+            delete newSelection[serviceId];
+            return newSelection;
+        } else {
+            return { ...prev, [serviceId]: newQuantity };
+        }
+    });
+  };
+
+  // Model B handlers
+  const handleAddServiceB = () => {
+    const price = parseFloat(newServicePrice);
+    if (newServiceName && price > 0) {
+      setModelBServices([...modelBServices, { id: Date.now(), name: newServiceName, price, quantity: 1 }]);
+      setNewServiceName("");
+      setNewServicePrice("");
+    }
+  };
+
+  const handleModelBQuantityChange = (serviceId, change) => {
+    setModelBServices(services => services.map(s => s.id === serviceId ? { ...s, quantity: Math.max(1, s.quantity + change) } : s));
+  };
+
+  const handleRemoveServiceB = (serviceId) => {
+    setModelBServices(services => services.filter(s => s.id !== serviceId));
+  };
+
+  // Calculations
+  const totalStudiesModelA = Object.values(modelAServices).reduce((sum, count) => sum + count, 0);
+  const totalStudiesModelB = modelBServices.reduce((sum, s) => sum + s.quantity, 0);
+
+  const calculateCommission = () => {
+    if (model === 'a') {
+      const totalRevenue = predefinedServices.reduce((sum, service) => {
+          const count = modelAServices[service.id] || 0;
+          return sum + (count * service.price);
+      }, 0);
+      let commissionRate = 0;
+      if (totalStudiesModelA >= 1 && totalStudiesModelA <= 5) commissionRate = 0.10;
+      else if (totalStudiesModelA >= 6 && totalStudiesModelA <= 10) commissionRate = 0.15;
+      else if (totalStudiesModelA > 10) commissionRate = 0.20;
+      return totalRevenue * commissionRate;
+    } else {
+      const totalRevenue = modelBServices.reduce((sum, s) => sum + (s.quantity * s.price), 0);
+      let revenueShare = 0;
+      if (totalStudiesModelB >= 1 && totalStudiesModelB <= 3) revenueShare = 0.50;
+      else if (totalStudiesModelB >= 4 && totalStudiesModelB <= 6) revenueShare = 0.55;
+      else if (totalStudiesModelB >= 7 && totalStudiesModelB <= 10) revenueShare = 0.60;
+      else if (totalStudiesModelB > 10) revenueShare = 0.65;
+      return totalRevenue * revenueShare;
+    }
+  };
+  
+  let resultTextSize = 'text-2xl';
+  if (model === 'a') {
+    if (totalStudiesModelA > 10) {
+      resultTextSize = 'text-4xl';
+    } else if (totalStudiesModelA >= 6) {
+      resultTextSize = 'text-3xl';
+    }
+  } else { // model === 'b'
+    if (totalStudiesModelB > 10) {
+      resultTextSize = 'text-5xl';
+    } else if (totalStudiesModelB >= 7) {
+      resultTextSize = 'text-4xl';
+    } else if (totalStudiesModelB >= 4) {
+      resultTextSize = 'text-3xl';
+    }
+  }
+
+  return (
+    <section id="calculadora" className="section-padding">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Calculadora Interactiva de Ingresos</CardTitle>
+            <CardDescription>
+              Selecciona un modelo y ajusta los valores para calcular tus ingresos potenciales.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <RadioGroup value={model} onValueChange={setModel} className="flex space-x-4">
+              <div className="flex items-center space-x-2"><RadioGroupItem value="a" id="r1" /><Label htmlFor="r1">Modelo A: Referencia</Label></div>
+              <div className="flex items-center space-x-2"><RadioGroupItem value="b" id="r2" /><Label htmlFor="r2">Modelo B: Uso de Equipo</Label></div>
+            </RadioGroup>
+            
+            {model === 'a' ? (
+              <div className="space-y-4">
+                <h3 className="font-semibold">Selecciona los Estudios Referidos al Mes:</h3>
+                <p className="text-sm text-muted-foreground italic">*Precios únicamente ilustrativos.</p>
+                {predefinedServices.map(service => (
+                  <div key={service.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/50">
+                    <div className="flex items-center space-x-3">
+                      <Checkbox id={service.id} checked={!!modelAServices[service.id]} onCheckedChange={(isChecked) => handleModelACheck(service.id, isChecked)} />
+                      <Label htmlFor={service.id} className="font-normal">{service.name} (${service.price.toLocaleString('es-MX')})</Label>
+                    </div>
+                    {modelAServices[service.id] && (
+                        <div className="flex items-center space-x-2">
+                            <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={() => handleModelAQuantityChange(service.id, -1)}><Minus className="h-4 w-4" /></Button>
+                            <span className="font-bold text-lg w-10 text-center">{modelAServices[service.id]}</span>
+                            <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={() => handleModelAQuantityChange(service.id, 1)}><Plus className="h-4 w-4" /></Button>
+                        </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <h3 className="font-semibold">Agrega los Estudios que Realizas al Mes:</h3>
+                <div className="flex space-x-2">
+                  <Input placeholder="Nombre del Servicio" value={newServiceName} onChange={e => setNewServiceName(e.target.value)} />
+                  <Input type="number" placeholder="Precio" value={newServicePrice} onChange={e => setNewServicePrice(e.target.value)} className="w-32"/>
+                  <Button onClick={handleAddServiceB}>Agregar</Button>
+                </div>
+                <div className="space-y-2 pt-4">
+                  {modelBServices.map(service => (
+                    <div key={service.id} className="flex items-center justify-between p-2 rounded-lg hover:bg-muted/50">
+                       <div>
+                          <p className="font-semibold">{service.name}</p>
+                          <p className="text-sm text-muted-foreground">${service.price.toLocaleString('es-MX')}</p>
+                       </div>
+                       <div className="flex items-center space-x-2">
+                          <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={() => handleModelBQuantityChange(service.id, -1)}><Minus className="h-4 w-4" /></Button>
+                          <span className="font-bold text-lg w-10 text-center">{service.quantity}</span>
+                          <Button variant="outline" size="icon" className="h-8 w-8 rounded-full" onClick={() => handleModelBQuantityChange(service.id, 1)}><Plus className="h-4 w-4" /></Button>
+                          <Button variant="destructive" size="icon" className="h-8 w-8 rounded-full" onClick={() => handleRemoveServiceB(service.id)}><Trash2 className="h-4 w-4" /></Button>
+                       </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className={`text-center font-bold text-primary pt-4 border-t transition-all duration-300 ${resultTextSize}`}>
+              Ingreso Mensual Estimado: ${calculateCommission().toLocaleString('es-MX', { minimumFractionDigits: 2 })}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </section>
+  );
+}
 
 const BillingFlow = () => (
     <section className="section-padding">

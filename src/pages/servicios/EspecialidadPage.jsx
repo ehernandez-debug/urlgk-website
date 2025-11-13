@@ -35,7 +35,7 @@ const EspecialidadPage = ({ title, description, estudios, especialidad }) => {
                   <CardDescription className="pt-2">{estudio.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-lg font-semibold text-primary mb-4">{estudio.precio}</p>
+                  {estudio.precio && <p className="text-lg font-semibold text-primary mb-4">{estudio.precio}</p>}
                   <ul className="space-y-2 mb-4">
                     {estudio.indicaciones.map((indicacion, index) => (
                       <li key={index} className="flex items-center space-x-2">

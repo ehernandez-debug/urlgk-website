@@ -7,13 +7,14 @@ import {
   Shield,
   Star,
   CheckCircle,
-  Loader2
+  Loader2,
+  User,
+  Baby
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from '@/components/ui/badge'
 import FormSkeleton from '@/components/FormSkeleton';
@@ -23,12 +24,9 @@ const RequiredAst = () => <span className="text-red-500">*</span>;
 
 const PacientesPage = () => {
   const [formData, setFormData] = useState({
-    // Colonia del Valle fields
     nombres: '',
     apellidoPaterno: '',
     apellidoMaterno: '',
-    // Hospital Infantil Privado fields
-    // Common fields
     telefono: '',
     tipoEstudio: '',
     location: 'colonia-del-valle',
@@ -224,27 +222,10 @@ const PacientesPage = () => {
             
             <div className="lg:col-span-2 space-y-8">
               
-              <Card className="medical-card">
-                <CardHeader>
-                  <CardTitle>Precios Transparentes</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                    <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                        <p className="font-semibold">Uroflujometría</p>
-                        <p className="font-bold text-lg">DESDE $1,500 MXN</p>
-                    </div>
-                    <div className="flex justify-between items-center p-3 bg-gray-100 rounded-lg">
-                        <p className="font-semibold">Urodinamia completa</p>
-                        <p className="font-bold text-lg">$5,300 MXN</p>
-                    </div>
-                    <p className="text-xs text-muted-foreground text-center">* Precios no incluyen impuestos.</p>
-                </CardContent>
-              </Card>
-
               <Card className="medical-card" id="agenda">
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>
-                  <CardDescription>Completa estos campos y agenda tu cita.</CardDescription>
+                  <CardDescription>Selecciona a quién va dirigido el estudio.</CardDescription>
                   <Progress value={progress} className="mt-2" />
                 </CardHeader>
                 <CardContent>
@@ -253,30 +234,38 @@ const PacientesPage = () => {
                   ) : (
                     <form onSubmit={handleSubmit} className="space-y-6">
                       <div>
-                        <Label>Ubicación <RequiredAst /></Label>
-                        <RadioGroup
-                          value={formData.location}
-                          className="flex items-center space-x-4 pt-2"
-                          onValueChange={(value) => handleInputChange('location', value)}
-                        >
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="colonia-del-valle" id="colonia-del-valle" />
-                            <Label htmlFor="colonia-del-valle">Colonia del Valle</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="hospital-infantil" id="hospital-infantil" />
-                            <Label htmlFor="hospital-infantil">Hospital Infantil Privado</Label>
-                          </div>
-                        </RadioGroup>
+                        <Label className="text-center block mb-4 font-semibold">Elige una opción <RequiredAst /></Label>
+                        <div className="flex flex-col sm:flex-row justify-center gap-6">
+                          <Card
+                            className={`cursor-pointer transition-all duration-300 w-full sm:w-1/2 ${formData.location === 'colonia-del-valle' ? 'border-primary shadow-lg scale-105' : 'hover:shadow-md'}`}
+                            onClick={() => handleInputChange('location', 'colonia-del-valle')}
+                          >
+                            <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
+                              <User className="h-12 w-12 text-primary mb-3" />
+                              <p className="font-semibold text-lg mb-1">Colonia del Valle</p>
+                              <p className="text-sm text-muted-foreground mb-3">(Adultos)</p>
+                              <p className="text-sm text-muted-foreground text-center">
+                                Servicios de diagnóstico para adultos, enfocados en la detección y manejo de trastornos urinarios.
+                              </p>
+                            </CardContent>
+                          </Card>
+                          
+                          <Card
+                            className={`cursor-pointer transition-all duration-300 w-full sm:w-1/2 ${formData.location === 'hospital-infantil' ? 'border-primary shadow-lg scale-105' : 'hover:shadow-md'}`}
+                            onClick={() => handleInputChange('location', 'hospital-infantil')}
+                          >
+                            <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
+                              <Baby className="h-12 w-12 text-primary mb-3" />
+                              <p className="font-semibold text-lg mb-1">Hospital Infantil Privado</p>
+                              <p className="text-sm text-muted-foreground mb-3">(Niños)</p>
+                              <p className="text-sm text-muted-foreground text-center">
+                                Estudios especializados para el diagnóstico y tratamiento de patologías urológicas en niños y adolescentes.
+                              </p>
+                            </CardContent>
+                          </Card>
+                        </div>
                       </div>
 
-                      {formData.location === 'colonia-del-valle' ? (
-                        <>
-                        </>
-                      ) : (
-                        <>
-                        </>
-                      )}
                       <div>
                         <Button onClick={openCalendly} className="w-full" variant="outline" style={{ backgroundColor: '#2C5F7A', color: 'white' }}>
                            {formData.location === 'colonia-del-valle' ? "Agenda tu estudio ahora en Colonia del Valle" : "Agenda tu estudio ahora en Hospital Infantil Privado"}
