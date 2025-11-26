@@ -73,8 +73,8 @@ const ContactoPage = () => {
       nombre: 'Colonia del Valle',
       direccion: 'Amores 942, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX',
       ciudad: 'Ciudad de México, CDMX 03100',
-      telefono: '55-1234-5678',
-      email: 'delvalle@urologik.com',
+      telefono: '55-35-05-59-83',
+      email: 'contactourologik@gmail.com',
       horarios: [
         'Lunes - Viernes: 9:00 am a 5:00 pm',
         'Sábado: 9:00 am a 1:00 pm',
@@ -89,8 +89,8 @@ const ContactoPage = () => {
       nombre: 'Hospital Infantil Privado',
       direccion: 'C Nueva York 7, Nápoles, Benito Juárez, 03810 Ciudad de México, CDMX',
       ciudad: 'Ciudad de México, CDMX 06700',
-      telefono: '55-8765-4321',
-      email: 'infantil@urologik.com',
+      telefono: '55-35-05-59-83',
+      email: 'contactourologik@gmail.com',
       horarios: [
         'Lunes - Viernes: 9:00 am a 5:00 pm',
         'Sábado: 9:00 am a 1:00 pm',
@@ -108,9 +108,9 @@ const ContactoPage = () => {
       icon: <Phone className="h-6 w-6 text-primary" />,
       titulo: 'Teléfono',
       descripcion: 'Llámanos directamente',
-      contacto: '55-47-67-52-05',
+      contacto: '55-35-05-59-83',
       disponibilidad: 'Lunes - Viernes: 9:00 am a 6:00 pm<br/>Sábado: 9:00 am a 2:00 pm',
-      link: 'tel:5547675205'
+      link: 'tel:5535055983'
     },
     {
       icon: <Mail className="h-6 w-6 text-primary" />,
@@ -124,9 +124,9 @@ const ContactoPage = () => {
       icon: <MessageCircle className="h-6 w-6 text-primary" />,
       titulo: 'WhatsApp',
       descripcion: 'Chatea con nosotros',
-      contacto: '55-47-67-52-05',
+      contacto: '55-35-05-59-83',
       disponibilidad: 'Lunes - Viernes: 9:00 am a 6:00 pm<br/>Sábado: 9:00 am a 2:00 pm',
-      link: 'https://wa.me/5215547675205'
+      link: 'https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik'
     }
   ]
 
@@ -353,7 +353,7 @@ const ContactoPage = () => {
                     <Phone className="h-5 w-5 text-primary" />
                     <div>
                       <p className="font-semibold">Línea Directa</p>
-                      <p className="text-muted-foreground">55-47-67-52-05</p>
+                      <p className="text-muted-foreground">55-35-05-59-83</p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -384,13 +384,13 @@ const ContactoPage = () => {
                     contáctanos directamente por teléfono o WhatsApp.
                   </p>
                   <div className="space-y-2">
-                    <a href="tel:5547675205" className="w-full block">
+                    <a href="tel:5535055983" className="w-full block">
                       <Button className="w-full cta-button">
                         <Phone className="h-4 w-4 mr-2" />
                         Llamar Ahora
                       </Button>
                     </a>
-                    <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="w-full block">
+                    <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="w-full block">
                       <Button variant="outline" className="w-full">
                         <MessageCircle className="h-4 w-4 mr-2" />
                         WhatsApp

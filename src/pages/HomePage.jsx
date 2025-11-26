@@ -389,7 +389,7 @@ const HomePage = () => {
                 Agendar Cita Ahora
               </Button>
             </Link>
-            <a href="tel:5547675205">
+            <a href="tel:5535055983">
               <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
                 Llamar Ahora
               </Button>

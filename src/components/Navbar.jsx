@@ -47,10 +47,10 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="sm" className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>55-47-67-52-05</span>
+                <span>55-35-05-59-83</span>
               </Button>
             </a>
             <Link to="/pacientes#agenda">
@@ -99,10 +99,10 @@ const Navbar = () => {
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-2">
-                <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="block w-full">
+                <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="block w-full">
                   <Button variant="outline" className="w-full flex items-center justify-center space-x-2">
                     <Phone className="h-4 w-4" />
-                    <span>55-47-67-52-05</span>
+                    <span>55-35-05-59-83</span>
                   </Button>
                 </a>
                 <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)}>
