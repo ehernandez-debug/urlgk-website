@@ -90,7 +90,7 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">55-47-67-52-05</a>
+                <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">55-35-05-59-83</a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
