@@ -165,19 +165,19 @@ const HomePage = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 {currentHeroData.id === 'padres' ? (
                   <Link to="/servicios/pediatria">
-                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto">
+                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                       {currentHeroData.cta}
                     </Button>
                   </Link>
                 ) : (
                   <Link to="/pacientes">
-                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto">
+                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                       {currentHeroData.cta}
                     </Button>
                   </Link>
                 )}
                 <Link to="/servicios">
-                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                     Conocer Más
                   </Button>
                 </Link>
@@ -261,13 +261,13 @@ const HomePage = () => {
                   </ul>
                   {servicio.title === 'Renta de Equipos' ? (
                     <Link to="/medicos#renta">
-                      <Button variant="outline" className="w-full mt-4">
+                      <Button variant="outline" className="w-full mt-4 transform hover:scale-105 transition-transform">
                         Más Información
                       </Button>
                     </Link>
                   ) : (
                     <Link to="/servicios">
-                      <Button variant="outline" className="w-full mt-4">
+                      <Button variant="outline" className="w-full mt-4 transform hover:scale-105 transition-transform">
                         Más Información
                       </Button>
                     </Link>
@@ -316,7 +316,7 @@ const HomePage = () => {
                   </div>
                   {ubicacion.id === 'hospital-infantil' ? (
                     <Button 
-                      className="w-full mt-4 cta-button"
+                      className="w-full mt-4 cta-button transform hover:scale-105 transition-transform"
                       onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'})}
                     >
                       <Calendar className="h-4 w-4 mr-2" />
@@ -324,7 +324,7 @@ const HomePage = () => {
                     </Button>
                   ) : (
                     <Button 
-                      className="w-full mt-4 cta-button"
+                      className="w-full mt-4 cta-button transform hover:scale-105 transition-transform"
                       onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'})}
                     >
                       <Calendar className="h-4 w-4 mr-2" />
@@ -384,13 +384,13 @@ const HomePage = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/pacientes#agenda">
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
+              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
                 <Calendar className="h-5 w-5 mr-2" />
                 Agendar Cita Ahora
               </Button>
             </Link>
             <a href="tel:5535055983">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-transform">
                 Llamar Ahora
               </Button>
             </a>
