@@ -269,7 +269,7 @@ const AdvisoryCommittee = () => (
             <Info className="h-12 w-12 text-primary mx-auto mb-4" />
             <h2 className="text-3xl font-bold mb-4">Únete a Nuestro Comité Asesor Clínico</h2>
             <p className="text-muted-foreground mb-6">Buscamos expertos como tú para co-desarrollar nuestro uroflujómetro con IA. Participa, aporta tu visión clínica y obtén beneficios exclusivos como descuentos y un revenue share preferencial.</p>
-            <Button asChild><a href="#contacto">Quiero ser parte</a></Button>
+            <Button asChild className="transition-transform duration-300 hover:scale-105"><a href="#contacto">Quiero ser parte</a></Button>
         </div>
     </section>
 );

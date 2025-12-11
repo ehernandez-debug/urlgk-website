@@ -7,8 +7,9 @@ export const servicesData = {
         subtitle: 'Evaluación detallada de la función vesical y uretral.',
         icon: <Shield className="h-12 w-12 text-primary" />,
         description: 'Este estudio mide las presiones en la vejiga (cistometría), el abdomen y la uretra para evaluar de forma integral cómo funciona el tracto urinario inferior. Es el estándar de oro para diagnosticar problemas complejos. Incluye electromiografía (EMG) para evaluar la coordinación de los músculos del piso pélvico',
-        duracion: '45-60 minutos',
+        duracion: '45 minutos - 2 horas',
         preparacion: 'Llegar con ganas de orinar. Se le pedirá que suspenda ciertos medicamentos. Traer estudios previos si los tiene.',
+        precio: '$10,000 MXN',
         indicaciones: [
             'Vejiga neurogénica (mielomeningocele, parálisis cerebral).',
             'Enuresis (mojar la cama) que no responde a tratamiento.',
@@ -47,8 +48,9 @@ export const servicesData = {
         subtitle: 'Estudio no invasivo de la micción con análisis muscular.',
         icon: <Activity className="h-12 w-12 text-primary" />,
         description: 'Mide la cantidad de orina, la velocidad del flujo y el patrón de la micción, mientras que la Electromiografía (EMG) de superficie registra la actividad de los músculos del piso pélvico. Es ideal como primer paso diagnóstico por no ser invasivo.',
-        duracion: '15-20 minutos',
+        duracion: '30 minutos - 1 hora',
         preparacion: 'El niño debe llegar con muchas ganas de orinar. No requiere ayuno.',
+        precio: '$3,000 MXN',
         indicaciones: [
             'Estudio inicial de enuresis (mojar la cama).',
             'Infecciones urinarias de repetición.',
@@ -86,10 +88,10 @@ export const servicesData = {
         title: 'Uroflujometría Básica',
         subtitle: 'Análisis inicial y rápido del flujo urinario.',
         icon: <Activity className="h-12 w-12 text-primary" />,
-        description: 'Este es un estudio fundamental y no invasivo que mide la velocidad y el patrón del flujo de orina. Proporciona información objetiva sobre la posible presencia de una obstrucción en el tracto urinario inferior.',
-        duracion: '10-15 minutos',
+        description: 'La forma más sencilla y rápida de conocer cómo está funcionando el flujo urinario.',
+        duracion: '30 minutos - 1 hora',
         preparacion: 'Asistir con la vejiga confortablemente llena (ganas de orinar).',
-        precio: '$1,500 MXN',
+        precio: '$1,900 MXN',
         indicaciones: [
             'Síntomas del tracto urinario inferior (LUTS).',
             'Chorro urinario débil o intermitente.',
@@ -120,14 +122,14 @@ export const servicesData = {
             }
         ]
     },
-    'uroflujometria-ultrasonido': {
-        title: 'Uroflujometría con Ultrasonido',
+    'uroflujometria-premium': {
+        title: 'Uroflujometría Premium',
         subtitle: 'Evaluación del flujo y del vaciamiento vesical.',
         icon: <Activity className="h-12 w-12 text-primary" />,
-        description: 'Este estudio combina la uroflujometría estándar con un ultrasonido vesical antes y después de la micción. El objetivo es medir con precisión cuánta orina queda en la vejiga (residuo post-miccional), un dato clave para el diagnóstico.',
-        duracion: '15-20 minutos',
+        description: 'Un estudio más completo para entender a detalle cómo se vacía la vejiga.',
+        duracion: '30 minutos - 1 hora',
         preparacion: 'Vejiga llena, sin necesidad de ayuno.',
-        precio: '$2,000 MXN',
+        precio: '$3,500 MXN',
         indicaciones: [
             'Sospecha de vaciamiento incompleto de la vejiga.',
             'Hiperplasia Prostática Benigna (HPB).',
@@ -158,14 +160,13 @@ export const servicesData = {
             }
         ]
     },
-    'uroflujometria-interpretacion': {
-        title: 'Uroflujometría con Ultrasonido + Interpretación Médica',
+    'check-up-total': {
+        title: 'Check Up Total',
         subtitle: 'El estudio completo con análisis y reporte por un especialista.',
         icon: <Stethoscope className="h-12 w-12 text-primary" />,
-        description: 'Esta es la opción más completa. Incluye la uroflujometría, la medición del residuo con ultrasonido, y un reporte detallado firmado por un médico urólogo, quien interpreta los hallazgos en el contexto clínico del paciente.',
-        duracion: '15-20 minutos el estudio, reporte en 24h.',
+        description: 'La experiencia más completa en una sola visita.',
+        duracion: '30 minutos - 1 hora, reporte en 24h.',
         preparacion: 'Vejiga llena.',
-        precio: '$2,500 MXN',
         indicaciones: [
             'Cuando se requiere una segunda opinión experta.',
             'Para pacientes con casos complejos o múltiples patologías.',
@@ -199,38 +200,39 @@ export const servicesData = {
   },
   pediatriaResumen: [
     {
-      title: 'Urodinamia Multicanal y EMG',
-      slug: 'urodinamia-multicanal',
-      description: 'Estudio de 3 canales (abdominal, vesical y uretral) para evaluar la función del tracto urinario inferior. Ideal para patologías complejas como vejiga neurogénica.',
-      indicaciones: ['Vejiga neurogénica', 'Enuresis resistente a tratamiento', 'Disfunción miccional compleja'],
-    },
-    {
       title: 'Uroflujometría Pediátrica con EMG',
       slug: 'uroflujometria-pediatrica-emg',
       description: 'Mide el flujo y volumen de la orina, con electromiografía para analizar la actividad muscular durante la micción. Es un estudio no invasivo clave para el diagnóstico inicial.',
+      precio: '$3,000 MXN',
       indicaciones: ['Enuresis nocturna', 'Infecciones urinarias recurrentes', 'Patrón de micción anormal'],
+    },
+    {
+      title: 'Urodinamia Multicanal y EMG',
+      slug: 'urodinamia-multicanal',
+      description: 'Estudio de 3 canales (abdominal, vesical y uretral) para evaluar la función del tracto urinario inferior. Ideal para patologías complejas como vejiga neurogénica.',
+      precio: '$10,000 MXN',
+      indicaciones: ['Vejiga neurogénica', 'Enuresis resistente a tratamiento', 'Disfunción miccional compleja'],
     },
   ],
   adultosResumen: [
     {
       title: 'Uroflujometría Básica',
       slug: 'uroflujometria-basica',
-      description: 'Medición del flujo y volumen urinario. Un estudio rápido y no invasivo para una evaluación inicial.',
-      precio: '$1,500 MXN',
+      description: 'La forma más sencilla y rápida de conocer cómo está funcionando el flujo urinario.',
+      precio: '$1,900 MXN',
       indicaciones: ['Análisis de síntomas del tracto urinario inferior (LUTS)', 'Monitoreo de tratamiento'],
     },
     {
-      title: 'Uroflujometría con Ultrasonido',
-      slug: 'uroflujometria-ultrasonido',
-      description: 'Además de la flujometría, se realiza un ultrasonido para medir el residuo post-miccional, evaluando el vaciamiento de la vejiga.',
-      precio: '$2,000 MXN',
+      title: 'Uroflujometría Premium',
+      slug: 'uroflujometria-premium',
+      description: 'Un estudio más completo para entender a detalle cómo se vacía la vejiga.',
+      precio: '$3,500 MXN',
       indicaciones: ['Sospecha de vaciamiento incompleto', 'Hiperplasia prostática benigna (HPB)', 'Estrechez uretral'],
     },
     {
-      title: 'Uroflujometría con Ultrasonido + Interpretación Médica',
-      slug: 'uroflujometria-interpretacion',
-      description: 'El estudio completo con un informe detallado y la interpretación de un urólogo especialista para guiar el diagnóstico y tratamiento.',
-      precio: '$2,500 MXN',
+      title: 'Check Up Total',
+      slug: 'check-up-total',
+      description: 'La experiencia más completa en una sola visita.',
       indicaciones: ['Resultados que requieren análisis experto', 'Casos complejos', 'Segunda opinión'],
     },
   ],
