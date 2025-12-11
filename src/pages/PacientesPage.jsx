@@ -37,16 +37,6 @@ const PacientesPage = () => {
   const [submitted, setSubmitted] = useState(false)
   const [countdown, setCountdown] = useState('23:59:59')
 
-  const requiredFields = {
-    'colonia-del-valle': [],
-    'hospital-infantil': []
-  };
-
-  const currentRequired = requiredFields[formData.location];
-  const completedFields = currentRequired.filter(field => !!formData[field]).length;
-  const totalFields = currentRequired.length;
-  const progress = totalFields > 0 ? (completedFields / totalFields) * 100 : 0;
-
   const calendlyLinks = {
     'colonia-del-valle': 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1',
     'hospital-infantil': 'https://calendly.com/urologik/30min?hide_gdpr_banner=1',
@@ -110,18 +100,9 @@ const PacientesPage = () => {
     }))
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitted(true)
-    }, 2000)
-  }
-
-  const openCalendly = (e) => {
+  const openCalendly = (e, location) => {
     e.preventDefault();
-    const url = calendlyLinks[formData.location];
+    const url = calendlyLinks[location];
     if (window.Calendly && url) {
       window.Calendly.initPopupWidget({ url });
     }
@@ -226,19 +207,18 @@ const PacientesPage = () => {
                 <CardHeader>
                   <CardTitle>Agenda tu Cita Ahora</CardTitle>
                   <CardDescription>Selecciona a quién va dirigido el estudio.</CardDescription>
-                  <Progress value={progress} className="mt-2" />
                 </CardHeader>
                 <CardContent>
                   {isLoading ? (
                     <FormSkeleton />
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="space-y-6">
                       <div>
                         <Label className="text-center block mb-4 font-semibold">Elige una opción <RequiredAst /></Label>
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
                           <Card
-                            className={`cursor-pointer transition-all duration-300 w-full sm:w-1/2 ${formData.location === 'colonia-del-valle' ? 'border-primary shadow-lg scale-105' : 'hover:shadow-md'}`}
-                            onClick={() => handleInputChange('location', 'colonia-del-valle')}
+                            className="cursor-pointer transition-all duration-300 w-full sm:w-1/2 hover:shadow-md hover:scale-105"
+                            onClick={(e) => openCalendly(e, 'colonia-del-valle')}
                           >
                             <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
                               <User className="h-12 w-12 text-primary mb-3" />
@@ -251,8 +231,8 @@ const PacientesPage = () => {
                           </Card>
                           
                           <Card
-                            className={`cursor-pointer transition-all duration-300 w-full sm:w-1/2 ${formData.location === 'hospital-infantil' ? 'border-primary shadow-lg scale-105' : 'hover:shadow-md'}`}
-                            onClick={() => handleInputChange('location', 'hospital-infantil')}
+                            className="cursor-pointer transition-all duration-300 w-full sm:w-1/2 hover:shadow-md hover:scale-105"
+                            onClick={(e) => openCalendly(e, 'hospital-infantil')}
                           >
                             <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
                               <Baby className="h-12 w-12 text-primary mb-3" />
@@ -265,15 +245,8 @@ const PacientesPage = () => {
                           </Card>
                         </div>
                       </div>
-
-                      <div>
-                        <Button onClick={openCalendly} className="w-full" variant="outline" style={{ backgroundColor: '#2C5F7A', color: 'white' }}>
-                           {formData.location === 'colonia-del-valle' ? "Agenda tu estudio ahora en Colonia del Valle" : "Agenda tu estudio ahora en Hospital Infantil Privado"}
-                        </Button>
-                      </div>
-                      <p className="text-sm text-muted-foreground"><RequiredAst /> Recuerda llenar todos los campos obligatorios para poder agendar tu cita.</p>
                       <p className="text-center text-sm text-muted-foreground">Confirmación inmediata por WhatsApp</p>
-                    </form>
+                    </div>
                   )}
                 </CardContent>
               </Card>
@@ -299,17 +272,6 @@ const PacientesPage = () => {
                               <Badge variant="secondary" className="mt-1">{t.study}</Badge>
                           </div>
                       ))}
-                  </CardContent>
-              </Card>
-
-              <Card className="medical-card">
-                  <CardHeader>
-                      <CardTitle>Aceptamos Seguros de Gastos Médicos</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-wrap gap-4 justify-center items-center">
-                      <p className="font-semibold text-lg">GNP</p>
-                      <p className="font-semibold text-lg">AXA</p>
-                      <p className="font-semibold text-lg">MetLife</p>
                   </CardContent>
               </Card>
 

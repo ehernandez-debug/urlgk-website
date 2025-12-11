@@ -170,7 +170,7 @@ const ServicioPage = () => {
                   </Button>
                 )}
                 <Button size="lg" variant="outline" asChild>
-                  <a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
+                  <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
                     <MessageCircle className="h-5 w-5 mr-2" /> Contactar
                   </a>
                 </Button>

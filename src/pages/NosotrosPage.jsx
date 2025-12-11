@@ -432,10 +432,10 @@ const NosotrosPage = () => {
             Forma parte del futuro de la medicina urológica con I.A. biomédica
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary" className="text-lg px-8 py-4">
+            <Button asChild size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
               <a href="/servicios">Conoce Nuestros Servicios</a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+            <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-transform">
               <a href="/medicos">Únete como Médico</a>
             </Button>
           </div>

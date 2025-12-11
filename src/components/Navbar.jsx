@@ -34,7 +34,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className={`text-sm font-medium transition-colors duration-200 ${
+                className={`text-sm font-medium transition-all duration-200 hover:scale-110 ${
                   isActive(item.href)
                     ? 'text-primary border-b-2 border-primary'
                     : 'text-muted-foreground hover:text-primary'
@@ -47,13 +47,13 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="transition-all duration-200 hover:scale-110">
               <Button variant="outline" size="sm" className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span>55-47-67-52-05</span>
+                <span>55-35-05-59-83</span>
               </Button>
             </a>
-            <Link to="/pacientes#agenda">
+            <Link to="/pacientes#agenda" className="transition-all duration-200 hover:scale-110">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>Agendar Cita</span>
@@ -86,7 +86,7 @@ const Navbar = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+                  className={`block px-3 py-2 text-base font-medium transition-all duration-200 hover:scale-110 ${
                     isActive(item.href)
                       ? 'text-primary bg-primary/10'
                       : 'text-muted-foreground hover:text-primary hover:bg-muted'
@@ -99,13 +99,13 @@ const Navbar = () => {
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-2">
-                <a href="https://wa.me/5215547675205" target="_blank" rel="noopener noreferrer" className="block w-full">
+                <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="block w-full transition-all duration-200 hover:scale-105">
                   <Button variant="outline" className="w-full flex items-center justify-center space-x-2">
                     <Phone className="h-4 w-4" />
-                    <span>55-47-67-52-05</span>
+                    <span>55-35-05-59-83</span>
                   </Button>
                 </a>
-                <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)}>
+                <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)} className="block w-full transition-all duration-200 hover:scale-105">
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />
                     <span>Agendar Cita</span>

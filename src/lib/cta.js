@@ -11,9 +11,8 @@ export function getServiceLabel(slug) {
 }
 
 export function getWhatsAppUrl(serviceSlug) {
-  const label = getServiceLabel(serviceSlug);
-  const msg = `Hola, deseo agendar el servicio de ${label}.`;
-  const base = 'https://wa.me/525547675205';
+  const msg = "Hola! me interesa conocer mas sobre Urologik";
+  const base = 'https://wa.me/5215535055983';
   return `${base}?text=${encodeURIComponent(msg)}`;
 }
 
