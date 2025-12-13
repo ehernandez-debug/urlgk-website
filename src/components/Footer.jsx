@@ -24,7 +24,7 @@ const Footer = () => {
               <a href="https://www.facebook.com/share/1Cxxwe14nj/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
-              <a href="https://www.instagram.com/urologik_oficial?igsh=MTZ5OWU2a3gyN3I3ZQ==" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="https://www.instagram.com/urologik_oficial/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>
@@ -62,7 +62,7 @@ const Footer = () => {
             <h3 className="font-semibold text-foreground mb-4">Enlaces Útiles</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/pacientes" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/contacto" className="text-muted-foreground hover:text-primary transition-colors">
                   Agendar Cita
                 </Link>
               </li>

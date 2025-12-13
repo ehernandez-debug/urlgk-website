@@ -42,7 +42,7 @@ const NosotrosPage = () => {
   const equipo = [
     {
       nombre: 'Especialista en Urología',
-      puesto: 'Director Médico',
+      puesto: 'Urólogo Adultos',
       especialidad: 'Urólogo Certificado',
       experiencia: '15 años de experiencia',
       descripcion: 'Especialista en urodinamia y cirugía urológica mínimamente invasiva. Certificado por el Consejo Mexicano de Urología.',
@@ -75,7 +75,7 @@ const NosotrosPage = () => {
     {
       año: '2018',
       evento: 'Especialización Pediátrica',
-      descripcion: 'Apertura del centro especializado en Hospital Infantil Privado'
+      descripcion: 'Apertura de Servicios Integrales dentro de Hospital Infantil Público'
     },
     {
       año: '2020',
@@ -105,11 +105,7 @@ const NosotrosPage = () => {
       descripcion: 'Estudios Realizados',
       icon: <Stethoscope className="h-6 w-6 text-primary" />
     },
-    {
-      numero: '50+',
-      descripcion: 'Médicos Asociados',
-      icon: <Users className="h-6 w-6 text-primary" />
-    },
+
     {
       numero: '95%',
       descripcion: 'Satisfacción del Paciente',
@@ -418,6 +414,29 @@ const NosotrosPage = () => {
                 </div>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA para Médicos */}
+      <section className="section-padding bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="medical-card p-8 text-center border-2 border-primary/20">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold text-sm">¿Eres urólogo?</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Descubre Nuestros Modelos de Colaboración
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Únete a nuestra red de especialistas y ofrece a tus pacientes acceso a tecnología de vanguardia en estudios urodinámicos.
+            </p>
+            <Button asChild size="lg" className="cta-button text-lg px-8 py-4 transform hover:scale-105 transition-transform">
+              <Link to="/medicos">
+                <Users className="h-5 w-5 mr-2" />
+                Conocer Programa de Colaboración
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

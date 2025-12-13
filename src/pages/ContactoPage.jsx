@@ -74,7 +74,8 @@ const ContactoPage = () => {
         sabado: 'Sábado: 9:00 am a 1:00 pm'
       },
       mapsUrl: 'https://maps.app.goo.gl/2tKvqMRWDQwDUNGJ6',
-      consultorio: 'Consultorio 15'
+      consultorio: 'Consultorio 15',
+      calendlyUrl: 'https://calendly.com/contactourologik/cita-colonia-del-valle?hide_gdpr_banner=1'
     },
     {
       nombre: 'Hospital Infantil Privado',
@@ -88,7 +89,8 @@ const ContactoPage = () => {
         sabado: 'Sábado: 9:00 am a 1:00 pm'
       },
       mapsUrl: 'https://maps.app.goo.gl/Vd8Jtx1gCUFWKJzj8',
-      consultorio: 'Consultorio 406'
+      consultorio: 'Consultorio 406',
+      calendlyUrl: 'https://calendly.com/contactourologik/30min?hide_gdpr_banner=1'
     }
   ];
 
@@ -223,12 +225,20 @@ const ContactoPage = () => {
                       </div>
                     </div>
 
-                    <a href={ubicacion.mapsUrl} target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button variant="outline" className="w-full transition-transform duration-300 hover:scale-105">
-                        <Navigation className="mr-2 h-4 w-4" />
-                        Ver en Google Maps
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <a href={ubicacion.mapsUrl} target="_blank" rel="noopener noreferrer" className="w-full">
+                        <Button variant="outline" className="w-full transition-transform duration-300 hover:scale-105">
+                          <Navigation className="mr-2 h-4 w-4" />
+                          Ver en Mapa
+                        </Button>
+                      </a>
+                      <Button 
+                        className="w-full cta-button transition-transform duration-300 hover:scale-105"
+                        onClick={() => window.Calendly && window.Calendly.initPopupWidget({url: ubicacion.calendlyUrl})}>
+                        <Calendar className="mr-2 h-4 w-4" />
+                        Agendar Aquí
                       </Button>
-                    </a>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -236,68 +246,43 @@ const ContactoPage = () => {
           </div>
         </section>
 
-        {/* Agendar Cita con Calendly */}
+        {/* Mapa */}
         <section className="section-padding bg-muted/30">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Agenda tu Cita
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Selecciona el día y hora que mejor te convenga
-              </p>
-            </div>
-
-            <Card className="medical-card">
-              <CardContent className="p-0">
-                <div 
-                  className="calendly-inline-widget" 
-                  data-url="https://calendly.com/contactourologik/30min?hide_event_type_details=1&hide_gdpr_banner=1" 
-                  style={{ minWidth: '320px', height: '700px' }}
-                ></div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Mapa (Opcional - puede agregarse después) */}
-        <section className="section-padding bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
+            <div className="text-center mb-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
                 Encuéntranos Fácilmente
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-lg text-muted-foreground">
                 Estamos ubicados en zonas estratégicas de la Ciudad de México
               </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.8686892!2d-99.1724!3d19.3733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8b0e0e0e0e%3A0x0e0e0e0e0e0e0e0e!2sAmores%20942%2C%20Col%20del%20Valle%20Centro!5e0!3m2!1ses!2smx!4v1234567890"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen="" 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Mapa Colonia del Valle"
+                ></iframe>
+              </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.8686892!2d-99.1724!3d19.3733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8b0e0e0e0e%3A0x0e0e0e0e0e0e0e0e!2sAmores%20942%2C%20Col%20del%20Valle%20Centro!5e0!3m2!1ses!2smx!4v1234567890"
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen="" 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Mapa Colonia del Valle"
-                  ></iframe>
-                </div>
-                
-                <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
-                  <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.5!2d-99.1650!3d19.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8b0e0e0e0e%3A0x0e0e0e0e0e0e0e0e!2sC%20Nueva%20York%207%2C%20N%C3%A1poles!5e0!3m2!1ses!2smx!4v1234567890"
-                    width="100%" 
-                    height="100%" 
-                    style={{ border: 0 }} 
-                    allowFullScreen="" 
-                    loading="lazy" 
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Mapa Hospital Infantil Privado"
-                  ></iframe>
-                </div>
+              <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.5!2d-99.1650!3d19.3850!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8b0e0e0e0e%3A0x0e0e0e0e0e0e0e0e!2sC%20Nueva%20York%207%2C%20N%C3%A1poles!5e0!3m2!1ses!2smx!4v1234567890"
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen="" 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Mapa Hospital Infantil Privado"
+                ></iframe>
               </div>
             </div>
           </div>

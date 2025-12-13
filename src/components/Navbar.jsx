@@ -11,7 +11,6 @@ const Navbar = () => {
   const navigation = [
     { name: 'Inicio', href: '/' },
     { name: 'Servicios', href: '/servicios' },
-    { name: 'Para Pacientes', href: '/pacientes' },
     { name: 'Para Médicos', href: '/medicos' },
     { name: 'Nosotros', href: '/nosotros' },
     { name: 'Contacto', href: '/contacto' },
@@ -53,7 +52,7 @@ const Navbar = () => {
                 <span>55-35-05-59-83</span>
               </Button>
             </a>
-            <Link to="/pacientes#agenda" className="transition-all duration-200 hover:scale-110">
+            <Link to="/contacto" className="transition-all duration-200 hover:scale-110">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>Agendar Cita</span>
@@ -105,7 +104,7 @@ const Navbar = () => {
                     <span>55-35-05-59-83</span>
                   </Button>
                 </a>
-                <Link to="/pacientes#agenda" onClick={() => setIsOpen(false)} className="block w-full transition-all duration-200 hover:scale-105">
+                <Link to="/contacto" onClick={() => setIsOpen(false)} className="block w-full transition-all duration-200 hover:scale-105">
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />
                     <span>Agendar Cita</span>

@@ -324,6 +324,29 @@ const HomePage = () => {
         ...
       </section> */}
 
+      {/* CTA para Médicos */}
+      <section className="section-padding bg-muted/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="medical-card p-8 text-center border-2 border-primary/20">
+            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
+              <span className="text-primary font-semibold text-sm">¿Eres urólogo?</span>
+            </div>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Descubre Nuestros Modelos de Colaboración
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6">
+              Únete a nuestra red de especialistas y ofrece a tus pacientes acceso a tecnología de vanguardia en estudios urodinámicos.
+            </p>
+            <Link to="/medicos">
+              <Button size="lg" className="cta-button text-lg px-8 py-4 transform hover:scale-105 transition-transform">
+                <Users className="h-5 w-5 mr-2" />
+                Conocer Programa de Colaboración
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Final */}
       <section className="section-padding bg-gradient-to-r from-primary to-accent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -334,7 +357,7 @@ const HomePage = () => {
             Agenda tu cita hoy mismo y da el primer paso hacia tu bienestar
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/pacientes#agenda">
+            <Link to="/contacto">
               <Button size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
                 <Calendar className="h-5 w-5 mr-2" />
                 Agendar Cita Ahora
