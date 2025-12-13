@@ -115,26 +115,7 @@ const HomePage = () => {
     }
   ]
 
-  const testimonios = [
-    {
-      nombre: 'Carlos M.',
-      edad: '52 años',
-      testimonio: 'El estudio fue rápido y los resultados muy claros. El equipo médico me explicó todo con paciencia.',
-      rating: 5
-    },
-    {
-      nombre: 'Ana L.',
-      edad: '38 años',
-      testimonio: 'Excelente atención, muy profesional y empática. Me sentí cómoda durante todo el proceso.',
-      rating: 5
-    },
-    {
-      nombre: 'María G.',
-      edad: 'Madre de paciente',
-      testimonio: 'El trato con mi hijo fue excepcional. Los especialistas en pediatría son muy experimentados.',
-      rating: 5
-    }
-  ]
+  // Testimonios removidos - pendiente de documentación real
 
   return (
     <div className="min-h-screen">
@@ -338,40 +319,10 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonios */}
-      <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Lo que dicen nuestros pacientes
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Testimonios reales de quienes han confiado en nosotros
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonios.map((testimonio, index) => (
-              <Card key={index} className="medical-card">
-                <CardContent className="pt-6">
-                  <div className="flex items-center space-x-1 mb-4">
-                    {[...Array(testimonio.rating)].map((_, i) => (
-                      <div key={i} className="w-4 h-4 bg-accent rounded-full"></div>
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-4 italic">
-                    "{testimonio.testimonio}"
-                  </p>
-                  <div className="border-t pt-4">
-                    <p className="font-semibold text-foreground">{testimonio.nombre}</p>
-                    <p className="text-sm text-muted-foreground">{testimonio.edad}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Testimonios - Temporalmente deshabilitado hasta obtener testimonios documentados */}
+      {/* <section className="section-padding bg-background">
+        ...
+      </section> */}
 
       {/* CTA Final */}
       <section className="section-padding bg-gradient-to-r from-primary to-accent">

@@ -18,7 +18,7 @@ const Footer = () => {
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
               Salud con I.A. Biomédica para estudios urológicos especializados. 
-              Democratizando el acceso a diagnósticos de vanguardia.
+              Acercando diagnósticos de vanguardia con I.A. biomédica.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/share/1Cxxwe14nj/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">

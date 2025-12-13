@@ -41,7 +41,7 @@ const NosotrosPage = () => {
 
   const equipo = [
     {
-      nombre: 'Dr. Carlos Mendoza',
+      nombre: 'Especialista en Urología',
       puesto: 'Director Médico',
       especialidad: 'Urólogo Certificado',
       experiencia: '15 años de experiencia',
@@ -49,16 +49,16 @@ const NosotrosPage = () => {
       logros: ['Más de 5,000 estudios realizados', 'Investigación en incontinencia urinaria', 'Docente universitario']
     },
     {
-      nombre: 'Dra. Ana Rodríguez',
-      puesto: 'Especialista en Ginecourología',
+      nombre: 'Especialista en Ginecourología',
+      puesto: 'Ginecouróloga',
       especialidad: 'Ginecouróloga',
       experiencia: '12 años de experiencia',
       descripcion: 'Experta en problemas urológicos femeninos y cirugía reconstructiva del piso pélvico.',
       logros: ['Certificación internacional', 'Pionera en técnicas mínimamente invasivas', 'Autora de publicaciones científicas']
     },
     {
-      nombre: 'Dr. Miguel Torres',
-      puesto: 'Especialista en Uropediatría',
+      nombre: 'Especialista en Uropediatría',
+      puesto: 'Uropediatra',
       especialidad: 'Uropediatra',
       experiencia: '10 años de experiencia',
       descripcion: 'Dedicado exclusivamente a la urología pediátrica con enfoque en malformaciones congénitas.',
@@ -68,19 +68,19 @@ const NosotrosPage = () => {
 
   const hitos = [
     {
-      año: '2020',
+      año: '2016',
       evento: 'Fundación de Urologik',
       descripcion: 'Inicio de operaciones con el primer uroflujómetro en Colonia del Valle'
     },
     {
-      año: '2021',
-      evento: 'Expansión de Servicios',
-      descripcion: 'Incorporación de estudios de urodinamia y ampliación del equipo médico'
-    },
-    {
-      año: '2022',
+      año: '2018',
       evento: 'Especialización Pediátrica',
       descripcion: 'Apertura del centro especializado en Hospital Infantil Privado'
+    },
+    {
+      año: '2020',
+      evento: 'Expansión de Servicios',
+      descripcion: 'Incorporación de estudios de urodinamia y ampliación del equipo médico'
     },
     {
       año: '2023',
@@ -101,7 +101,7 @@ const NosotrosPage = () => {
 
   const estadisticas = [
     {
-      numero: '5,000+',
+      numero: '1,000+',
       descripcion: 'Estudios Realizados',
       icon: <Stethoscope className="h-6 w-6 text-primary" />
     },
@@ -132,7 +132,7 @@ const NosotrosPage = () => {
               Sobre Urologik
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Democratizando el acceso a estudios urológicos especializados a través de 
+              Acercando estudios urológicos especializados a través de 
               I.A. biomédica y atención de excelencia.
             </p>
           </div>
@@ -152,7 +152,7 @@ const NosotrosPage = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground text-lg leading-relaxed">
-                  Democratizar el acceso a estudios urológicos especializados mediante I.A. 
+                  Facilitar el acceso a estudios urológicos especializados mediante I.A. 
                   biomédica, brindando diagnósticos precisos y oportunos que mejoren la 
                   calidad de vida de nuestros pacientes y apoyen a los profesionales de la salud 
                   en su práctica clínica.
