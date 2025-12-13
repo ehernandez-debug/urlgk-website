@@ -2,6 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import CookieConsentBanner from './CookieConsentBanner';
 
 const Layout = () => {
   const location = useLocation();
@@ -17,6 +18,7 @@ const Layout = () => {
         <Outlet />
       </main>
       <Footer />
+      <CookieConsentBanner />
     </div>
   );
 };

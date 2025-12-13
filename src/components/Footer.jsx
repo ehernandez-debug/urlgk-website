@@ -114,13 +114,13 @@ const Footer = () => {
               © 2025 Urologik. Todos los derechos reservados.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/privacidad" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-                Política de Privacidad
+              <Link to="/aviso-de-privacidad" className="text-muted-foreground hover:text-primary text-sm transition-colors">
+                Aviso de Privacidad
               </Link>
-              <Link to="/terminos" className="text-muted-foreground hover:text-primary text-sm transition-colors">
+              <Link to="/terminos-de-uso" className="text-muted-foreground hover:text-primary text-sm transition-colors">
                 Términos de Uso
               </Link>
-              <Link to="/cookies" className="text-muted-foreground hover:text-primary text-sm transition-colors">
+              <Link to="/politica-de-cookies" className="text-muted-foreground hover:text-primary text-sm transition-colors">
                 Cookies
               </Link>
             </div>
