@@ -3,10 +3,12 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Phone, Calendar } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import Logo from './Logo'
+import useAnalytics from '@/hooks/useAnalytics'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
   const location = useLocation()
+  const { trackLead } = useAnalytics()
 
   const navigation = [
     { name: 'Inicio', href: '/' },
@@ -46,12 +48,18 @@ const Navbar = () => {
 
           {/* Desktop CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="transition-all duration-200 hover:scale-110">
-              <Button variant="outline" size="sm" className="flex items-center space-x-2">
-                <Phone className="h-4 w-4" />
-                <span>55-35-05-59-83</span>
-              </Button>
-            </a>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center space-x-2 transition-all duration-200 hover:scale-110"
+              onClick={() => {
+                trackLead('paciente', 'whatsapp', { source: 'navbar_desktop' });
+                window.open('https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik', '_blank', 'noopener,noreferrer');
+              }}
+            >
+              <Phone className="h-4 w-4" />
+              <span>55-35-05-59-83</span>
+            </Button>
             <Link to="/contacto" className="transition-all duration-200 hover:scale-110">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
@@ -98,12 +106,18 @@ const Navbar = () => {
               
               {/* Mobile CTA Buttons */}
               <div className="pt-4 space-y-2">
-                <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="block w-full transition-all duration-200 hover:scale-105">
-                  <Button variant="outline" className="w-full flex items-center justify-center space-x-2">
-                    <Phone className="h-4 w-4" />
-                    <span>55-35-05-59-83</span>
-                  </Button>
-                </a>
+                <Button 
+                  variant="outline" 
+                  className="w-full flex items-center justify-center space-x-2 transition-all duration-200 hover:scale-105"
+                  onClick={() => {
+                    trackLead('paciente', 'whatsapp', { source: 'navbar_mobile' });
+                    setIsOpen(false);
+                    window.open('https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik', '_blank', 'noopener,noreferrer');
+                  }}
+                >
+                  <Phone className="h-4 w-4" />
+                  <span>55-35-05-59-83</span>
+                </Button>
                 <Link to="/contacto" onClick={() => setIsOpen(false)} className="block w-full transition-all duration-200 hover:scale-105">
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />

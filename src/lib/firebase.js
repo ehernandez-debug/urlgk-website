@@ -2,6 +2,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 const firebaseConfig = {
@@ -18,6 +19,19 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Initialize Analytics (only in browser and if supported)
+let analytics = null;
+if (typeof window !== 'undefined') {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+      console.log('✅ Google Analytics initialized successfully');
+    }
+  }).catch((error) => {
+    console.warn('⚠️ Analytics not supported:', error);
+  });
+}
+
 // In dev, permitir token debug solo si VITE_APPCHECK_DEBUG === "true"
 if (import.meta.env.VITE_APPCHECK_DEBUG === "true") {
   // @ts-ignore
@@ -29,4 +43,4 @@ initializeAppCheck(app, {
   isTokenAutoRefreshEnabled: true,
 });
 
-export { db };
+export { db, analytics };

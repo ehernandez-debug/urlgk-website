@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import useAnalytics from '@/hooks/useAnalytics';
 import { Helmet } from 'react-helmet-async';
 import { 
   Users, 
@@ -19,12 +20,14 @@ import {
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import WhatsAppButton from '@/components/tracking/WhatsAppButton';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { catalogoServicios, calcularHonorariosColaboracion } from '@/lib/catalogo-servicios';
 
 const MedicosPage = () => {
+  const { trackCalculation } = useAnalytics();
   const [servicioSeleccionado, setServicioSeleccionado] = useState('uroflujometria-premium');
   const [numeroEstudios, setNumeroEstudios] = useState(10);
 
@@ -32,6 +35,22 @@ const MedicosPage = () => {
   const todosLosServicios = [...catalogoServicios.adultos, ...catalogoServicios.pediatricos];
   const servicio = todosLosServicios.find(s => s.id === servicioSeleccionado);
   const honorarios = servicio ? calcularHonorariosColaboracion(servicio.precio, numeroEstudios) : null;
+
+  // Tracking de interacciones con la calculadora
+  useEffect(() => {
+    if (honorarios && servicio) {
+      // Registrar el cálculo después de un pequeño delay para evitar múltiples eventos
+      const timeoutId = setTimeout(() => {
+        trackCalculation(
+          servicioSeleccionado,
+          numeroEstudios,
+          honorarios.honorariosTotales
+        );
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [servicioSeleccionado, numeroEstudios, honorarios, servicio, trackCalculation]);
 
   const formasColaboracion = [
     {
@@ -171,11 +190,16 @@ const MedicosPage = () => {
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>
                 </Button>
-                <Button size="lg" variant="outline" className="text-lg px-8" asChild>
-                  <a href="https://wa.me/5215535055983?text=Hola,%20soy%20médico%20y%20me%20interesa%20colaborar%20con%20Urologik" target="_blank" rel="noopener noreferrer">
-                    Contactar por WhatsApp
-                  </a>
-                </Button>
+                <WhatsAppButton 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-8"
+                  leadType="medico"
+                  source="medicos_hero"
+                  message="Hola, soy médico y me interesa colaborar con Urologik"
+                >
+                  Contactar por WhatsApp
+                </WhatsAppButton>
               </div>
 
               {/* Stats */}
@@ -559,12 +583,17 @@ const MedicosPage = () => {
                   Agendar Demostración
                 </a>
               </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8" asChild>
-                <a href="https://wa.me/5215535055983?text=Hola,%20soy%20médico%20y%20me%20interesa%20colaborar%20con%20Urologik" target="_blank" rel="noopener noreferrer">
-                  <PhoneCall className="mr-2 h-5 w-5" />
-                  Contactar por WhatsApp
-                </a>
-              </Button>
+              <WhatsAppButton 
+                size="lg" 
+                variant="outline" 
+                className="text-lg px-8"
+                leadType="medico"
+                source="medicos_cta_final"
+                message="Hola, soy médico y me interesa colaborar con Urologik"
+              >
+                <PhoneCall className="mr-2 h-5 w-5" />
+                Contactar por WhatsApp
+              </WhatsAppButton>
             </div>
 
             <p className="text-sm text-muted-foreground mt-8">

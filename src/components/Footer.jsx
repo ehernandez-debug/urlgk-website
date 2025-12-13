@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
 import { Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react'
 import urologikLogo from '../assets/urologik-logo.png'
+import useAnalytics from '@/hooks/useAnalytics'
 
 const Footer = () => {
+  const { trackLead } = useAnalytics();
+  
   return (
     <footer className="bg-muted/30 border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -90,7 +93,15 @@ const Footer = () => {
             <div className="space-y-3 text-sm">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-primary flex-shrink-0" />
-                <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">55-35-05-59-83</a>
+                <a 
+                  href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                  onClick={() => trackLead('paciente', 'whatsapp', { source: 'footer' })}
+                >
+                  55-35-05-59-83
+                </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
