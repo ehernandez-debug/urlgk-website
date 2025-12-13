@@ -8,7 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { getAgendarUrl, getWhatsAppUrl } from '@/lib/cta';
+import { getAgendarUrl } from '@/lib/cta';
 import { servicesData } from '@/lib/servicios-data.jsx';
 import IndicacionesPorPatologia from '@/components/IndicacionesPorPatologia';
 
@@ -45,6 +45,26 @@ const ServicioPage = () => {
       });
     }
   };
+  
+  const getWhatsAppUrl = (slug) => {
+    const base = 'https://wa.me/5215535055983';
+    let msg = '¡Hola! Quiero saber más sobre Urologik.'; // Mensaje por defecto
+
+    if (slug === 'uroflujometria-pediatrica-emg') {
+      msg = 'Estoy interesado en el estudio Uroflujometría Pediátrica con EMG ID:0007';
+    } else if (slug === 'urodinamia-multicanal') {
+      msg = 'Estoy interesado en el estudio Urodinamia Multicanal y EMG ID:0006';
+    } else if (slug === 'uroflujometria-premium') {
+      msg = 'Estoy interesado en el estudio Uroflujometría Premium ID:0004';
+    } else if (slug === 'uroflujometria-basica') {
+      msg = 'Estoy interesado en el estudio Uroflujometría Básica ID:0003';
+    } else if (slug === 'check-up-total') {
+      msg = 'Estoy interesado en el estudio check-up-total ID:0005';
+    }
+    
+    return `${base}?text=${encodeURIComponent(msg)}`;
+  };
+
 
   const testimonials = [
     {
@@ -78,7 +98,7 @@ const ServicioPage = () => {
     );
   }
 
-  const pediatriaCalendlySlugs = ['urodinamia-multicanal', 'urodinamia-emg-upp', 'uroflujometria-pediatrica-emg'];
+  const pediatriaCalendlySlugs = ['urodinamia-multicanal', 'uroflujometria-pediatrica-emg'];
   const adultosCalendlySlugs = ['uroflujometria-basica', 'uroflujometria-ultrasonido', 'uroflujometria-interpretacion'];
 
   const isCalendlyService = 
@@ -156,21 +176,21 @@ const ServicioPage = () => {
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8">{service.subtitle}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                 {isCalendlyService ? (
-                  <Button size="lg" onClick={() => {
+                  <Button size="lg" className="transform hover:scale-105 transition-transform" onClick={() => {
                     handleCtaClick('agendar', 'hero');
                     window.Calendly.initPopupWidget({ url: getCalendlyUrl() });
                   }}>
                     <ArrowRight className="h-5 w-5 mr-2" /> Agendar Estudio
                   </Button>
                 ) : (
-                  <Button size="lg" asChild>
+                  <Button size="lg" asChild className="transform hover:scale-105 transition-transform">
                     <Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'hero')}>
                       <ArrowRight className="h-5 w-5 mr-2" /> Agendar Estudio
                     </Link>
                   </Button>
                 )}
-                <Button size="lg" variant="outline" asChild>
-                  <a href="https://wa.me/5215535055983?text=Hola!%2C%20me%20interesa%20conocer%20mas%20sobre%20Urologik" target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
+                <Button size="lg" variant="outline" asChild className="transform hover:scale-105 transition-transform">
+                  <a href="https://wa.me/5215535055983?text=%C2%A1Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Urologik." target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
                     <MessageCircle className="h-5 w-5 mr-2" /> Contactar
                   </a>
                 </Button>
@@ -209,29 +229,30 @@ const ServicioPage = () => {
 
           <aside className="space-y-8 lg:sticky lg:top-24 self-start">
             <Card className="shadow-lg border-primary/20">
-              {service.precio && (
-                <CardHeader className="text-center"><p className="text-sm font-medium text-muted-foreground">Precio</p><p className="text-4xl font-bold text-primary">{service.precio}</p></CardHeader>
-              )}
+              <CardHeader className="text-center">
+                <p className="text-sm font-medium text-muted-foreground">Precio</p>
+                <p className="text-4xl font-bold text-primary">{service.precio}</p>
+              </CardHeader>
               <CardContent className="space-y-6 pt-6">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3"><Clock className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Duración:</span> <span className="text-muted-foreground">{service.duracion}</span></p></div>
                   <div className="flex items-center space-x-3"><FileText className="h-6 w-6 text-primary/80" /><p><span className="font-semibold">Preparación:</span> <span className="text-muted-foreground">{service.preparacion}</span></p></div>
                 </div>
                 {isCalendlyService ? (
-                  <Button size="lg" className="w-full text-base" onClick={() => {
+                  <Button size="lg" className="w-full text-base transform hover:scale-105 transition-transform" onClick={() => {
                     handleCtaClick('agendar', 'sidebar');
                     window.Calendly.initPopupWidget({ url: getCalendlyUrl() });
                   }}>
                     Agendar Estudio
                   </Button>
                 ) : (
-                  <Button size="lg" className="w-full text-base" asChild>
+                  <Button size="lg" className="w-full text-base transform hover:scale-105 transition-transform" asChild>
                     <Link to={getAgendarUrl(serviceSlug, location.search)} onClick={() => handleCtaClick('agendar', 'sidebar')}>
                       Agendar Estudio
                     </Link>
                   </Button>
                 )}
-                <Button size="lg" variant="outline" className="w-full text-base" asChild><a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'sidebar')}><MessageCircle className="h-5 w-5 mr-2" /> Contactar por WhatsApp</a></Button>
+                <Button size="lg" variant="outline" className="w-full text-base transform hover:scale-105 transition-transform" asChild><a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'sidebar')}><MessageCircle className="h-5 w-5 mr-2" /> Contactar por WhatsApp</a></Button>
               </CardContent>
             </Card>
 

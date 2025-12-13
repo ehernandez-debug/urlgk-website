@@ -36,6 +36,9 @@ const PacientesPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [countdown, setCountdown] = useState('23:59:59')
+  const [button1Color, setButton1Color] = useState('bg-primary');
+  const [button2Color, setButton2Color] = useState('bg-primary');
+
 
   const calendlyLinks = {
     'colonia-del-valle': 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1',
@@ -218,29 +221,47 @@ const PacientesPage = () => {
                         <div className="flex flex-col sm:flex-row justify-center gap-6">
                           <Card
                             className="cursor-pointer transition-all duration-300 w-full sm:w-1/2 hover:shadow-md hover:scale-105"
-                            onClick={(e) => openCalendly(e, 'colonia-del-valle')}
                           >
                             <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
                               <User className="h-12 w-12 text-primary mb-3" />
-                              <p className="font-semibold text-lg mb-1">Colonia del Valle</p>
-                              <p className="text-sm text-muted-foreground mb-3">(Adultos)</p>
+                              <p className="text-lg font-semibold text-primary mb-1">(Adultos)</p>
+                              <p className="font-semibold text-lg mb-3">Colonia del Valle</p>
                               <p className="text-sm text-muted-foreground text-center">
                                 Servicios de diagnóstico para adultos, enfocados en la detección y manejo de trastornos urinarios.
                               </p>
+                              <Button
+                                className={`mt-4 ${button1Color}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setButton1Color('bg-green-500');
+                                  openCalendly(e, 'colonia-del-valle');
+                                }}
+                              >
+                                Haz clic aquí
+                              </Button>
                             </CardContent>
                           </Card>
                           
                           <Card
                             className="cursor-pointer transition-all duration-300 w-full sm:w-1/2 hover:shadow-md hover:scale-105"
-                            onClick={(e) => openCalendly(e, 'hospital-infantil')}
                           >
                             <CardContent className="p-6 text-center flex flex-col items-center justify-start h-full">
                               <Baby className="h-12 w-12 text-primary mb-3" />
-                              <p className="font-semibold text-lg mb-1">Hospital Infantil Privado</p>
-                              <p className="text-sm text-muted-foreground mb-3">(Niños)</p>
+                              <p className="text-lg font-semibold text-primary mb-1">(Niños)</p>
+                              <p className="font-semibold text-lg mb-3">Hospital Infantil Privado</p>
                               <p className="text-sm text-muted-foreground text-center">
                                 Estudios especializados para el diagnóstico y tratamiento de patologías urológicas en niños y adolescentes.
                               </p>
+                              <Button
+                                className={`mt-4 ${button2Color}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setButton2Color('bg-green-500');
+                                  openCalendly(e, 'hospital-infantil');
+                                }}
+                              >
+                                Haz clic aquí
+                              </Button>
                             </CardContent>
                           </Card>
                         </div>
