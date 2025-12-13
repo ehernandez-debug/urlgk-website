@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import useAnalytics from '@/hooks/useAnalytics';
+import CalendlyButton from '@/components/tracking/CalendlyButton';
 import { Helmet } from 'react-helmet-async';
 import { 
   Users, 
@@ -184,12 +185,16 @@ const MedicosPage = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Button size="lg" className="text-lg px-8" asChild>
-                  <a href="https://calendly.com/contactourologik/30min" target="_blank" rel="noopener noreferrer">
-                    Agendar Demostración
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                </Button>
+                <CalendlyButton
+                  url="https://calendly.com/contactourologik/30min"
+                  size="lg"
+                  className="text-lg px-8"
+                  leadType="medico"
+                  source="medicos_hero"
+                >
+                  Agendar Demostración
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </CalendlyButton>
                 <WhatsAppButton 
                   size="lg" 
                   variant="outline" 
@@ -577,12 +582,16 @@ const MedicosPage = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="text-lg px-8" asChild>
-                <a href="https://calendly.com/contactourologik/30min" target="_blank" rel="noopener noreferrer">
-                  <Calendar className="mr-2 h-5 w-5" />
-                  Agendar Demostración
-                </a>
-              </Button>
+              <CalendlyButton
+                url="https://calendly.com/contactourologik/30min"
+                size="lg"
+                className="text-lg px-8"
+                leadType="medico"
+                source="medicos_cta_final"
+              >
+                <Calendar className="mr-2 h-5 w-5" />
+                Agendar Demostración
+              </CalendlyButton>
               <WhatsAppButton 
                 size="lg" 
                 variant="outline" 

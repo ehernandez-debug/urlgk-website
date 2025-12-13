@@ -60,7 +60,7 @@ const Navbar = () => {
               <Phone className="h-4 w-4" />
               <span>55-35-05-59-83</span>
             </Button>
-            <Link to="/contacto" className="transition-all duration-200 hover:scale-110">
+            <Link to="/contacto" onClick={() => trackEvent('cta_click', { cta_type: 'agendar_cita', source: 'navbar_desktop' })} className="transition-all duration-200 hover:scale-105">
               <Button className="cta-button flex items-center space-x-2">
                 <Calendar className="h-4 w-4" />
                 <span>Agendar Cita</span>
@@ -118,7 +118,7 @@ const Navbar = () => {
                   <Phone className="h-4 w-4" />
                   <span>55-35-05-59-83</span>
                 </Button>
-                <Link to="/contacto" onClick={() => setIsOpen(false)} className="block w-full transition-all duration-200 hover:scale-105">
+                <Link to="/contacto" onClick={() => { trackEvent('cta_click', { cta_type: 'agendar_cita', source: 'navbar_mobile' }); setIsOpen(false); }} className="block w-full transition-all duration-200 hover:scale-105">
                   <Button className="w-full cta-button flex items-center justify-center space-x-2">
                     <Calendar className="h-4 w-4" />
                     <span>Agendar Cita</span>
