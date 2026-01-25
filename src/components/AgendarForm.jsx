@@ -25,7 +25,7 @@ export default function AgendarForm({ service }) {
                 `Email: ${formData.email}\n` +
                 `Fecha/hora preferida: ${formData.datetime}\n` +
                 `Notas: ${formData.notes}`;
-    const url = `https://wa.me/525552132072?text=${encodeURIComponent(msg)}`;
+    const url = `https://wa.me/5215535055983?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 

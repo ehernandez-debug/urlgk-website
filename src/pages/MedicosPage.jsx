@@ -164,7 +164,7 @@ const MedicosPage = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <CalendlyButton
-                  url="https://calendly.com/contactourologik/30min"
+                  url="https://calendly.com/urologik/medicos-interesados"
                   size="lg"
                   className="text-lg px-8"
                   leadType="medico"
@@ -612,7 +612,7 @@ const MedicosPage = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CalendlyButton
-                url="https://calendly.com/contactourologik/30min"
+                url="https://calendly.com/urologik/medicos-interesados"
                 size="lg"
                 className="text-lg px-8"
                 leadType="medico"
