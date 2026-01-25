@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { Calendar, CreditCard, FileCheck, Hospital, MessageCircleQuestion } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import FAQGenerales from '@/components/FAQGenerales';
+import useAnalytics from '@/hooks/useAnalytics';
+import WhatsAppButton from '@/components/tracking/WhatsAppButton';
 
 const steps = [
   {
@@ -59,6 +60,7 @@ const formatDoctorName = (slug) => {
 };
 
 const PacientesPage = () => {
+  const { trackEvent } = useAnalytics();
   const { medico } = useParams();
   const doctorName = formatDoctorName(medico);
 
@@ -85,9 +87,13 @@ const PacientesPage = () => {
               funciona nuestro servicio de guante blanco.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button asChild size="lg" className="px-10 py-6 text-base">
-                <Link to="/agendar">Agendar mi Estudio Ahora</Link>
-              </Button>
+              <WhatsAppButton
+                onClick={() => trackEvent('click', 'cta_agendar_paciente_hero', { doctor: doctorName })}
+                message={`Hola, el Dr. ${doctorName} me ha referido para un estudio. ¿Podrían ayudarme a agendar mi cita?`}
+                label="Agendar mi Estudio Ahora"
+                size="lg"
+                className="px-10 py-6 text-base"
+              />
             </div>
           </div>
         </section>
@@ -144,9 +150,13 @@ const PacientesPage = () => {
               ))}
             </div>
             <div className="mt-12 flex justify-center">
-              <Button asChild size="lg" className="px-12 py-6 text-base">
-                <Link to="/agendar">Agendar mi Estudio Ahora</Link>
-              </Button>
+              <WhatsAppButton
+                onClick={() => trackEvent('click', 'cta_agendar_paciente_faq', { doctor: doctorName })}
+                message={`Hola, el Dr. ${doctorName} me ha referido para un estudio y tengo algunas preguntas. ¿Podrían ayudarme?`}
+                label="Agendar mi Estudio Ahora"
+                size="lg"
+                className="px-12 py-6 text-base"
+              />
             </div>
           </div>
         </section>
