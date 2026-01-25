@@ -1,12 +1,9 @@
-import { useState, useEffect } from 'react';
-import useAnalytics from '@/hooks/useAnalytics';
 import CalendlyButton from '@/components/tracking/CalendlyButton';
 import { Helmet } from 'react-helmet-async';
 import { 
   Users, 
   TrendingUp, 
   CheckCircle, 
-  Calculator,
   QrCode,
   Globe,
   PhoneCall,
@@ -20,43 +17,14 @@ import {
   Calendar,
   Cpu,
   Package,
+  Award,
   UserCheck,
   Wrench
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import WhatsAppButton from '@/components/tracking/WhatsAppButton';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { catalogoServicios, calcularHonorariosColaboracion } from '@/lib/catalogo-servicios';
 
 const MedicosPage = () => {
-  const { trackCalculation } = useAnalytics();
-  const [servicioSeleccionado, setServicioSeleccionado] = useState('uroflujometria-premium');
-  const [numeroEstudios, setNumeroEstudios] = useState(10);
-
-  // Obtener todos los servicios para el selector
-  const todosLosServicios = [...catalogoServicios.adultos, ...catalogoServicios.pediatricos];
-  const servicio = todosLosServicios.find(s => s.id === servicioSeleccionado);
-  const honorarios = servicio ? calcularHonorariosColaboracion(servicio.precio, numeroEstudios) : null;
-
-  // Tracking de interacciones con la calculadora
-  useEffect(() => {
-    if (honorarios && servicio) {
-      // Registrar el cálculo después de un pequeño delay para evitar múltiples eventos
-      const timeoutId = setTimeout(() => {
-        trackCalculation(
-          servicioSeleccionado,
-          numeroEstudios,
-          honorarios.honorariosTotales
-        );
-      }, 500);
-
-      return () => clearTimeout(timeoutId);
-    }
-  }, [servicioSeleccionado, numeroEstudios, honorarios, servicio, trackCalculation]);
-
   const formasColaboracion = [
     {
       icon: <QrCode className="h-8 w-8 text-primary" />,
@@ -128,12 +96,6 @@ const MedicosPage = () => {
       descripcion: 'Urologik emite el pago de honorarios por tu colaboración diagnóstica activa.'
     }
   ];
-
-  const ingresosComparativos = [0, 10, 20, 30].map((cantidad) => ({
-    cantidad,
-    total: servicio ? calcularHonorariosColaboracion(servicio.precio, cantidad).honorariosTotales : 0
-  }));
-  const maxIngreso = Math.max(...ingresosComparativos.map((item) => item.total), honorarios?.honorariosTotales || 0, 1);
 
   return (
     <>
@@ -297,108 +259,203 @@ const MedicosPage = () => {
           </div>
         </section>
 
-        {/* Calculadora de Honorarios */}
-        <section className="section-padding bg-muted/30">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Proyección de Ingresos por Colaboración */}
+        <section className="section-padding bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <Calculator className="h-12 w-12 text-primary mx-auto mb-4" />
+              <TrendingUp className="h-12 w-12 text-primary mx-auto mb-4" />
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-                Proyecta tus Ingresos Adicionales
+                Proyecta tus Ingresos Adicionales por Colaboración
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Ajusta el tipo de estudio y el número de pacientes para visualizar tu ganancia mensual estimada.
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Incrementa tus ingresos mensuales sin inversión ni carga operativa, basado en tu participación activa en el proceso diagnóstico.
               </p>
             </div>
 
-            <Card className="medical-card">
-              <CardContent className="pt-6 space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <Label htmlFor="servicio">Tipo de Estudio</Label>
-                    <Select value={servicioSeleccionado} onValueChange={setServicioSeleccionado}>
-                      <SelectTrigger id="servicio">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="uroflujometria-basica">Uroflujometría Básica - $1,900</SelectItem>
-                        <SelectItem value="uroflujometria-premium">Uroflujometría Premium - $3,500</SelectItem>
-                        <SelectItem value="uroflujometria-pediatrica">Uroflujometría Pediátrica - $3,000</SelectItem>
-                        <SelectItem value="urodinamia-pediatrica">Urodinamia Multicanal - $10,000</SelectItem>
-                      </SelectContent>
-                    </Select>
+            <Card className="max-w-4xl mx-auto medical-card">
+              <CardContent className="p-8">
+                <div className="space-y-6">
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <p className="text-sm font-semibold text-muted-foreground mb-2">
+                      Con 5-10 estudios al mes:
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 bg-muted rounded-full h-3">
+                        <div className="bg-primary h-3 rounded-full transition-all duration-500" style={{ width: '40%' }}></div>
+                      </div>
+                      <p className="text-xl font-bold text-primary whitespace-nowrap">
+                        $15,000 - $30,000 MXN
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between">
-                      <Label htmlFor="estudios">Número de estudios al mes</Label>
-                      <span className="text-sm font-semibold text-primary">{numeroEstudios}</span>
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <p className="text-sm font-semibold text-muted-foreground mb-2">
+                      Con 15-20 estudios al mes:
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 bg-muted rounded-full h-3">
+                        <div className="bg-primary h-3 rounded-full transition-all duration-500" style={{ width: '70%' }}></div>
+                      </div>
+                      <p className="text-xl font-bold text-primary whitespace-nowrap">
+                        $45,000 - $60,000 MXN
+                      </p>
                     </div>
-                    <Input
-                      id="estudios"
-                      type="range"
-                      min="1"
-                      max="50"
-                      value={numeroEstudios}
-                      onChange={(e) => setNumeroEstudios(parseInt(e.target.value, 10))}
-                      className="mt-4"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground mt-2">
-                      <span>1</span>
-                      <span>50</span>
+                  </div>
+
+                  <div className="p-4 bg-muted/30 rounded-lg">
+                    <p className="text-sm font-semibold text-muted-foreground mb-2">
+                      Con más de 25 estudios al mes:
+                    </p>
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 bg-muted rounded-full h-3">
+                        <div className="bg-primary h-3 rounded-full transition-all duration-500" style={{ width: '100%' }}></div>
+                      </div>
+                      <p className="text-xl font-bold text-primary whitespace-nowrap">
+                        $75,000+ MXN
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                {honorarios && (
-                  <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-6">
-                    <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/20">
-                      <div className="text-sm text-muted-foreground mb-2">Ganancia mensual estimada</div>
-                      <div className="text-4xl font-bold text-primary mb-4">
-                        ${honorarios.honorariosTotales.toLocaleString()} MXN
-                      </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm text-muted-foreground">
-                        <div>
-                          <div className="uppercase tracking-wide text-xs text-muted-foreground">Precio del estudio</div>
-                          <div className="text-base font-semibold text-foreground">
-                            ${servicio.precio.toLocaleString()} MXN
-                          </div>
-                        </div>
-                        <div>
-                          <div className="uppercase tracking-wide text-xs text-muted-foreground">Honorarios por estudio</div>
-                          <div className="text-base font-semibold text-foreground">
-                            ${honorarios.honorariosPorEstudio.toLocaleString()} MXN
-                          </div>
-                        </div>
-                      </div>
-                      <p className="text-xs text-muted-foreground mt-4">
-                        Los honorarios reflejan tu participación activa en evaluación, indicación, revisión y seguimiento clínico.
-                      </p>
-                    </div>
+                <div className="mt-8 p-4 bg-accent/10 rounded-lg border border-accent/20">
+                  <p className="text-sm text-muted-foreground text-center">
+                    <strong>Nota:</strong> Cifras estimadas. El cálculo exacto se personaliza según el tipo de estudio y el nivel de participación diagnóstica. Los honorarios corresponden a tu colaboración activa en el proceso clínico, no por el acto de referir.
+                  </p>
+                </div>
 
-                    <div className="bg-background rounded-xl p-6 border border-border">
-                      <div className="text-sm text-muted-foreground mb-4">Comparativo mensual</div>
-                      <div className="flex items-end justify-between gap-4 h-40">
-                        {ingresosComparativos.map((item) => (
-                          <div key={item.cantidad} className="flex flex-col items-center flex-1">
-                            <div
-                              className="w-full rounded-lg bg-primary/20 flex items-end"
-                              style={{ height: `${Math.max((item.total / maxIngreso) * 100, 6)}%` }}
-                            >
-                              <div className="w-full rounded-lg bg-primary/70" style={{ height: '100%' }}></div>
-                            </div>
-                            <span className="text-xs text-muted-foreground mt-2">{item.cantidad} est.</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                <div className="text-center mt-6">
+                  <CalendlyButton
+                    url="https://calendly.com/urologik/medicos-interesados"
+                    size="lg"
+                    className="text-lg px-8"
+                    leadType="medico"
+                    source="medicos_proyeccion_ingresos"
+                  >
+                    Agendar Demo para Ver Cálculo Personalizado
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </CalendlyButton>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Portafolio de Capacidades Diagnósticas */}
+        <section className="section-padding bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <Package className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Un Portafolio Diagnóstico a tu Servicio
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Ofrece a tus pacientes estudios de vanguardia sin la complejidad técnica ni la inversión en capital.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <Card className="medical-card">
+                <CardHeader>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Zap className="h-6 w-6 text-primary" />
+                    <CardTitle className="text-xl">Uroflujometría con EMG</CardTitle>
                   </div>
-                )}
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base mb-4">
+                    Diagnóstico no invasivo de la calidad del flujo urinario, ideal para la evaluación inicial de la función del tracto urinario inferior.
+                  </CardDescription>
+                  <div className="flex items-center space-x-2">
+                    <UserCheck className="h-4 w-4 text-accent" />
+                    <span className="text-sm font-semibold text-accent">Adultos y Pediátricos</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="medical-card border-2 border-primary">
+                <CardHeader>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Cpu className="h-6 w-6 text-primary" />
+                    <CardTitle className="text-xl">Urodinamia Multicanal</CardTitle>
+                  </div>
+                  <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded-full">
+                    Más Solicitado
+                  </span>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base mb-4">
+                    Evaluación completa de las fases de llenado y vaciado vesical para un diagnóstico preciso de disfunciones complejas.
+                  </CardDescription>
+                  <div className="flex items-center space-x-2">
+                    <UserCheck className="h-4 w-4 text-accent" />
+                    <span className="text-sm font-semibold text-accent">Casos Avanzados</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="medical-card">
+                <CardHeader>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Award className="h-6 w-6 text-primary" />
+                    <CardTitle className="text-xl">Videourodinamia</CardTitle>
+                  </div>
+                  <span className="inline-block bg-accent/10 text-accent text-xs font-bold px-2 py-1 rounded-full">
+                    Gold Standard
+                  </span>
+                </CardHeader>
+                <CardContent>
+                  <CardDescription className="text-base mb-4">
+                    El estándar de oro: sincronización de datos urodinámicos con imágenes de Rayos X para la máxima precisión diagnóstica.
+                  </CardDescription>
+                  <div className="flex items-center space-x-2">
+                    <UserCheck className="h-4 w-4 text-accent" />
+                    <span className="text-sm font-semibold text-accent">Casos Complejos</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="max-w-4xl mx-auto mt-8 medical-card bg-muted/50">
+              <CardContent className="p-6">
+                <h4 className="font-bold text-foreground mb-4 flex items-center">
+                  <CheckCircle className="h-5 w-5 text-primary mr-2" />
+                  Todos nuestros estudios incluyen:
+                </h4>
+                <div className="grid md:grid-cols-2 gap-3 text-sm text-muted-foreground">
+                  <div className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Tecnología de última generación con análisis asistido por I.A. biomédica</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Soporte de un Ingeniero Biomédico certificado durante el estudio</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Entrega de reportes profesionales en formato digital (24-48h)</span>
+                  </div>
+                  <div className="flex items-start space-x-2">
+                    <CheckCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
+                    <span>Interpretación médica por especialistas disponible según paquete</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
 
-            <p className="text-sm text-muted-foreground text-center mt-6">
-              Nuestros médicos aliados más activos generan más de $30,000 MXN mensuales en ingresos adicionales, simplemente enfocándose en el diagnóstico.
-            </p>
+            <div className="text-center mt-8">
+              <WhatsAppButton
+                size="lg"
+                variant="outline"
+                className="text-lg px-8"
+                leadType="medico"
+                source="medicos_solicitar_catalogo"
+                message="Hola, soy médico y me gustaría recibir el catálogo completo de estudios con precios para médicos colaboradores."
+              >
+                <FileText className="mr-2 h-5 w-5" />
+                Solicitar Catálogo Completo por WhatsApp
+              </WhatsAppButton>
+            </div>
           </div>
         </section>
 
