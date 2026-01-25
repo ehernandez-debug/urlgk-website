@@ -3,6 +3,7 @@ import { Calendar, CreditCard, FileCheck, Hospital, MessageCircleQuestion } from
 import { Link, useParams } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import FAQGenerales from '@/components/FAQGenerales';
 
 const steps = [
   {
@@ -147,6 +148,13 @@ const PacientesPage = () => {
                 <Link to="/agendar">Agendar mi Estudio Ahora</Link>
               </Button>
             </div>
+          </div>
+        </section>
+
+        {/* Sección de FAQ Generales */}
+        <section className="section-padding bg-muted/30">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <FAQGenerales />
           </div>
         </section>
       </div>
