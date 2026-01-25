@@ -29,7 +29,7 @@ const EspecialidadPage = ({ title, description, estudios, especialidad }) => {
           </div>
           <div className={gridLayout}>
             {estudios.map((estudio) => (
-              <Card key={estudio.slug} className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+              <Card key={estudio.id} className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-xl">{estudio.title}</CardTitle>
                   <CardDescription className="pt-2">{estudio.description}</CardDescription>
@@ -45,7 +45,7 @@ const EspecialidadPage = ({ title, description, estudios, especialidad }) => {
                     ))}
                   </ul>
                   <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Link to={`/servicios/${especialidad}/${estudio.slug}`}>
+                    <Link to={`/servicios/${especialidad}/${estudio.id}`}>
                       Ver Detalles <ArrowRight className="h-4 w-4 ml-2" />
                     </Link>
                   </Button>
