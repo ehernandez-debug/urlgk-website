@@ -15,6 +15,7 @@ export const servicesData = {
             'Enuresis (mojar la cama) que no responde a tratamiento.',
             'Incontinencia urinaria diurna o nocturna.',
             'Disfunción miccional severa.',
+            'Vejiga hiperactiva que no responde a tratamiento inicial.',
             'Evaluación pre y postquirúrgica de vías urinarias.',
             'Anomalías congénitas del tracto urinario.'
         ],
@@ -45,9 +46,9 @@ export const servicesData = {
     },
     'videourodinamia-multicanal': {
         title: 'Videourodinamia Multicanal',
-        subtitle: 'El estándar de oro con visualización endoscópica en tiempo real.',
+        subtitle: 'El estándar de oro con visualización fluoroscópica en tiempo real.',
         icon: <Video className="h-12 w-12 text-primary" />,
-        description: 'Este estudio avanzado combina la urodinamia multicanal con una cistoscopia para visualizar la anatomía de la vejiga y la uretra durante el llenado y vaciado. Permite correlacionar los hallazgos de presión y flujo con imágenes directas, ofreciendo el diagnóstico más completo posible.',
+        description: 'Este estudio avanzado combina la urodinamia multicanal con fluoroscopia (rayos X en tiempo real) para visualizar la anatomía y función de la vejiga y la uretra durante el llenado y vaciado. Permite correlacionar los hallazgos de presión y flujo con imágenes radiológicas directas, ofreciendo el diagnóstico más completo posible para casos complejos.',
         duracion: '1 - 2.5 horas',
         preparacion: 'Requiere preparación intestinal leve el día anterior. Llegar con ganas de orinar. Traer estudios previos.',
         precio: 'Desde $18,000 MXN',
@@ -61,8 +62,8 @@ export const servicesData = {
         ],
         proceso: [
             'Preparación y colocación de catéteres pediátricos y electrodos de EMG.',
-            'Introducción de un cistoscopio de pequeño calibre a través de la uretra.',
-            'Llenado de la vejiga con solución salina a través del cistoscopio, permitiendo la visualización directa.',
+            'Colocación del equipo de fluoroscopia para visualización en tiempo real con rayos X.',
+            'Llenado de la vejiga con medio de contraste radiopaco a través del catéter, permitiendo la visualización fluoroscópica.',
             'Registro simultáneo de presiones, flujo, actividad muscular e imágenes de video.',
             'Fase de micción para evaluar la apertura del cuello vesical y la uretra.',
             'Análisis integral de los datos y el video para el informe final.'
@@ -76,12 +77,16 @@ export const servicesData = {
         ],
         faq: [
             {
-                question: '¿La cámara (cistoscopio) es dolorosa para el niño?',
-                answer: 'Se utiliza un cistoscopio pediátrico flexible y de muy pequeño calibre, junto con abundante lubricante anestésico. En muchos casos, el estudio se realiza bajo sedación para garantizar que el niño esté completamente cómodo y tranquilo.'
+                question: '¿El estudio es doloroso para mi hijo?',
+                answer: 'Utilizamos catéteres pediátricos muy delgados y lubricante con anestésico local para minimizar la molestia. El procedimiento puede generar sensación de llenado vesical, pero no es doloroso. Nuestro personal está especializado en hacer que la experiencia sea lo menos estresante posible para el niño.'
             },
             {
                 question: '¿Este estudio utiliza radiación?',
-                answer: 'No, a diferencia de la cistografía, la videourodinamia utiliza una cámara de video con luz visible, por lo que no expone al niño a ningún tipo de radiación ionizante.'
+                answer: 'Sí, la videourodinamia utiliza fluoroscopia (rayos X en tiempo real) para visualizar el tracto urinario durante el estudio. La dosis de radiación es mínima y está controlada, siguiendo estrictamente los protocolos de seguridad pediátrica. Los beneficios diagnósticos superan ampliamente el riesgo mínimo de exposición.'
+            },
+            {
+                question: '¿Cuándo se recomienda este estudio en lugar de una urodinamia convencional?',
+                answer: 'La videourodinamia está indicada cuando se necesita visualizar la anatomía del tracto urinario simultáneamente con las mediciones de presión y flujo. Es especialmente útil en casos de reflujo vesicoureteral, anomalías anatómicas complejas, o cuando se planea una cirugía reconstructiva.'
             }
         ]
     },
@@ -207,7 +212,7 @@ export const servicesData = {
         subtitle: 'El estudio completo con análisis y reporte por un especialista.',
         icon: <Stethoscope className="h-12 w-12 text-primary" />,
         description: 'La experiencia más completa en una sola visita.',
-        duracion: '30 minutos - 1 hora, reporte en 24h.',
+        duracion: '30 minutos - 1 hora, reporte en 24-48h.',
         preparacion: 'Vejiga llena.',
         indicaciones: [
             'Cuando se requiere una segunda opinión experta.',
