@@ -85,8 +85,8 @@ const NosotrosPage = () => {
     },
     {
       año: '2023',
-      evento: 'Programa de Renta',
-      descripcion: 'Lanzamiento del programa de renta de equipos para médicos'
+      evento: 'Programa de Colaboración Médica',
+      descripcion: 'Lanzamiento del modelo de referencia integral para médicos aliados'
     },
     {
       año: '2024',

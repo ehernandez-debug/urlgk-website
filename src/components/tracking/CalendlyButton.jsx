@@ -18,7 +18,7 @@ import useAnalytics from '@/hooks/useAnalytics';
  * @param {boolean} props.asChild - Si es true, renderiza como enlace <a>
  */
 export const CalendlyButton = ({
-  calendlyUrl = 'https://calendly.com/contactourologik/30min',
+  calendlyUrl = 'https://calendly.com/urologik/30min',
   leadType = 'paciente',
   source = 'unknown',
   children,
