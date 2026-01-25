@@ -6,14 +6,20 @@ import { getAnalytics, isSupported } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDx8UDpl64OxeES6aV48Pa2i4joEj_NidI",
-  authDomain: "urologik-mainwebsite.firebaseapp.com",
-  projectId: "urologik-mainwebsite",
-  storageBucket: "urologik-mainwebsite.appspot.com",
-  messagingSenderId: "932618280198",
-  appId: "1:932618280198:web:efce2396ad579eca85d287",
-  measurementId: "G-1NGCXDWW0S"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
+
+if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
+  console.error(
+    "Missing Firebase configuration. Set VITE_FIREBASE_* variables in your .env.local file."
+  );
+}
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
@@ -39,7 +45,9 @@ if (import.meta.env.VITE_APPCHECK_DEBUG === "true") {
 }
 
 initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(import.meta.env.VITE_RECAPTCHA_V3_KEY),
+  provider: new ReCaptchaV3Provider(
+    import.meta.env.VITE_RECAPTCHA_V3_KEY || ""
+  ),
   isTokenAutoRefreshEnabled: true,
 });
 
