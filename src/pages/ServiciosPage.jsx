@@ -2,23 +2,26 @@ import { Link } from 'react-router-dom';
 import { Stethoscope, Shield, Users, Activity, ArrowRight, Heart, Baby } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { servicesData } from '@/lib/servicios-data.jsx';
+
+const ServicioCard = ({ servicio, especialidad }) => (
+  <Card className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+    <CardHeader>
+      <div className="mb-4">{servicio.icon}</div>
+      <CardTitle className="text-xl">{servicio.title}</CardTitle>
+      <CardDescription className="pt-2">{servicio.subtitle}</CardDescription>
+    </CardHeader>
+    <CardContent>
+      <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
+        <Link to={`/servicios/${especialidad}/${servicio.id}`}>
+          Ver Detalles <ArrowRight className="h-4 w-4 ml-2" />
+        </Link>
+      </Button>
+    </CardContent>
+  </Card>
+);
 
 const ServiciosPage = () => {
-  const serviciosCategorias = [
-    {
-      title: 'Urología Pediátrica',
-      slug: '/pediatria',
-      description: 'Estudios especializados para el diagnóstico y tratamiento de patologías urológicas en niños y adolescentes.',
-      icon: <Baby className="h-10 w-10 text-primary" />,
-    },
-    {
-      title: 'Urología de Adultos',
-      slug: '/adultos',
-      description: 'Servicios de diagnóstico para adultos, enfocados en la detección y manejo de trastornos urinarios.',
-      icon: <Users className="h-10 w-10 text-primary" />,
-    },
-  ];
-
   return (
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
@@ -33,29 +36,33 @@ const ServiciosPage = () => {
         </div>
       </section>
 
-      {/* Servicios Principales */}
+      {/* Sección de Urología de Adultos */}
       <section className="section-padding">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Nuestros Estudios y Consultas</h2>
-            <p className="text-md text-muted-foreground mt-2">Seleccione una categoría para ver los servicios disponibles.</p>
+            <Users className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Urología de Adultos</h2>
+            <p className="text-md text-muted-foreground mt-2">Servicios de uroflujometría diseñados para el diagnóstico y seguimiento de patologías urológicas en adultos.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-            {serviciosCategorias.map((categoria) => (
-              <Card key={categoria.slug} className="flex flex-col justify-between group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardHeader>
-                  <div className="mb-4">{categoria.icon}</div>
-                  <CardTitle className="text-xl">{categoria.title}</CardTitle>
-                  <CardDescription className="pt-2">{categoria.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button asChild variant="outline" className="w-full group-hover:bg-primary group-hover:text-white transition-colors">
-                    <Link to={`/servicios${categoria.slug}`}>
-                      Ver Estudios <ArrowRight className="h-4 w-4 ml-2" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {servicesData.adultosResumen.map((servicio) => (
+              <ServicioCard key={servicio.id} servicio={servicio} especialidad="adultos" />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sección de Urología Pediátrica */}
+      <section className="section-padding bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <Baby className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Urología Pediátrica</h2>
+            <p className="text-md text-muted-foreground mt-2">Diagnósticos precisos y adaptados a las necesidades de los más pequeños, utilizando equipos de tamaño pediátrico y protocolos especializados.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {servicesData.pediatriaResumen.map((servicio) => (
+              <ServicioCard key={servicio.id} servicio={servicio} especialidad="pediatria" />
             ))}
           </div>
         </div>

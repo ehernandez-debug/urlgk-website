@@ -14,9 +14,6 @@ import MedicosPage from './pages/MedicosPage';
 import NosotrosPage from './pages/NosotrosPage';
 import ContactoPage from './pages/ContactoPage';
 import ServicioPage from './pages/servicios/ServicioPage';
-import AgendarPage from './pages/AgendarPage';
-import PediatriaPage from './pages/servicios/PediatriaPage';
-import AdultosPage from './pages/servicios/AdultosPage';
 
 // Páginas Legales
 import AvisoPrivacidadPage from './pages/legales/AvisoPrivacidadPage';
@@ -32,8 +29,6 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="servicios">
               <Route index element={<ServiciosPage />} />
-              <Route path="pediatria" element={<PediatriaPage />} />
-              <Route path="adultos" element={<AdultosPage />} />
               <Route path=":especialidad/:serviceSlug" element={<ServicioPage />} />
             </Route>
             <Route path="pacientes">
@@ -43,8 +38,7 @@ function App() {
             <Route path="medicos" element={<ErrorBoundary><MedicosPage /></ErrorBoundary>} />
             <Route path="nosotros" element={<NosotrosPage />} />
             <Route path="contacto" element={<ContactoPage />} />
-            <Route path="agendar" element={<AgendarPage />} />
-            
+
             {/* Páginas Legales */}
             <Route path="aviso-de-privacidad" element={<AvisoPrivacidadPage />} />
             <Route path="terminos-de-uso" element={<TerminosUsoPage />} />
