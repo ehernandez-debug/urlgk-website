@@ -36,7 +36,10 @@ function App() {
               <Route path="adultos" element={<AdultosPage />} />
               <Route path=":especialidad/:serviceSlug" element={<ServicioPage />} />
             </Route>
-            <Route path="pacientes" element={<PacientesPage />} />
+            <Route path="pacientes">
+              <Route index element={<PacientesPage />} />
+              <Route path=":medico" element={<PacientesPage />} />
+            </Route>
             <Route path="medicos" element={<ErrorBoundary><MedicosPage /></ErrorBoundary>} />
             <Route path="nosotros" element={<NosotrosPage />} />
             <Route path="contacto" element={<ContactoPage />} />
