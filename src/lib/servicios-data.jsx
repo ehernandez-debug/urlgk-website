@@ -1,4 +1,4 @@
-import { Activity, Shield, Stethoscope } from 'lucide-react';
+import { Activity, Shield, Stethoscope, Video } from 'lucide-react';
 
 export const servicesData = {
   pediatria: {
@@ -40,6 +40,48 @@ export const servicesData = {
             {
                 question: '¿Qué tan seguro es el estudio?',
                 answer: 'Es un procedimiento muy seguro. El riesgo principal, aunque bajo, es una infección urinaria. Se realiza bajo estrictas condiciones de asepsia y en algunos casos se puede indicar un antibiótico profiláctico.'
+            }
+        ]
+    },
+    'videourodinamia-multicanal': {
+        title: 'Videourodinamia Multicanal',
+        subtitle: 'El estándar de oro con visualización endoscópica en tiempo real.',
+        icon: <Video className="h-12 w-12 text-primary" />,
+        description: 'Este estudio avanzado combina la urodinamia multicanal con una cistoscopia para visualizar la anatomía de la vejiga y la uretra durante el llenado y vaciado. Permite correlacionar los hallazgos de presión y flujo con imágenes directas, ofreciendo el diagnóstico más completo posible.',
+        duracion: '1 - 2.5 horas',
+        preparacion: 'Requiere preparación intestinal leve el día anterior. Llegar con ganas de orinar. Traer estudios previos.',
+        precio: '$15,000 MXN',
+        indicaciones: [
+            'Reflujo vesicoureteral (RVU).',
+            'Incontinencia urinaria compleja o post-quirúrgica.',
+            'Obstrucción de la salida vesical de causa desconocida.',
+            'Anomalías anatómicas como válvulas de uretra posterior.',
+            'Diverículos vesicales.',
+            'Evaluación precisa antes de cirugías reconstructivas.'
+        ],
+        proceso: [
+            'Preparación y colocación de catéteres pediátricos y electrodos de EMG.',
+            'Introducción de un cistoscopio de pequeño calibre a través de la uretra.',
+            'Llenado de la vejiga con solución salina a través del cistoscopio, permitiendo la visualización directa.',
+            'Registro simultáneo de presiones, flujo, actividad muscular e imágenes de video.',
+            'Fase de micción para evaluar la apertura del cuello vesical y la uretra.',
+            'Análisis integral de los datos y el video para el informe final.'
+        ],
+        ventajas: [
+            'Diagnóstico simultáneo de problemas funcionales y anatómicos.',
+            'Máxima precisión diagnóstica para casos complejos.',
+            'Permite identificar obstrucciones o reflujo en tiempo real.',
+            'Guía de forma definitiva las decisiones quirúrgicas.',
+            'Reduce la necesidad de realizar múltiples estudios por separado.'
+        ],
+        faq: [
+            {
+                question: '¿La cámara (cistoscopio) es dolorosa para el niño?',
+                answer: 'Se utiliza un cistoscopio pediátrico flexible y de muy pequeño calibre, junto con abundante lubricante anestésico. En muchos casos, el estudio se realiza bajo sedación para garantizar que el niño esté completamente cómodo y tranquilo.'
+            },
+            {
+                question: '¿Este estudio utiliza radiación?',
+                answer: 'No, a diferencia de la cistografía, la videourodinamia utiliza una cámara de video con luz visible, por lo que no expone al niño a ningún tipo de radiación ionizante.'
             }
         ]
     },
@@ -199,6 +241,14 @@ export const servicesData = {
     },
   },
   pediatriaResumen: [
+    {
+      title: 'Videourodinamia Multicanal',
+      id: 'videourodinamia-multicanal',
+      icon: <Video className="h-12 w-12 text-primary" />,
+      subtitle: 'Combina la urodinamia con video en tiempo real para el diagnóstico más completo de problemas anatómicos y funcionales.',
+      precio: '$15,000 MXN',
+      indicaciones: ['Reflujo vesicoureteral', 'Anomalías anatómicas', 'Casos quirúrgicos complejos'],
+    },
     {
       title: 'Uroflujometría Pediátrica con EMG',
       slug: 'uroflujometria-pediatrica-emg',
