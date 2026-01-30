@@ -1,56 +1,21 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { 
   Calendar, 
-  Shield, 
   Users, 
   Award, 
   MapPin, 
   Clock,
   CheckCircle,
-  ArrowRight,
   Stethoscope,
-  Heart,
-  Baby
+  Handshake,
+  FileCheck
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 const HomePage = () => {
-  const [currentHero, setCurrentHero] = useState(0)
-
-  // Hero sections para diferentes buyer personas
-  const heroSections = [
-    {
-      id: 'hombres',
-      title: 'Estudios Urológicos Especializados',
-      subtitle: 'Tecnología de vanguardia para diagnósticos precisos',
-      description: 'Uroflujometría y urodinamia con equipos de última generación. Resultados confiables para tomar las mejores decisiones sobre tu salud.',
-      cta: 'Agendar Consulta Confidencial',
-      icon: <Stethoscope className="h-12 w-12 text-primary" />,
-      gradient: 'from-primary/10 via-background to-secondary/5'
-    },
-    {
-      id: 'mujeres',
-      title: 'Recupera tu Bienestar',
-      subtitle: 'Soluciones especializadas para la salud femenina',
-      description: 'Estudios urológicos diseñados específicamente para mujeres. Atención empática y profesional en un ambiente cómodo y discreto.',
-      cta: 'Recupera tu Bienestar',
-      icon: <Heart className="h-12 w-12 text-accent" />,
-      gradient: 'from-accent/10 via-background to-primary/5'
-    },
-    {
-      id: 'padres',
-      title: 'Cuidamos a tu Pequeño',
-      subtitle: 'Especialistas en urología pediátrica',
-      description: 'Estudios urológicos especializados para niños con la experiencia y delicadeza que merecen. Equipo pediátrico certificado.',
-      cta: 'Cuidamos a tu Pequeño',
-      icon: <Baby className="h-12 w-12 text-secondary" />,
-      gradient: 'from-secondary/10 via-background to-accent/5'
-    }
-  ]
-
-    useEffect(() => {
+  useEffect(() => {
     const link = document.createElement('link');
     link.href = "https://assets.calendly.com/assets/external/widget.css";
     link.rel = "stylesheet";
@@ -67,34 +32,36 @@ const HomePage = () => {
     }
   }, [])
 
-  // Rotar hero sections cada 5 segundos
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentHero((prev) => (prev + 1) % heroSections.length)
-    }, 5000)
-    return () => clearInterval(interval)
-  }, [])
-
-  const currentHeroData = heroSections[currentHero]
-
-  const servicios = [
+  const pasosColaboracion = [
     {
-      title: 'Uroflujometría',
-      description: 'Evaluación del flujo urinario con tecnología de precisión',
-      icon: <Stethoscope className="h-8 w-8 text-primary" />,
-      features: ['Resultados inmediatos', 'No invasivo', 'Alta precisión']
+      title: 'Paso 1: Refiere a tu Paciente',
+      description: 'Tú realizas el diagnóstico clínico y nos refieres a tu paciente con un clic.',
+      icon: <Stethoscope className="h-8 w-8 text-primary" />
     },
     {
-      title: 'Urodinamia',
-      description: 'Estudio completo de la función vesical y uretral',
-      icon: <Shield className="h-8 w-8 text-primary" />,
-      features: ['Diagnóstico integral', 'Tecnología avanzada', 'Especialistas certificados']
+      title: 'Paso 2: Nosotros Gestionamos Todo',
+      description: 'Coordinamos la cita, realizamos el estudio con equipo de punta y personal certificado.',
+      icon: <Handshake className="h-8 w-8 text-primary" />
     },
     {
-      title: 'Renta de Equipos',
-      description: 'Equipos médicos especializados para profesionales',
-      icon: <Users className="h-8 w-8 text-primary" />,
-      features: ['Equipos certificados', 'Soporte técnico', 'Flexibilidad de horarios']
+      title: 'Paso 3: Recibes el Reporte y tus Honorarios',
+      description: 'Te entregamos un reporte profesional en 24-48h y depositamos tus honorarios por colaboración diagnóstica.',
+      icon: <FileCheck className="h-8 w-8 text-primary" />
+    }
+  ]
+
+  const respaldoProfesional = [
+    {
+      title: 'Calidad Certificada',
+      description: 'Operamos con ingenieros biomédicos certificados y equipos de última generación.'
+    },
+    {
+      title: 'Cumplimiento Normativo',
+      description: 'Seguimos estrictos protocolos de seguridad y manejo de datos (HIPAA).'
+    },
+    {
+      title: 'Alianza Ética',
+      description: 'Nuestro modelo se basa en la colaboración diagnóstica activa, no en comisiones por referencia.'
     }
   ]
 
@@ -119,86 +86,65 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section Dinámico */}
-      <section className={`hero-section bg-gradient-to-br ${currentHeroData.gradient}`}>
+      {/* Hero Section Principal */}
+      <section className="hero-section bg-gradient-to-br from-primary/10 via-background to-secondary/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
-                {currentHeroData.icon}
+                <Stethoscope className="h-12 w-12 text-primary" />
                 <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                  Salud con I.A. Biomédica
+                  Modelo B2B para urólogos aliados
                 </span>
               </div>
               
               <h1 className="text-3xl lg:text-5xl font-bold text-foreground leading-tight">
-                {currentHeroData.title}
+                Ofrece Estudios Urológicos de Vanguardia. Sin Inversión. Sin Operación.
               </h1>
               
               <p className="text-lg text-primary font-semibold">
-                {currentHeroData.subtitle}
+                Convierte tu consultorio en un centro de diagnóstico urológico sin inversión, sin operación y sin riesgo. Gana más, trabaja menos.
               </p>
               
               <p className="text-base text-muted-foreground leading-relaxed">
-                {currentHeroData.description}
+                Nosotros nos encargamos de la tecnología, la logística y el personal. Tú te enfocas en tus pacientes y aumentas tus ingresos.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                {currentHeroData.id === 'padres' ? (
-                  <Link to="/servicios/pediatria">
-                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
-                      {currentHeroData.cta}
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link to="/pacientes">
-                    <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
-                      {currentHeroData.cta}
-                    </Button>
-                  </Link>
-                )}
-                <Link to="/servicios">
-                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
-                    Conocer Más
+                <Link to="/medicos">
+                  <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
+                    Descubre el Modelo de Colaboración
                   </Button>
                 </Link>
-              </div>
-              
-              {/* Indicadores de hero sections */}
-              <div className="flex space-x-2 pt-4">
-                {heroSections.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentHero(index)}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      index === currentHero ? 'bg-primary' : 'bg-muted'
-                    }`}
-                  />
-                ))}
+                <Link to="/servicios">
+                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
+                    Ver Servicios Disponibles
+                  </Button>
+                </Link>
               </div>
             </div>
             
             <div className="relative">
               <div className="medical-card p-8 bg-gradient-to-br from-white to-secondary/10">
                 <h3 className="text-2xl font-bold text-foreground mb-4">
-                  ¿Por qué elegir Urologik?
+                  Beneficios para tu práctica
                 </h3>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Tecnología de última generación</span>
+                    <span className="text-muted-foreground">Sin inversión en equipo ni infraestructura</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Especialistas certificados</span>
+                    <span className="text-muted-foreground">Operación completa con personal certificado</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Resultados inmediatos</span>
+                    <span className="text-muted-foreground">Reportes profesionales en 24-48h</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Atención personalizada</span>
+                    <span className="text-muted-foreground">Honorarios por colaboración diagnóstica</span>
                   </div>
                 </div>
               </div>
@@ -207,53 +153,59 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Servicios Principales */}
+      {/* Cómo funciona la colaboración */}
       <section className="section-padding bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Nuestros Servicios
+              ¿Cómo funciona la colaboración?
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Estudios urológicos especializados con la más alta tecnología médica
+              Un modelo simple para crecer tu práctica sin añadir carga operativa.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {servicios.map((servicio, index) => (
+            {pasosColaboracion.map((paso, index) => (
               <Card key={index} className="medical-card">
                 <CardHeader>
                   <div className="flex items-center space-x-3 mb-2">
-                    {servicio.icon}
-                    <CardTitle className="text-xl">{servicio.title}</CardTitle>
+                    {paso.icon}
+                    <CardTitle className="text-xl">{paso.title}</CardTitle>
                   </div>
                   <CardDescription className="text-base">
-                    {servicio.description}
+                    {paso.description}
                   </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {servicio.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center space-x-2">
-                        <CheckCircle className="h-4 w-4 text-accent" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {servicio.title === 'Renta de Equipos' ? (
-                    <Link to="/medicos#renta">
-                      <Button variant="outline" className="w-full mt-4 transform hover:scale-105 transition-transform">
-                        Más Información
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link to="/servicios">
-                      <Button variant="outline" className="w-full mt-4 transform hover:scale-105 transition-transform">
-                        Más Información
-                      </Button>
-                    </Link>
-                  )}
-                </CardContent>
+                <CardContent />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Confianza y Respaldo Profesional */}
+      <section className="section-padding bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+              Confianza y Respaldo Profesional
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Preparamos el espacio para testimonios reales mientras destacamos los pilares que respaldan la colaboración.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {respaldoProfesional.map((item, index) => (
+              <Card key={index} className="medical-card">
+                <CardHeader>
+                  <CardTitle className="text-xl">{item.title}</CardTitle>
+                  <CardDescription className="text-base">
+                    {item.description}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent />
               </Card>
             ))}
           </div>
@@ -268,7 +220,7 @@ const HomePage = () => {
               Nuestras Ubicaciones
             </h2>
             <p className="text-lg text-muted-foreground">
-              Dos ubicaciones estratégicas para atenderte mejor
+              Nuestros centros de diagnóstico están convenientemente ubicados para tus pacientes en Colonia del Valle y Hospital Infantil Privado.
             </p>
           </div>
           
@@ -351,23 +303,22 @@ const HomePage = () => {
       <section className="section-padding bg-gradient-to-r from-primary to-accent">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            ¿Listo para cuidar tu salud?
+            ¿Listo para impulsar tu práctica?
           </h2>
           <p className="text-xl text-white/90 mb-8">
-            Agenda tu cita hoy mismo y da el primer paso hacia tu bienestar
+            Conoce el modelo de colaboración y habilita estudios urológicos avanzados sin inversión.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contacto">
+            <Link to="/medicos">
               <Button size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
-                <Calendar className="h-5 w-5 mr-2" />
-                Agendar Cita Ahora
+                Descubre el Modelo
               </Button>
             </Link>
-            <a href="tel:5535055983">
+            <Link to="/contacto">
               <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-transform">
-                Llamar Ahora
+                Hablar con un especialista
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

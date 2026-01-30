@@ -20,5 +20,16 @@ export default defineConfig({
       '5173-iuibya3hgp5ww0zgppqsl-f607e929.manusvm.computer',
       '.manusvm.computer'
     ]
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          firebase: ["firebase/app", "firebase/analytics", "firebase/firestore", "firebase/app-check"],
+          recharts: ["recharts"],
+          vendor: ["react", "react-dom", "react-router-dom"]
+        }
+      }
+    }
   }
 })

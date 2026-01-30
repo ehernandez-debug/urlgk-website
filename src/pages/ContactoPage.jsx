@@ -75,7 +75,7 @@ const ContactoPage = () => {
       },
       mapsUrl: 'https://maps.app.goo.gl/2tKvqMRWDQwDUNGJ6',
       consultorio: 'Consultorio 15',
-      calendlyUrl: 'https://calendly.com/contactourologik/cita-colonia-del-valle?hide_gdpr_banner=1'
+      calendlyUrl: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'
     },
     {
       nombre: 'Hospital Infantil Privado',
@@ -90,7 +90,7 @@ const ContactoPage = () => {
       },
       mapsUrl: 'https://maps.app.goo.gl/Vd8Jtx1gCUFWKJzj8',
       consultorio: 'Consultorio 406',
-      calendlyUrl: 'https://calendly.com/contactourologik/30min?hide_gdpr_banner=1'
+      calendlyUrl: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'
     }
   ];
 
