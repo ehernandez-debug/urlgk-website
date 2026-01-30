@@ -8,8 +8,8 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbS
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { getAgendarUrl } from '@/lib/cta';
-import { servicesData } from '@/lib/servicios-data.jsx';
+import { getAgendarUrl, getWhatsAppUrl } from '@/lib/cta';
+import { getServicioBySlug } from '@/services/contentService'; // Importación actualizada
 import IndicacionesPorPatologia from '@/components/IndicacionesPorPatologia';
 
 const ServicioPage = () => {
@@ -33,7 +33,8 @@ const ServicioPage = () => {
     };
   }, []);
 
-  const service = servicesData[especialidad]?.[serviceSlug];
+  // Lógica de obtención de datos actualizada
+  const service = getServicioBySlug(especialidad, serviceSlug);
 
   const handleCtaClick = (cta, locationName) => {
     if (window.dataLayer) {
@@ -46,26 +47,6 @@ const ServicioPage = () => {
     }
   };
   
-  const getWhatsAppUrl = (slug) => {
-    const base = 'https://wa.me/5215535055983';
-    let msg = '¡Hola! Quiero saber más sobre Urologik.'; // Mensaje por defecto
-
-    if (slug === 'uroflujometria-pediatrica-emg') {
-      msg = 'Estoy interesado en el estudio Uroflujometría Pediátrica con EMG ID:0007';
-    } else if (slug === 'urodinamia-multicanal') {
-      msg = 'Estoy interesado en el estudio Urodinamia Multicanal y EMG ID:0006';
-    } else if (slug === 'uroflujometria-premium') {
-      msg = 'Estoy interesado en el estudio Uroflujometría Premium ID:0004';
-    } else if (slug === 'uroflujometria-basica') {
-      msg = 'Estoy interesado en el estudio Uroflujometría Básica ID:0003';
-    } else if (slug === 'check-up-total') {
-      msg = 'Estoy interesado en el estudio check-up-total ID:0005';
-    }
-    
-    return `${base}?text=${encodeURIComponent(msg)}`;
-  };
-
-
   const testimonials = [
     {
         name: "Juan P.",
@@ -190,7 +171,7 @@ const ServicioPage = () => {
                   </Button>
                 )}
                 <Button size="lg" variant="outline" asChild className="transform hover:scale-105 transition-transform">
-                  <a href="https://wa.me/5215535055983?text=%C2%A1Hola!%20Quiero%20saber%20m%C3%A1s%20sobre%20Urologik." target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
+                  <a href={getWhatsAppUrl(serviceSlug)} target="_blank" rel="noopener noreferrer" onClick={() => handleCtaClick('whatsapp', 'hero')}>
                     <MessageCircle className="h-5 w-5 mr-2" /> Contactar
                   </a>
                 </Button>

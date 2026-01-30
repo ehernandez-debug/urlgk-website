@@ -1,15 +1,16 @@
-import { Button } from '@/components/ui/button';
+'''import { Button } from '@/components/ui/button';
 import useAnalytics from '@/hooks/useAnalytics';
+import { getWhatsAppUrl } from '@/lib/cta'; // Import the centralized function
 
 /**
  * Componente de Botón de WhatsApp con Tracking Integrado
  * 
  * Este componente envuelve un botón estándar y automáticamente registra
- * un evento `generate_lead` cuando el usuario hace clic.
+ * un evento `generate_lead` cuando el usuario hace clic. Utiliza la función
+ * centralizada `getWhatsAppUrl` para generar el enlace.
  * 
  * @param {Object} props
- * @param {string} props.phoneNumber - Número de teléfono de WhatsApp (formato: 5215535055983)
- * @param {string} props.message - Mensaje predefinido para WhatsApp
+ * @param {string} [props.serviceSlug] - El slug del servicio para generar un mensaje contextual.
  * @param {string} props.leadType - Tipo de lead: 'paciente' o 'medico'
  * @param {string} props.source - Identificador de la fuente del clic (ej: 'homepage_hero', 'navbar')
  * @param {React.ReactNode} props.children - Contenido del botón
@@ -18,8 +19,7 @@ import useAnalytics from '@/hooks/useAnalytics';
  * @param {string} props.className - Clases CSS adicionales
  */
 export const WhatsAppButton = ({
-  phoneNumber = '5215535055983',
-  message = 'Hola, me interesa conocer más sobre Urologik',
+  serviceSlug,
   leadType = 'paciente',
   source = 'unknown',
   children,
@@ -34,11 +34,11 @@ export const WhatsAppButton = ({
     // Registrar el evento de conversión
     trackLead(leadType, 'whatsapp', {
       source: source,
-      phone_number: phoneNumber
+      service: serviceSlug || 'general', // Track the service slug
     });
 
-    // Abrir WhatsApp
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    // Generar y abrir la URL de WhatsApp
+    const whatsappUrl = getWhatsAppUrl(serviceSlug);
     window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
   };
 
@@ -56,3 +56,4 @@ export const WhatsAppButton = ({
 };
 
 export default WhatsAppButton;
+'''
