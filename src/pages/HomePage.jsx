@@ -289,7 +289,7 @@ const HomePage = () => {
             <p className="text-lg text-muted-foreground mb-6">
               Únete a nuestra red de especialistas y ofrece a tus pacientes acceso a tecnología de vanguardia en estudios urodinámicos.
             </p>
-            <Link to="/medicos">
+            <Link to="/para-medicos">
               <Button size="lg" className="cta-button text-lg px-8 py-4 transform hover:scale-105 transition-transform">
                 <Users className="h-5 w-5 mr-2" />
                 Conocer Programa de Colaboración
@@ -309,7 +309,7 @@ const HomePage = () => {
             Conoce el modelo de colaboración y habilita estudios urológicos avanzados sin inversión.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/medicos">
+            <Link to="/para-medicos">
               <Button size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
                 Descubre el Modelo
               </Button>

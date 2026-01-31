@@ -433,7 +433,7 @@ const NosotrosPage = () => {
               Únete a nuestra red de especialistas y ofrece a tus pacientes acceso a tecnología de vanguardia en estudios urodinámicos.
             </p>
             <Button asChild size="lg" className="cta-button text-lg px-8 py-4 transform hover:scale-105 transition-transform">
-              <Link to="/medicos">
+              <Link to="/para-medicos">
                 <Users className="h-5 w-5 mr-2" />
                 Conocer Programa de Colaboración
               </Link>
@@ -456,7 +456,7 @@ const NosotrosPage = () => {
               <a href="/servicios">Conoce Nuestros Servicios</a>
             </Button>
             <Button asChild size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-transform">
-              <a href="/medicos">Únete como Médico</a>
+              <a href="/para-medicos">Únete como Médico</a>
             </Button>
           </div>
         </div>
