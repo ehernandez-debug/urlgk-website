@@ -65,6 +65,33 @@ const ParaMedicos = () => {
     }
   ];
 
+  const pasosUnirse = [
+    {
+      paso: '1',
+      title: 'Agenda una Demo',
+      description: 'Conoce nuestras instalaciones, equipo y modelo de colaboración en detalle.',
+      icon: <Calendar className="h-8 w-8 text-primary" />
+    },
+    {
+      paso: '2',
+      title: 'Evaluación y Capacitación',
+      description: 'Evaluamos tu perfil y te capacitamos en el uso del equipo y protocolos.',
+      icon: <Users className="h-8 w-8 text-primary" />
+    },
+    {
+      paso: '3',
+      title: 'Firma de Contrato',
+      description: 'Formalizamos la colaboración con un contrato claro y transparente.',
+      icon: <FileCheck className="h-8 w-8 text-primary" />
+    },
+    {
+      paso: '4',
+      title: 'Comienza a Referir',
+      description: 'Empieza a referir pacientes y generar ingresos desde el primer estudio.',
+      icon: <Stethoscope className="h-8 w-8 text-primary" />
+    }
+  ];
+
   const beneficiosColaboracion = [
     {
       title: 'Sin Inversión en Equipo',
