@@ -5,19 +5,21 @@ import { getFirestore } from "firebase/firestore";
 import { getAnalytics, isSupported } from "firebase/analytics";
 import { initializeAppCheck, ReCaptchaV3Provider } from "firebase/app-check";
 
+// Configuración de Firebase con valores por defecto para desarrollo
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'mock-api-key-development',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'urologik-dev.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'urologik-dev',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'urologik-dev.appspot.com',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '123456789012',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:123456789012:web:mock',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-MOCK',
 };
 
-if (!firebaseConfig.apiKey || !firebaseConfig.projectId) {
-  console.error(
-    "Missing Firebase configuration. Set VITE_FIREBASE_* variables in your .env.local file."
+// Advertir si se están usando valores mock
+if (!import.meta.env.VITE_FIREBASE_API_KEY) {
+  console.warn(
+    "⚠️ Using mock Firebase configuration. Set VITE_FIREBASE_* variables in .env.local for production. See CONFIGURACION_FIREBASE.md for details."
   );
 }
 

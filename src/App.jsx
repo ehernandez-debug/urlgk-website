@@ -42,7 +42,7 @@ function App() {
       <Router>
         <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element="{<Layout />}">
+            <Route path="/" element={<Layout />}>
               {/* New Portal Structure */}
               <Route index element={<HomePage />} />
               <Route path="para-pacientes" element={<PacientesPage />} />
