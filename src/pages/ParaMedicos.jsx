@@ -11,9 +11,7 @@ import {
   DollarSign,
   FileCheck,
   Handshake,
-  ArrowRight,
-  Target,
-  Shield
+  ArrowRight
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -40,37 +38,29 @@ const ParaMedicos = () => {
     {
       nivel: 'Nivel 1: Referencia',
       rol: 'Solo refiere pacientes',
-      uroflujometria: '$200',
-      estudioPF: '$1,105',
-      videourodinamia: '$1,600',
+      rango: '$200 - $1,600',
       ganancia: '20-25%',
       color: 'bg-blue-50 border-blue-200'
     },
     {
       nivel: 'Nivel 2: Ref. + Asistencia',
       rol: 'Refiere + asiste en procedimiento',
-      uroflujometria: '$400',
-      estudioPF: '$3,316',
-      videourodinamia: '$5,000',
+      rango: '$200 - $1,600',
       ganancia: '40-60%',
       color: 'bg-green-50 border-green-200'
     },
     {
       nivel: 'Nivel 3: Interpretación',
       rol: 'Interpreta resultados',
-      uroflujometria: '$650',
-      estudioPF: '$4,422',
-      videourodinamia: '$6,800',
+      rango: '$200 - $1,600',
       ganancia: '80-85%',
       color: 'bg-yellow-50 border-yellow-200'
     },
     {
       nivel: 'Nivel 4: Urodinamista Titular',
       rol: 'Realiza todo el procedimiento',
-      uroflujometria: '$880',
-      estudioPF: '$5,222',
-      videourodinamia: '$8,300',
-      ganancia: '100%',
+      rango: '$200 - $1,600',
+      ganancia: '80%',
       color: 'bg-purple-50 border-purple-200'
     }
   ];
@@ -97,26 +87,7 @@ const ParaMedicos = () => {
       icon: <Award className="h-8 w-8 text-primary" />
     }
   ];
-
-  const incentivos = [
-    {
-      tipo: 'Incentivo de Permanencia',
-      descripcion: '$5,000 MXN a los 6 meses, $10,000 MXN al año',
-      icon: <Award className="h-6 w-6 text-accent" />
-    },
-    {
-      tipo: 'Garantía de Volumen',
-      descripcion: 'Mínimo 5 estudios mensuales garantizados',
-      icon: <Target className="h-6 w-6 text-accent" />
-    },
-    {
-      tipo: 'Co-propiedad de Equipos',
-      descripcion: 'Opción de co-propiedad a largo plazo (24+ meses)',
-      icon: <Shield className="h-6 w-6 text-accent" />
-    }
-  ];
-
-  const pasosUnirse = [
+  const procesoUnion = [
     {
       paso: '1',
       title: 'Agenda una Demo',
@@ -239,9 +210,7 @@ const ParaMedicos = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Nivel / Rol</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Uroflujometría</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Estudio P-F</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Videourodinamia</th>
+                  <th className="text-left py-4 px-4 font-semibold text-foreground">Rango de Honorarios</th>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">% Ganancia</th>
                 </tr>
               </thead>
@@ -254,9 +223,7 @@ const ParaMedicos = () => {
                         <p className="text-sm text-muted-foreground">{nivel.rol}</p>
                       </div>
                     </td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.uroflujometria}</td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.estudioPF}</td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.videourodinamia}</td>
+                    <td className="py-4 px-4 font-semibold text-primary text-lg">{nivel.rango}</td>
                     <td className="py-4 px-4">
                       <span className="inline-block px-3 py-1 bg-accent/20 text-accent font-bold rounded-full text-sm">
                         {nivel.ganancia}
@@ -266,22 +233,6 @@ const ParaMedicos = () => {
                 ))}
               </tbody>
             </table>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {incentivos.map((incentivo, index) => (
-              <Card key={index} className="medical-card">
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-2">
-                    {incentivo.icon}
-                    <CardTitle className="text-lg">{incentivo.tipo}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">
-                    {incentivo.descripcion}
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
