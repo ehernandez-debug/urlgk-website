@@ -111,7 +111,7 @@ const ComisionesRepresentantesPage = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://calendly.com/urologik/representantes-medicos" target="_blank" rel="noopener noreferrer">
+                <a href="https://calendly.com/urologik/medicos-interesados" target="_blank" rel="noopener noreferrer">
                   <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                     Agendar Entrevista
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -297,7 +297,7 @@ const ComisionesRepresentantesPage = () => {
             Agenda una entrevista con nuestro equipo comercial y descubre cómo puedes formar parte de la red de representantes de Urologik.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://calendly.com/urologik/representantes-medicos" target="_blank" rel="noopener noreferrer">
+            <a href="https://calendly.com/urologik/medicos-interesados" target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                 Agendar Entrevista Ahora
                 <ArrowRight className="ml-2 h-5 w-5" />

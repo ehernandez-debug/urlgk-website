@@ -250,7 +250,7 @@ const HomePage = () => {
                   {ubicacion.id === 'hospital-infantil' ? (
                     <Button 
                       className="w-full mt-4 cta-button transform hover:scale-105 transition-transform"
-                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'})}
+                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/cita-hospital-infantil-privado?hide_gdpr_banner=1'})}
                     >
                       <Calendar className="h-4 w-4 mr-2" />
                       Agendar en esta ubicación

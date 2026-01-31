@@ -90,7 +90,7 @@ const ContactoPage = () => {
       },
       mapsUrl: 'https://maps.app.goo.gl/Vd8Jtx1gCUFWKJzj8',
       consultorio: 'Consultorio 406',
-      calendlyUrl: 'https://calendly.com/urologik/30min?hide_gdpr_banner=1'
+      calendlyUrl: 'https://calendly.com/urologik/cita-hospital-infantil-privado?hide_gdpr_banner=1'
     }
   ];
 

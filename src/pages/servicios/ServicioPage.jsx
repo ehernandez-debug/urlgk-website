@@ -88,7 +88,7 @@ const ServicioPage = () => {
 
   const getCalendlyUrl = () => {
     if (especialidad === 'pediatria') {
-      return 'https://calendly.com/urologik/30min?hide_gdpr_banner=1';
+      return 'https://calendly.com/urologik/cita-hospital-infantil-privado?hide_gdpr_banner=1';
     }
     if (especialidad === 'adultos') {
       return 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1';
