@@ -38,37 +38,33 @@ const ParaMedicos = () => {
     {
       nivel: 'Nivel 1: Referencia',
       rol: 'Solo refiere pacientes',
-      uroflujometria: '$200',
-      estudioPF: '$1,105',
-      videourodinamia: '$1,600',
-      ganancia: '20-25%',
+      uroflujometria: 'Hasta $200',
+      estudioPF: 'Hasta $1,100',
+      videourodinamia: 'Hasta $1,600',
       color: 'bg-blue-50 border-blue-200'
     },
     {
       nivel: 'Nivel 2: Ref. + Asistencia',
       rol: 'Refiere + asiste en procedimiento',
-      uroflujometria: '$400',
-      estudioPF: '$3,316',
-      videourodinamia: '$5,000',
-      ganancia: '40-60%',
+      uroflujometria: 'Hasta $400',
+      estudioPF: 'Hasta $3,300',
+      videourodinamia: 'Hasta $5,000',
       color: 'bg-green-50 border-green-200'
     },
     {
       nivel: 'Nivel 3: Interpretación',
       rol: 'Interpreta resultados',
-      uroflujometria: '$650',
-      estudioPF: '$4,422',
-      videourodinamia: '$6,800',
-      ganancia: '80-85%',
+      uroflujometria: 'Hasta $650',
+      estudioPF: 'Hasta $4,400',
+      videourodinamia: 'Hasta $6,800',
       color: 'bg-yellow-50 border-yellow-200'
     },
     {
       nivel: 'Nivel 4: Urodinamista Titular',
       rol: 'Realiza todo el procedimiento',
-      uroflujometria: '$880',
-      estudioPF: '$5,222',
-      videourodinamia: '$8,300',
-      ganancia: '+85%',
+      uroflujometria: 'Hasta $880',
+      estudioPF: 'Hasta $5,200',
+      videourodinamia: 'Hasta $8,300',
       color: 'bg-purple-50 border-purple-200'
     }
   ];
@@ -248,7 +244,6 @@ const ParaMedicos = () => {
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Uroflujometría</th>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Estudio P-F</th>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Videourodinamia</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">% Ganancia</th>
                 </tr>
               </thead>
               <tbody>
@@ -263,11 +258,6 @@ const ParaMedicos = () => {
                     <td className="py-4 px-4 font-semibold text-primary">{nivel.uroflujometria}</td>
                     <td className="py-4 px-4 font-semibold text-primary">{nivel.estudioPF}</td>
                     <td className="py-4 px-4 font-semibold text-primary">{nivel.videourodinamia}</td>
-                    <td className="py-4 px-4">
-                      <span className="inline-block px-3 py-1 bg-accent/20 text-accent font-bold rounded-full text-sm">
-                        {nivel.ganancia}
-                      </span>
-                    </td>
                   </tr>
                 ))}
               </tbody>
