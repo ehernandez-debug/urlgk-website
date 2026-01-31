@@ -33,7 +33,7 @@ const CookiesPage = lazy(() => import('./pages/legales/CookiesPage'));
 const ServiciosPage = lazy(() => import('./pages/ServiciosPage'));
 const ServicioPage = lazy(() => import('./pages/servicios/ServicioPage'));
 const NosotrosPage = lazy(() => import('./pages/NosotrosPage'));
-const AgendarPage = lazy(() => import('./pages/AgendarPage'));
+const ComisionesRepresentantesPage = lazy(() => import('./pages/ComisionesRepresentantesPage'));
 
 
 function App() {
@@ -60,6 +60,7 @@ function App() {
               </Route>
               
               <Route path="contacto" element={<ContactoPage />} />
+              <Route path="representantes/comisiones" element={<ComisionesRepresentantesPage />} />
 
               {/* --- Deprecated routes, kept for now until content is migrated --- */}
               <Route path="servicios">
@@ -67,7 +68,6 @@ function App() {
                   <Route path=":especialidad/:serviceSlug" element={<ServicioPage />} />
               </Route>
               <Route path="nosotros" element={<NosotrosPage />} />
-              <Route path="agendar" element={<AgendarPage />} />
 
               {/* Legal Pages */}
               <Route path="aviso-de-privacidad" element={<AvisoPrivacidadPage />} />

@@ -1,4 +1,4 @@
-'''import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button';
 import useAnalytics from '@/hooks/useAnalytics';
 import { getWhatsAppUrl } from '@/lib/cta'; // Import the centralized function
 
@@ -56,4 +56,3 @@ export const WhatsAppButton = ({
 };
 
 export default WhatsAppButton;
-'''

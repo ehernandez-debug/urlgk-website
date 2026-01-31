@@ -150,7 +150,13 @@
   }
   
   .hero-section {
-    @apply min-h-screen bg-gradient-to-br from-background via-secondary/10 to-accent/5;
+    @apply bg-gradient-to-br from-background via-secondary/10 to-accent/5;
+  }
+  
+  @media (max-width: 1023px) {
+    .hero-section {
+      @apply min-h-screen;
+    }
   }
   
   .medical-card {

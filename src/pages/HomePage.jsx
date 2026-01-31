@@ -88,7 +88,7 @@ const HomePage = () => {
     <div className="min-h-screen">
       {/* Hero Section Principal */}
       <section className="hero-section bg-gradient-to-br from-primary/10 via-background to-secondary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               <div className="flex items-center space-x-4">
@@ -111,7 +111,7 @@ const HomePage = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/medicos">
+                <Link to="/para-medicos">
                   <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
                     Descubre el Modelo de Colaboración
                   </Button>

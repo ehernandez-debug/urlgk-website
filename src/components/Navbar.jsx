@@ -13,7 +13,7 @@ const Navbar = () => {
   const navigation = [
     { name: 'Inicio', href: '/' },
     { name: 'Servicios', href: '/servicios' },
-    { name: 'Para Médicos', href: '/medicos' },
+    { name: 'Para Médicos', href: '/para-medicos' },
     { name: 'Nosotros', href: '/nosotros' },
     { name: 'Contacto', href: '/contacto' },
   ]
