@@ -38,29 +38,37 @@ const ParaMedicos = () => {
     {
       nivel: 'Nivel 1: Referencia',
       rol: 'Solo refiere pacientes',
-      rango: '$0 - $50K',
-      ganancia: '8%',
+      uroflujometria: '$200',
+      estudioPF: '$1,105',
+      videourodinamia: '$1,600',
+      ganancia: '20-25%',
       color: 'bg-blue-50 border-blue-200'
     },
     {
       nivel: 'Nivel 2: Ref. + Asistencia',
       rol: 'Refiere + asiste en procedimiento',
-      rango: '$50K - $150K',
-      ganancia: '10%',
+      uroflujometria: '$400',
+      estudioPF: '$3,316',
+      videourodinamia: '$5,000',
+      ganancia: '40-60%',
       color: 'bg-green-50 border-green-200'
     },
     {
       nivel: 'Nivel 3: Interpretación',
       rol: 'Interpreta resultados',
-      rango: '$150K - $300K',
-      ganancia: '12%',
+      uroflujometria: '$650',
+      estudioPF: '$4,422',
+      videourodinamia: '$6,800',
+      ganancia: '80-85%',
       color: 'bg-yellow-50 border-yellow-200'
     },
     {
       nivel: 'Nivel 4: Urodinamista Titular',
       rol: 'Realiza todo el procedimiento',
-      rango: '$300K+',
-      ganancia: '15%',
+      uroflujometria: '$880',
+      estudioPF: '$5,222',
+      videourodinamia: '$8,300',
+      ganancia: '+85%',
       color: 'bg-purple-50 border-purple-200'
     }
   ];
@@ -237,7 +245,9 @@ const ParaMedicos = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Nivel / Rol</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Honorarios Mensuales</th>
+                  <th className="text-left py-4 px-4 font-semibold text-foreground">Uroflujometría</th>
+                  <th className="text-left py-4 px-4 font-semibold text-foreground">Estudio P-F</th>
+                  <th className="text-left py-4 px-4 font-semibold text-foreground">Videourodinamia</th>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">% Ganancia</th>
                 </tr>
               </thead>
@@ -250,7 +260,9 @@ const ParaMedicos = () => {
                         <p className="text-sm text-muted-foreground">{nivel.rol}</p>
                       </div>
                     </td>
-                    <td className="py-4 px-4 font-semibold text-primary text-lg">{nivel.rango}</td>
+                    <td className="py-4 px-4 font-semibold text-primary">{nivel.uroflujometria}</td>
+                    <td className="py-4 px-4 font-semibold text-primary">{nivel.estudioPF}</td>
+                    <td className="py-4 px-4 font-semibold text-primary">{nivel.videourodinamia}</td>
                     <td className="py-4 px-4">
                       <span className="inline-block px-3 py-1 bg-accent/20 text-accent font-bold rounded-full text-sm">
                         {nivel.ganancia}
