@@ -38,29 +38,29 @@ const ParaMedicos = () => {
     {
       nivel: 'Nivel 1: Referencia',
       rol: 'Solo refiere pacientes',
-      rango: '$200 - $1,600',
-      ganancia: '20-25%',
+      rango: '$0 - $50K',
+      ganancia: '8%',
       color: 'bg-blue-50 border-blue-200'
     },
     {
       nivel: 'Nivel 2: Ref. + Asistencia',
       rol: 'Refiere + asiste en procedimiento',
-      rango: '$200 - $1,600',
-      ganancia: '40-60%',
+      rango: '$50K - $150K',
+      ganancia: '10%',
       color: 'bg-green-50 border-green-200'
     },
     {
       nivel: 'Nivel 3: Interpretación',
       rol: 'Interpreta resultados',
-      rango: '$200 - $1,600',
-      ganancia: '80-85%',
+      rango: '$150K - $300K',
+      ganancia: '12%',
       color: 'bg-yellow-50 border-yellow-200'
     },
     {
       nivel: 'Nivel 4: Urodinamista Titular',
       rol: 'Realiza todo el procedimiento',
-      rango: '$200 - $1,600',
-      ganancia: '80%',
+      rango: '$300K+',
+      ganancia: '15%',
       color: 'bg-purple-50 border-purple-200'
     }
   ];
@@ -237,7 +237,7 @@ const ParaMedicos = () => {
               <thead className="bg-muted/50">
                 <tr>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">Nivel / Rol</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Rango de Honorarios</th>
+                  <th className="text-left py-4 px-4 font-semibold text-foreground">Honorarios Mensuales</th>
                   <th className="text-left py-4 px-4 font-semibold text-foreground">% Ganancia</th>
                 </tr>
               </thead>
