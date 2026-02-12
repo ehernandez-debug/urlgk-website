@@ -15,6 +15,57 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
     return re.test(email);
   };
 
+  // Función para descargar el PDF
+  const downloadPDF = () => {
+    const link = document.createElement('a');
+    link.href = '/urologik-modelo-colaboracion.pdf';
+    link.download = 'Urologik-Modelo-Colaboracion.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Función para guardar en Firestore (con manejo de errores)
+  const saveToFirestore = async (emailValue) => {
+    try {
+      // Verificar que db esté inicializado
+      if (!db) {
+        console.warn('Firestore no está inicializado. Saltando guardado.');
+        return false;
+      }
+
+      await addDoc(collection(db, 'pdf_downloads'), {
+        email: emailValue.toLowerCase().trim(),
+        downloadedAt: serverTimestamp(),
+        pdfName: 'urologik-modelo-colaboracion.pdf',
+        source: 'para-medicos-page',
+        userAgent: navigator.userAgent,
+      });
+
+      console.log('✅ Email guardado en Firestore:', emailValue);
+      return true;
+    } catch (error) {
+      console.error('⚠️ Error al guardar en Firestore:', error);
+      // No lanzar error, solo loguear
+      return false;
+    }
+  };
+
+  // Función para loguear en Analytics (con manejo de errores)
+  const logToAnalytics = (eventName, params) => {
+    try {
+      if (analytics) {
+        logEvent(analytics, eventName, params);
+        console.log('✅ Evento logueado en Analytics:', eventName);
+      } else {
+        console.warn('Analytics no está inicializado. Saltando log.');
+      }
+    } catch (error) {
+      console.error('⚠️ Error al loguear en Analytics:', error);
+      // No lanzar error, solo loguear
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -33,31 +84,20 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      // 1. Guardar en Firestore
-      await addDoc(collection(db, 'pdf_downloads'), {
-        email: email.toLowerCase().trim(),
-        downloadedAt: serverTimestamp(),
-        pdfName: 'urologik-modelo-colaboracion.pdf',
+      const emailValue = email.toLowerCase().trim();
+
+      // 1. Intentar guardar en Firestore (no bloqueante)
+      await saveToFirestore(emailValue);
+
+      // 2. Intentar loguear en Analytics (no bloqueante)
+      logToAnalytics('pdf_download', {
+        email: emailValue,
+        pdf_name: 'urologik-modelo-colaboracion',
         source: 'para-medicos-page',
-        userAgent: navigator.userAgent,
       });
 
-      // 2. Log evento en Firebase Analytics
-      if (analytics) {
-        logEvent(analytics, 'pdf_download', {
-          email: email.toLowerCase().trim(),
-          pdf_name: 'urologik-modelo-colaboracion',
-          source: 'para-medicos-page',
-        });
-      }
-
-      // 3. Iniciar descarga del PDF
-      const link = document.createElement('a');
-      link.href = '/urologik-modelo-colaboracion.pdf';
-      link.download = 'Urologik-Modelo-Colaboracion.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // 3. Descargar PDF (siempre funciona)
+      downloadPDF();
 
       // 4. Cerrar modal después de 500ms
       setTimeout(() => {
@@ -66,28 +106,28 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
       }, 500);
 
     } catch (error) {
-      console.error('Error al procesar descarga:', error);
-      setError('Hubo un error. Por favor intenta de nuevo.');
+      console.error('Error inesperado:', error);
+      // Incluso si hay error, intentar descargar el PDF
+      downloadPDF();
+      setTimeout(() => {
+        onClose();
+        setEmail('');
+      }, 500);
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const handleSkip = () => {
-    // Permitir descarga sin email (pero no trackear)
-    if (analytics) {
-      logEvent(analytics, 'pdf_download_skipped', {
-        source: 'para-medicos-page',
-      });
-    }
+    // Loguear evento de skip (no bloqueante)
+    logToAnalytics('pdf_download_skipped', {
+      source: 'para-medicos-page',
+    });
 
-    const link = document.createElement('a');
-    link.href = '/urologik-modelo-colaboracion.pdf';
-    link.download = 'Urologik-Modelo-Colaboracion.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Descargar PDF
+    downloadPDF();
 
+    // Cerrar modal
     onClose();
     setEmail('');
   };
