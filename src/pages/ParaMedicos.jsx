@@ -371,6 +371,42 @@ const ParaMedicos = () => {
         </div>
       </section>
 
+      {/* Descarga PDF Lead Magnet */}
+      <section className="section-padding bg-accent/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="medical-card p-8 text-center">
+            <FileCheck className="h-16 w-16 text-primary mx-auto mb-4" />
+            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
+              Descarga Nuestra Guía Completa
+            </h2>
+            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
+              Obtén el PDF informativo con todos los detalles del Modelo de Colaboración de Urologik, incluyendo honorarios, beneficios y cómo unirte.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a href="/urologik-modelo-colaboracion.pdf" download="Urologik-Modelo-Colaboracion.pdf">
+                <Button 
+                  size="lg" 
+                  variant="default"
+                  className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform"
+                >
+                  <FileCheck className="mr-2 h-5 w-5" />
+                  Descargar Guía PDF
+                </Button>
+              </a>
+              <a href="https://wa.me/5535055983?text=Hola%2C%20estoy%20interesado%20en%20el%20modelo%20de%20colaboraci%C3%B3n%20de%20Urologik" target="_blank" rel="noopener noreferrer">
+                <Button 
+                  size="lg" 
+                  variant="outline"
+                  className="text-lg px-8 py-4 w-full sm:w-auto"
+                >
+                  Contactar por WhatsApp
+                </Button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Final */}
       <section className="section-padding bg-gradient-to-br from-primary/10 via-background to-accent/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
