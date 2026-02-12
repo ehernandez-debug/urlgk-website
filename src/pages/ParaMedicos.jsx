@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { 
@@ -15,8 +15,11 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import PdfDownloadModal from '@/components/PdfDownloadModal';
 
 const ParaMedicos = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     const link = document.createElement('link');
     link.href = "https://assets.calendly.com/assets/external/widget.css";
@@ -188,11 +191,15 @@ const ParaMedicos = () => {
                   Agendar una Demostración
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Link to="/contacto">
-                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto">
-                    Enviar Consulta
-                  </Button>
-                </Link>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="text-lg px-8 py-4 w-full sm:w-auto"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  <FileCheck className="mr-2 h-5 w-5" />
+                  Descargar Guía PDF
+                </Button>
               </div>
             </div>
             
@@ -425,14 +432,24 @@ const ParaMedicos = () => {
               Agendar Demostración Ahora
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Link to="/contacto">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto">
-                Enviar Consulta por Email
-              </Button>
-            </Link>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-8 py-4 w-full sm:w-auto"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <FileCheck className="mr-2 h-5 w-5" />
+              Descargar Guía PDF
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Modal de descarga PDF */}
+      <PdfDownloadModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 };
