@@ -1,6 +1,8 @@
 /**
  * Catálogo de Servicios de Urologik
- * Precios actualizados según imágenes proporcionadas - Diciembre 2025
+ * Precios actualizados con IVA incluido - Febrero 2026
+ * Fuente: CatalogoServicios_v1_ene2026.xlsx
+ * Todos los precios incluyen IVA (16%)
  */
 
 export const catalogoServicios = {
@@ -9,7 +11,7 @@ export const catalogoServicios = {
       id: 'uroflujometria-basica',
       nombre: 'Uroflujometría Básica',
       categoria: 'adultos',
-      precio: 1900,
+      precio: 2260,
       descripcion: 'La forma más sencilla y rápida de conocer cómo está funcionando el flujo urinario. Ideal para una primera revisión sin molestias ni invasión.',
       incluye: [
         'Prueba de antígeno prostático para brindar tranquilidad sobre la salud de la próstata',
@@ -24,7 +26,7 @@ export const catalogoServicios = {
       id: 'uroflujometria-premium',
       nombre: 'Uroflujometría Premium',
       categoria: 'adultos',
-      precio: 3500,
+      precio: 3716,
       descripcion: 'Un estudio más completo para entender a detalle cómo se vacía la vejiga. Combina flujometría + ultrasonido de residuo post-miccional e incluye un informe claro con interpretación de un especialista.',
       incluye: [
         'Uroflujometría con ultrasonido de residuo post-miccional',
@@ -43,8 +45,8 @@ export const catalogoServicios = {
       id: 'uroflujometria-pediatrica',
       nombre: 'Uroflujometría Pediátrica con EMG',
       categoria: 'pediatricos',
-      precio: 3000,
-      descripcion: 'Mide el flujo y volumen de la orina, con electromiografía para analizar la actividad muscular durante la micción. Es un estudio invasivo clave para el diagnóstico inicial.',
+      precio: 2544,
+      descripcion: 'Mide el flujo y volumen de la orina, con electromiografía para analizar la actividad muscular durante la micción. Es un estudio no invasivo clave para el diagnóstico inicial.',
       incluye: [
         'Estudio de uroflujometría con electromiografía (EMG)',
         'Análisis de actividad muscular durante la micción',
@@ -64,7 +66,7 @@ export const catalogoServicios = {
       id: 'urodinamia-pediatrica',
       nombre: 'Urodinamia Multicanal (3 Canales)',
       categoria: 'pediatricos',
-      precio: 10000,
+      precio: 12927,
       descripcion: 'Estudio de 3 canales (abdominal, vesical y uretral) para evaluar la función del tracto urinario inferior. Ideal para patologías complejas como vejiga neurogénica.',
       incluye: [
         'Estudio completo de 3 canales (abdominal, vesical y uretral)',

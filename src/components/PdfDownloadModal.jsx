@@ -7,6 +7,7 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const PdfDownloadModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
+  const [nombre, setNombre] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
 
@@ -26,9 +27,8 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
   };
 
   // Función para guardar en Firestore (con manejo de errores)
-  const saveToFirestore = async (emailValue) => {
+  const saveToFirestore = async (emailValue, nombreValue) => {
     try {
-      // Verificar que db esté inicializado
       if (!db) {
         console.warn('Firestore no está inicializado. Saltando guardado.');
         return false;
@@ -36,17 +36,17 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
 
       await addDoc(collection(db, 'pdf_downloads'), {
         email: emailValue.toLowerCase().trim(),
+        nombre: nombreValue.trim(),
         downloadedAt: serverTimestamp(),
         pdfName: 'urologik-modelo-colaboracion.pdf',
         source: 'para-medicos-page',
         userAgent: navigator.userAgent,
       });
 
-      console.log('✅ Email guardado en Firestore:', emailValue);
+      console.log('✅ Lead guardado en Firestore:', emailValue);
       return true;
     } catch (error) {
       console.error('⚠️ Error al guardar en Firestore:', error);
-      // No lanzar error, solo loguear
       return false;
     }
   };
@@ -62,7 +62,6 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
       }
     } catch (error) {
       console.error('⚠️ Error al loguear en Analytics:', error);
-      // No lanzar error, solo loguear
     }
   };
 
@@ -70,9 +69,15 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     setError('');
 
+    // Validar nombre
+    if (!nombre || nombre.trim().length < 2) {
+      setError('Por favor ingresa tu nombre');
+      return;
+    }
+
     // Validar email
     if (!email) {
-      setError('Por favor ingresa tu email');
+      setError('Por favor ingresa tu email profesional');
       return;
     }
 
@@ -85,24 +90,27 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
 
     try {
       const emailValue = email.toLowerCase().trim();
+      const nombreValue = nombre.trim();
 
-      // 1. Intentar guardar en Firestore (no bloqueante)
-      await saveToFirestore(emailValue);
+      // 1. Guardar lead en Firestore
+      await saveToFirestore(emailValue, nombreValue);
 
-      // 2. Intentar loguear en Analytics (no bloqueante)
+      // 2. Loguear en Analytics
       logToAnalytics('pdf_download', {
         email: emailValue,
+        nombre: nombreValue,
         pdf_name: 'urologik-modelo-colaboracion',
         source: 'para-medicos-page',
       });
 
-      // 3. Descargar PDF (siempre funciona)
+      // 3. Descargar PDF
       downloadPDF();
 
       // 4. Cerrar modal después de 500ms
       setTimeout(() => {
         onClose();
         setEmail('');
+        setNombre('');
       }, 500);
 
     } catch (error) {
@@ -112,24 +120,11 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
       setTimeout(() => {
         onClose();
         setEmail('');
+        setNombre('');
       }, 500);
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const handleSkip = () => {
-    // Loguear evento de skip (no bloqueante)
-    logToAnalytics('pdf_download_skipped', {
-      source: 'para-medicos-page',
-    });
-
-    // Descargar PDF
-    downloadPDF();
-
-    // Cerrar modal
-    onClose();
-    setEmail('');
   };
 
   if (!isOpen) return null;
@@ -150,15 +145,36 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
         <div className="text-center mb-6">
           <FileCheck className="h-16 w-16 text-primary mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-foreground mb-2">
-            Descarga la Guía Completa
+            Guía Completa del Programa de Colaboración
           </h2>
-          <p className="text-muted-foreground">
-            Ingresa tu email para recibir el PDF del Modelo de Colaboración de Urologik
+          <p className="text-muted-foreground text-sm">
+            Ingresa tus datos para recibir los detalles completos del modelo de participación progresiva, honorarios por nivel y beneficios del programa.
           </p>
         </div>
 
         {/* Formulario */}
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Campo Nombre */}
+          <div>
+            <label htmlFor="nombre" className="block text-sm font-medium text-foreground mb-2">
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              id="nombre"
+              value={nombre}
+              onChange={(e) => {
+                setNombre(e.target.value);
+                setError('');
+              }}
+              placeholder="Dr. Juan Pérez"
+              className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              autoFocus
+              disabled={isSubmitting}
+            />
+          </div>
+
+          {/* Campo Email */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
               Email profesional
@@ -175,7 +191,6 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
                 }}
                 placeholder="tu.email@ejemplo.com"
                 className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                autoFocus
                 disabled={isSubmitting}
               />
             </div>
@@ -184,41 +199,30 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
             )}
           </div>
 
-          {/* Botones */}
-          <div className="space-y-3">
-            <Button
-              type="submit"
-              className="w-full"
-              size="lg"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="animate-spin mr-2">⏳</span>
-                  Descargando...
-                </>
-              ) : (
-                <>
-                  <FileCheck className="mr-2 h-5 w-5" />
-                  Descargar PDF
-                </>
-              )}
-            </Button>
-
-            <button
-              type="button"
-              onClick={handleSkip}
-              className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors"
-              disabled={isSubmitting}
-            >
-              Descargar sin registrar email
-            </button>
-          </div>
+          {/* Botón de envío */}
+          <Button
+            type="submit"
+            className="w-full"
+            size="lg"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <span className="animate-spin mr-2">⏳</span>
+                Preparando descarga...
+              </>
+            ) : (
+              <>
+                <FileCheck className="mr-2 h-5 w-5" />
+                Descargar Guía Completa
+              </>
+            )}
+          </Button>
         </form>
 
         {/* Nota de privacidad */}
         <p className="text-xs text-muted-foreground text-center mt-4">
-          Tu email solo se usará para enviarte información relevante sobre el modelo de colaboración.
+          Tu información solo se usará para enviarte contenido relevante sobre el programa de colaboración.
           Ver <a href="/aviso-privacidad" className="text-primary hover:underline">Aviso de Privacidad</a>.
         </p>
       </div>

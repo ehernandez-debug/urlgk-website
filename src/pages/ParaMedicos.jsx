@@ -11,7 +11,9 @@ import {
   DollarSign,
   FileCheck,
   Handshake,
-  ArrowRight
+  ArrowRight,
+  Lock,
+  Mail
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,41 +38,6 @@ const ParaMedicos = () => {
         document.head.removeChild(script);
     }
   }, []);
-
-  const modeloParticipacion = [
-    {
-      nivel: 'Nivel 1: Referencia',
-      rol: 'Solo refiere pacientes',
-      uroflujometria: 'Hasta $200',
-      estudioPF: 'Hasta $1,100',
-      videourodinamia: 'Hasta $1,600',
-      color: 'bg-blue-50 border-blue-200'
-    },
-    {
-      nivel: 'Nivel 2: Ref. + Asistencia',
-      rol: 'Refiere + asiste en procedimiento',
-      uroflujometria: 'Hasta $400',
-      estudioPF: 'Hasta $3,300',
-      videourodinamia: 'Hasta $5,000',
-      color: 'bg-green-50 border-green-200'
-    },
-    {
-      nivel: 'Nivel 3: Interpretación',
-      rol: 'Interpreta resultados',
-      uroflujometria: 'Hasta $650',
-      estudioPF: 'Hasta $4,400',
-      videourodinamia: 'Hasta $6,800',
-      color: 'bg-yellow-50 border-yellow-200'
-    },
-    {
-      nivel: 'Nivel 4: Urodinamista Titular',
-      rol: 'Realiza todo el procedimiento',
-      uroflujometria: 'Hasta $880',
-      estudioPF: 'Hasta $5,200',
-      videourodinamia: 'Hasta $8,300',
-      color: 'bg-purple-50 border-purple-200'
-    }
-  ];
 
   const pasosUnirse = [
     {
@@ -121,30 +88,32 @@ const ParaMedicos = () => {
       icon: <Award className="h-8 w-8 text-primary" />
     }
   ];
-  const procesoUnion = [
+
+  // Vista previa del modelo — solo niveles 1 y 2, sin montos exactos
+  const modeloPreview = [
     {
-      paso: '1',
-      title: 'Agenda una Demo',
-      description: 'Conoce nuestras instalaciones, equipo y modelo de colaboración en detalle.',
-      icon: <Calendar className="h-8 w-8 text-primary" />
+      nivel: 'Nivel 1',
+      rol: 'Referencia',
+      descripcion: 'Solo refiere pacientes a Urologik.',
+      color: 'bg-blue-50 border-blue-200'
     },
     {
-      paso: '2',
-      title: 'Evaluación y Capacitación',
-      description: 'Evaluamos tu perfil y te capacitamos en el uso del equipo y protocolos.',
-      icon: <Users className="h-8 w-8 text-primary" />
+      nivel: 'Nivel 2',
+      rol: 'Ref. + Asistencia',
+      descripcion: 'Refiere y asiste durante el procedimiento.',
+      color: 'bg-green-50 border-green-200'
     },
     {
-      paso: '3',
-      title: 'Firma de Contrato',
-      description: 'Formalizamos la colaboración con un contrato claro y transparente.',
-      icon: <FileCheck className="h-8 w-8 text-primary" />
+      nivel: 'Nivel 3',
+      rol: 'Interpretación',
+      descripcion: 'Interpreta y firma los reportes de resultados.',
+      color: 'bg-yellow-50 border-yellow-200'
     },
     {
-      paso: '4',
-      title: 'Comienza a Referir',
-      description: 'Empieza a referir pacientes y generar ingresos desde el primer estudio.',
-      icon: <Stethoscope className="h-8 w-8 text-primary" />
+      nivel: 'Nivel 4',
+      rol: 'Urodinamista Titular',
+      descripcion: 'Realiza el procedimiento de forma autónoma.',
+      color: 'bg-purple-50 border-purple-200'
     }
   ];
 
@@ -154,7 +123,7 @@ const ParaMedicos = () => {
         <title>Modelo de Colaboración para Médicos Urólogos | Urologik</title>
         <meta 
           name="description" 
-          content="Únete al modelo de participación progresiva de Urologik. Ofrece estudios urodinámicos de vanguardia sin inversión ni operación. 4 niveles de colaboración con honorarios crecientes." 
+          content="Únete al modelo de participación progresiva de Urologik. Ofrece estudios urodinámicos de vanguardia sin inversión ni operación. Descarga la guía completa del programa de colaboración." 
         />
       </Helmet>
 
@@ -203,6 +172,7 @@ const ParaMedicos = () => {
               </div>
             </div>
             
+            {/* Card de potencial de ingresos — conceptual, sin montos exactos */}
             <div className="relative">
               <div className="medical-card p-8 bg-gradient-to-br from-white to-secondary/10">
                 <h3 className="text-2xl font-bold text-foreground mb-6">
@@ -210,19 +180,32 @@ const ParaMedicos = () => {
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
-                    <span className="text-sm font-medium text-muted-foreground">Nivel 1 (5 estudios/mes)</span>
-                    <span className="text-xl font-bold text-primary">$5,525 MXN</span>
+                    <span className="text-sm font-medium text-muted-foreground">Inicio (5 estudios/mes)</span>
+                    <span className="text-base font-semibold text-primary">Ingresos desde el Nivel 1</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-muted/30 rounded-lg">
-                    <span className="text-sm font-medium text-muted-foreground">Nivel 2 (10 estudios/mes)</span>
-                    <span className="text-xl font-bold text-primary">$33,160 MXN</span>
+                    <span className="text-sm font-medium text-muted-foreground">Crecimiento (10 estudios/mes)</span>
+                    <span className="text-base font-semibold text-primary">Ingresos crecientes por nivel</span>
                   </div>
                   <div className="flex justify-between items-center p-4 bg-accent/10 rounded-lg border-2 border-accent">
-                    <span className="text-sm font-medium text-foreground">Nivel 4 (15 estudios/mes)</span>
-                    <span className="text-2xl font-bold text-accent">$78,330 MXN</span>
+                    <span className="text-sm font-medium text-foreground">Máximo (15+ estudios/mes)</span>
+                    <span className="text-base font-bold text-accent">Hasta 5 cifras mensuales</span>
                   </div>
                 </div>
-                <p className="text-xs text-muted-foreground mt-4 text-center">
+                <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/20 flex items-start gap-3">
+                  <Lock className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <p className="text-sm text-muted-foreground">
+                    Los montos exactos por nivel y tipo de estudio están disponibles en la{' '}
+                    <button 
+                      onClick={() => setIsModalOpen(true)}
+                      className="text-primary font-medium hover:underline"
+                    >
+                      Guía Completa del Programa
+                    </button>
+                    . Descárgala gratis.
+                  </p>
+                </div>
+                <p className="text-xs text-muted-foreground mt-3 text-center">
                   *Ejemplos ilustrativos basados en estudios presión-flujo
                 </p>
               </div>
@@ -231,7 +214,7 @@ const ParaMedicos = () => {
         </div>
       </section>
 
-      {/* Modelo de Participación Progresiva */}
+      {/* Modelo de Participación Progresiva — Vista previa con content gate */}
       <section className="section-padding bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -242,33 +225,40 @@ const ParaMedicos = () => {
               Avanza en tu colaboración conforme adquieres experiencia. Cada nivel tiene requisitos y plazos claros (6 meses por nivel).
             </p>
           </div>
-          
-          <div className="overflow-x-auto mb-8">
-            <table className="w-full medical-card">
-              <thead className="bg-muted/50">
-                <tr>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Nivel / Rol</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Uroflujometría</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Estudio P-F</th>
-                  <th className="text-left py-4 px-4 font-semibold text-foreground">Videourodinamia</th>
-                </tr>
-              </thead>
-              <tbody>
-                {modeloParticipacion.map((nivel, index) => (
-                  <tr key={index} className={`border-t border-border ${nivel.color}`}>
-                    <td className="py-4 px-4">
-                      <div>
-                        <p className="font-semibold text-foreground">{nivel.nivel}</p>
-                        <p className="text-sm text-muted-foreground">{nivel.rol}</p>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.uroflujometria}</td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.estudioPF}</td>
-                    <td className="py-4 px-4 font-semibold text-primary">{nivel.videourodinamia}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+
+          {/* Vista previa de los 4 niveles — sin montos */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {modeloPreview.map((nivel, index) => (
+              <div key={index} className={`rounded-xl border p-5 ${nivel.color}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-bold text-muted-foreground uppercase tracking-wide">{nivel.nivel}</span>
+                </div>
+                <h3 className="text-base font-bold text-foreground mb-1">{nivel.rol}</h3>
+                <p className="text-sm text-muted-foreground">{nivel.descripcion}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Content Gate — CTA para descargar la guía con email */}
+          <div className="medical-card p-8 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20 text-center max-w-2xl mx-auto">
+            <Lock className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-foreground mb-3">
+              Accede a los Detalles Completos del Programa
+            </h3>
+            <p className="text-base text-muted-foreground mb-6">
+              Los honorarios por nivel, los requisitos de avance y los ejemplos de ingresos mensuales están disponibles en nuestra Guía Completa del Programa de Colaboración. Déjanos tu correo y la recibirás de inmediato.
+            </p>
+            <Button
+              size="lg"
+              className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <Mail className="mr-2 h-5 w-5" />
+              Recibir Guía Completa
+            </Button>
+            <p className="text-xs text-muted-foreground mt-4">
+              Sin spam. Solo información relevante sobre el programa de colaboración.
+            </p>
           </div>
         </div>
       </section>
@@ -378,42 +368,6 @@ const ParaMedicos = () => {
         </div>
       </section>
 
-      {/* Descarga PDF Lead Magnet */}
-      <section className="section-padding bg-accent/5">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="medical-card p-8 text-center">
-            <FileCheck className="h-16 w-16 text-primary mx-auto mb-4" />
-            <h2 className="text-2xl lg:text-3xl font-bold text-foreground mb-4">
-              Descarga Nuestra Guía Completa
-            </h2>
-            <p className="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
-              Obtén el PDF informativo con todos los detalles del Modelo de Colaboración de Urologik, incluyendo honorarios, beneficios y cómo unirte.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/urologik-modelo-colaboracion.pdf" download="Urologik-Modelo-Colaboracion.pdf">
-                <Button 
-                  size="lg" 
-                  variant="default"
-                  className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform"
-                >
-                  <FileCheck className="mr-2 h-5 w-5" />
-                  Descargar Guía PDF
-                </Button>
-              </a>
-              <a href="https://wa.me/5535055983?text=Hola%2C%20estoy%20interesado%20en%20el%20modelo%20de%20colaboraci%C3%B3n%20de%20Urologik" target="_blank" rel="noopener noreferrer">
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  className="text-lg px-8 py-4 w-full sm:w-auto"
-                >
-                  Contactar por WhatsApp
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Final */}
       <section className="section-padding bg-gradient-to-br from-primary/10 via-background to-accent/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -445,10 +399,10 @@ const ParaMedicos = () => {
         </div>
       </section>
 
-      {/* Modal de descarga PDF */}
+      {/* Modal de descarga PDF — requiere email */}
       <PdfDownloadModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
       />
     </div>
   );
