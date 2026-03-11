@@ -1,58 +1,65 @@
 /* eslint-env node */
-const { setGlobalOptions } = require("firebase-functions/v2");
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-const { defineSecret } = require("firebase-functions/params");
+const functions = require("firebase-functions/v1");
 const admin = require("firebase-admin");
 const nodemailer = require("nodemailer");
 
-setGlobalOptions({ region: "us-central1" });
-
 admin.initializeApp();
 
-// Secrets para las credenciales de Gmail (configurar con: firebase functions:secrets:set GMAIL_USER)
-const GMAIL_USER = defineSecret("GMAIL_USER");
-const GMAIL_APP_PASSWORD = defineSecret("GMAIL_APP_PASSWORD");
-
 /**
- * Función que se dispara cuando un médico descarga el PDF en /para-medicos.
- * Guarda el lead en Firestore (lo hace el frontend) y envía notificación por email.
+ * Firebase Function v1 — Trigger Firestore
+ * Se dispara cuando un médico llena el formulario y descarga el PDF en /para-medicos.
+ * Envía notificación por email a ehernandez@urologik.com.
+ *
+ * Secrets configurados en Firebase Secret Manager:
+ *   - GMAIL_USER: ehernandez@urologik.com
+ *   - GMAIL_APP_PASSWORD: contraseña de aplicación de Gmail
  */
-exports.onPdfDownloadLead = onDocumentCreated(
-  {
-    document: "pdf_downloads/{docId}",
-    secrets: [GMAIL_USER, GMAIL_APP_PASSWORD],
-  },
-  async (event) => {
-    const snap = event.data;
-    if (!snap) {
-      console.log("No hay datos en el evento.");
-      return;
-    }
-
+exports.onPdfDownloadLead = functions
+  .region("us-central1")
+  .runWith({
+    secrets: ["GMAIL_USER", "GMAIL_APP_PASSWORD"],
+    timeoutSeconds: 30,
+    memory: "128MB",
+  })
+  .firestore.document("pdf_downloads/{docId}")
+  .onCreate(async (snap) => {
     const data = snap.data();
     const { nombre, email, downloadedAt, source, pdfName } = data;
 
-    // Formatear fecha
-    const fecha = downloadedAt
-      ? downloadedAt.toDate().toLocaleString("es-MX", {
+    // Formatear fecha en zona horaria de México
+    let fecha = "Fecha no disponible";
+    try {
+      if (downloadedAt && downloadedAt.toDate) {
+        fecha = downloadedAt.toDate().toLocaleString("es-MX", {
           timeZone: "America/Mexico_City",
           dateStyle: "full",
           timeStyle: "short",
-        })
-      : "Fecha no disponible";
+        });
+      }
+    } catch (e) {
+      fecha = new Date().toLocaleString("es-MX", { timeZone: "America/Mexico_City" });
+    }
+
+    const gmailUser = process.env.GMAIL_USER;
+    const gmailPass = process.env.GMAIL_APP_PASSWORD;
+
+    if (!gmailUser || !gmailPass) {
+      console.error("❌ Secrets GMAIL_USER o GMAIL_APP_PASSWORD no configurados");
+      return;
+    }
 
     // Configurar transporter de Nodemailer con Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: GMAIL_USER.value(),
-        pass: GMAIL_APP_PASSWORD.value(),
+        user: gmailUser,
+        pass: gmailPass,
       },
     });
 
-    // Opciones del email
+    // Email HTML con diseño profesional de Urologik
     const mailOptions = {
-      from: `"Urologik Website" <${GMAIL_USER.value()}>`,
+      from: `"Urologik Website" <${gmailUser}>`,
       to: "ehernandez@urologik.com",
       subject: `🩺 Nuevo Lead PDF — ${nombre || "Médico sin nombre"}`,
       html: `
@@ -70,21 +77,24 @@ exports.onPdfDownloadLead = onDocumentCreated(
             .label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
             .value { font-size: 16px; font-weight: bold; color: #0d6e7a; margin-bottom: 20px; }
             .divider { border: none; border-top: 1px solid #eee; margin: 24px 0; }
-            .cta { background: #0d6e7a; color: #fff; padding: 12px 24px; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 8px; }
+            .cta { background: #0d6e7a; color: #fff !important; padding: 12px 24px; border-radius: 6px; text-decoration: none; display: inline-block; font-weight: bold; margin-top: 8px; }
             .footer { background: #f5f5f5; padding: 16px 32px; font-size: 12px; color: #999; text-align: center; }
+            .badge { display: inline-block; background: #e8f5f7; color: #0d6e7a; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 24px; }
           </style>
         </head>
         <body>
           <div class="container">
             <div class="header">
               <h1>🩺 Nuevo Lead — Descarga de Guía PDF</h1>
-              <p>Un médico descargó la Guía del Programa de Colaboración</p>
+              <p>Un médico descargó la Guía del Programa de Colaboración en urologik.com</p>
             </div>
             <div class="body">
-              <div class="label">Nombre</div>
+              <span class="badge">⚡ Seguimiento recomendado en 24 horas</span>
+
+              <div class="label">Nombre del médico</div>
               <div class="value">${nombre || "No proporcionado"}</div>
 
-              <div class="label">Email del médico</div>
+              <div class="label">Email de contacto</div>
               <div class="value"><a href="mailto:${email}" style="color:#0d6e7a;">${email}</a></div>
 
               <div class="label">Fecha y hora (CDMX)</div>
@@ -98,23 +108,23 @@ exports.onPdfDownloadLead = onDocumentCreated(
 
               <hr class="divider">
 
-              <p style="font-size:14px; color:#555;">
-                Este médico ha mostrado interés en el Programa de Colaboración de Urologik.
-                Se recomienda hacer seguimiento en las próximas <strong>24 horas</strong>.
+              <p style="font-size:14px; color:#555; margin-bottom: 20px;">
+                Este médico ha mostrado interés en el <strong>Programa de Colaboración de Urologik</strong>.
+                Se recomienda hacer seguimiento en las próximas <strong>24 horas</strong> para maximizar la tasa de conversión.
               </p>
 
-              <a href="mailto:${email}?subject=Seguimiento%20Programa%20de%20Colaboraci%C3%B3n%20Urologik&body=Hola%20${encodeURIComponent(nombre || "")}%2C%0A%0AGracias%20por%20descargar%20nuestra%20gu%C3%ADa..." class="cta">
-                Responder a ${nombre || "este médico"}
+              <a href="mailto:${email}?subject=Seguimiento%20Programa%20de%20Colaboraci%C3%B3n%20Urologik&body=Hola%20${encodeURIComponent(nombre || "Dr.")}%2C%0A%0AGracias%20por%20descargar%20nuestra%20gu%C3%ADa%20del%20Programa%20de%20Colaboraci%C3%B3n.%20Me%20gustar%C3%ADa%20agendar%20una%20llamada%20para%20contarte%20m%C3%A1s%20sobre%20c%C3%B3mo%20podemos%20trabajar%20juntos.%0A%0ASaludos%2C%0AErick%20Hern%C3%A1ndez%0AUrologik" class="cta">
+                ✉️ Responder a ${nombre || "este médico"}
               </a>
             </div>
             <div class="footer">
-              Urologik · urologik.com · Este email fue generado automáticamente por el sitio web.
+              Urologik · urologik.com · Este email fue generado automáticamente por el sitio web.<br>
+              ID del documento: ${snap.id}
             </div>
           </div>
         </body>
         </html>
       `,
-      // Versión texto plano como fallback
       text: `
 Nuevo Lead — Descarga de Guía PDF
 
@@ -128,15 +138,15 @@ Recomendación: hacer seguimiento en las próximas 24 horas.
 Responder a: ${email}
 
 — Urologik Website (mensaje automático)
+ID: ${snap.id}
       `.trim(),
     };
 
     try {
-      await transporter.sendMail(mailOptions);
-      console.log(`✅ Email enviado a ehernandez@urologik.com — Lead: ${email}`);
+      const info = await transporter.sendMail(mailOptions);
+      console.log(`✅ Email enviado a ehernandez@urologik.com — Lead: ${email} — MessageId: ${info.messageId}`);
     } catch (error) {
-      console.error("❌ Error al enviar email:", error);
+      console.error("❌ Error al enviar email:", error.message);
       throw error;
     }
-  }
-);
+  });
