@@ -71,7 +71,7 @@ const NosotrosPage = () => {
     {
       año: '2016',
       evento: 'Fundación de Urologik',
-      descripcion: 'Inicio de operaciones con el primer uroflujómetro en Colonia del Valle'
+      descripcion: 'Inicio de operaciones con el primer uroflujómetro en CDMX'
     },
     {
       año: '2018',

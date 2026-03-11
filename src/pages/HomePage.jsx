@@ -67,11 +67,11 @@ const HomePage = () => {
 
   const ubicaciones = [
     {
-      id: "colonia-del-valle",
-      nombre: 'Colonia del Valle',
-      direccion: 'Para adultos hombres y mujeres',
+      id: "hospital-angeles-lindavista",
+      nombre: 'Hospital Ángeles Lindavista',
+      direccion: 'Riobamba 639, Magdalena de las Salinas, Gustavo A. Madero, CDMX',
       horario: 'Lunes - Viernes: 9:00 am a 17:00 pm<br/>Sábado: 9:00 am a 1:00 pm',
-      especialidad: 'Urología general'
+      especialidad: 'Urología general y Uroginecología'
     },
     {
       id: "hospital-infantil",
@@ -220,7 +220,7 @@ const HomePage = () => {
               Nuestras Ubicaciones
             </h2>
             <p className="text-lg text-muted-foreground">
-              Nuestros centros de diagnóstico están convenientemente ubicados para tus pacientes en Colonia del Valle y Hospital Infantil Privado.
+              Nuestros centros de diagnóstico están convenientemente ubicados en la Ciudad de México: Hospital Ángeles Lindavista para adultos y uroginecología, y Hospital Infantil Privado Star Médica para pediatría.
             </p>
           </div>
           

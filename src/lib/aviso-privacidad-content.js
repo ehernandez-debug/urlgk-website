@@ -94,8 +94,8 @@ export const avisoPrivacidadContent = {
   
   sedes: [
     {
-      nombre: "Centro Médico del Valle",
-      direccion: "Amores 942, Consultorio 15, Del Valle Centro, 03100, CDMX"
+      nombre: "Hospital Ángeles Lindavista",
+      direccion: "Riobamba 639, Col. Magdalena de las Salinas, Gustavo A. Madero, 07760, CDMX"
     },
     {
       nombre: "Hospital Infantil Privado Star Médica",

@@ -63,19 +63,19 @@ const ContactoPage = () => {
 
   const ubicaciones = [
     {
-      nombre: 'Colonia del Valle',
-      especialidad: 'Urología General y Ginecourología',
-      direccion: 'Amores 942, Col del Valle Centro, Benito Juárez, 03100 Ciudad de México, CDMX',
-      ciudad: 'Ciudad de México, CDMX 03100',
+      nombre: 'Hospital Ángeles Lindavista',
+      especialidad: 'Urología General y Uroginecología',
+      direccion: 'Riobamba 639, Col. Magdalena de las Salinas, Gustavo A. Madero, 07760 Ciudad de México, CDMX',
+      ciudad: 'Ciudad de México, CDMX 07760',
       telefono: '55-35-05-59-83',
       email: 'contactourologik@gmail.com',
       horario: {
         semana: 'Lunes - Viernes: 9:00 am a 5:00 pm',
         sabado: 'Sábado: 9:00 am a 1:00 pm'
       },
-      mapsUrl: 'https://maps.app.goo.gl/2tKvqMRWDQwDUNGJ6',
-      consultorio: 'Consultorio 15',
-      calendlyUrl: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'
+      mapsUrl: 'https://maps.app.goo.gl/ejdNPC9mYRo2qY2P6',
+      consultorio: 'Hospital Ángeles Lindavista',
+      calendlyUrl: 'https://calendly.com/urologik/cita-angeles-lindavista?hide_gdpr_banner=1'
     },
     {
       nombre: 'Hospital Infantil Privado',
@@ -98,7 +98,7 @@ const ContactoPage = () => {
     <>
       <Helmet>
         <title>Contacto | UROLOGIK</title>
-        <meta name="description" content="Contacta con Urologik. Dos ubicaciones en CDMX: Colonia del Valle y Hospital Infantil Privado. Teléfono, WhatsApp y correo electrónico disponibles." />
+        <meta name="description" content="Contacta con Urologik. Dos ubicaciones en CDMX: Hospital Ángeles Lindavista (adultos y uroginecología) y Hospital Infantil Privado Star Médica (pediatría). Teléfono, WhatsApp y correo electrónico disponibles." />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -261,14 +261,14 @@ const ContactoPage = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="aspect-video rounded-lg overflow-hidden shadow-lg">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.8686892!2d-99.1724!3d19.3733!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff8b0e0e0e0e%3A0x0e0e0e0e0e0e0e0e!2sAmores%20942%2C%20Col%20del%20Valle%20Centro!5e0!3m2!1ses!2smx!4v1234567890"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3761.2!2d-99.1285!3d19.4720!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cdff8c00000000%3A0x1b5b45a44293f318!2sHospital%20Angeles%20Lindavista!5e0!3m2!1ses!2smx!4v1710000000000"
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
                   allowFullScreen="" 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Mapa Colonia del Valle"
+                  title="Mapa Hospital Ángeles Lindavista"
                 ></iframe>
               </div>
               

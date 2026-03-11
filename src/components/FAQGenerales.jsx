@@ -6,7 +6,7 @@ const FAQGenerales = () => {
     {
       question: '¿Dónde están ubicados exactamente?',
       answer:
-        'Nuestra sede central de diagnóstico está en Colonia del Valle y tenemos una unidad en el Hospital Infantil Privado (para pediatría). Contamos con una red de médicos asociados en Lindavista. Al agendar, te confirmaremos la sucursal más cercana a ti con equipo disponible.',
+        'Contamos con dos sedes en CDMX: Hospital Ángeles Lindavista (Riobamba 639, Magdalena de las Salinas, Gustavo A. Madero) para estudios de adultos y uroginecología, y Hospital Infantil Privado Star Médica (Nueva York 7, Nápoles) para pediatría. Al agendar, te confirmaremos la sede correspondiente a tu estudio.',
     },
     {
       question: '¿Tienen estacionamiento?',

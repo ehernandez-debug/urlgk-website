@@ -19,7 +19,7 @@ export const catalogoServicios = {
         'Reporte de resultados'
       ],
       duracion: '30 minutos',
-      ubicacion: 'Centro Médico del Valle, Amores 942-Consultorio 15, Col del Valle Centro',
+      ubicacion: 'Hospital Ángeles Lindavista, Riobamba 639, Col. Magdalena de las Salinas, Gustavo A. Madero, 07760, CDMX',
       tipo: 'basico'
     },
     {
@@ -35,7 +35,7 @@ export const catalogoServicios = {
         'Reporte completo de resultados'
       ],
       duracion: '45 minutos',
-      ubicacion: 'Centro Médico del Valle, Amores 942-Consultorio 15, Col del Valle Centro',
+      ubicacion: 'Hospital Ángeles Lindavista, Riobamba 639, Col. Magdalena de las Salinas, Gustavo A. Madero, 07760, CDMX',
       tipo: 'premium',
       destacado: true
     }
