@@ -1,67 +1,88 @@
 import { useState } from 'react';
-import { X, FileCheck, Mail } from 'lucide-react';
+import { X, FileCheck, Mail, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { analytics, db } from '@/lib/firebase';
-import { logEvent } from 'firebase/analytics';
+import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+
+// Analytics se importa de forma lazy para evitar errores si no está inicializado
+let analyticsInstance = null;
+const getAnalytics = async () => {
+  if (analyticsInstance) return analyticsInstance;
+  try {
+    const { getAnalytics: getFA, isSupported, logEvent } = await import('firebase/analytics');
+    const { app } = await import('@/lib/firebase');
+    const supported = await isSupported();
+    if (supported) {
+      analyticsInstance = { instance: getFA(app), logEvent };
+    }
+  } catch (e) {
+    console.warn('Analytics no disponible:', e);
+  }
+  return analyticsInstance;
+};
 
 const PdfDownloadModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
   const [nombre, setNombre] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
 
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
+  const validateEmail = (val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
 
-  // Función para descargar el PDF
+  // Descarga directa del PDF — siempre se ejecuta independientemente de Firestore/Analytics
   const downloadPDF = () => {
-    const link = document.createElement('a');
-    link.href = '/urologik-modelo-colaboracion.pdf';
-    link.download = 'Urologik-Modelo-Colaboracion.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    try {
+      const link = document.createElement('a');
+      link.href = '/urologik-modelo-colaboracion.pdf';
+      link.download = 'Urologik-Modelo-Colaboracion.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (e) {
+      // Fallback: abrir en nueva pestaña
+      window.open('/urologik-modelo-colaboracion.pdf', '_blank');
+    }
   };
 
-  // Función para guardar en Firestore (con manejo de errores)
-  const saveToFirestore = async (emailValue, nombreValue) => {
+  // Guardar lead en Firestore (no bloquea la descarga si falla)
+  const saveLeadToFirestore = async (emailVal, nombreVal) => {
     try {
-      if (!db) {
-        console.warn('Firestore no está inicializado. Saltando guardado.');
-        return false;
-      }
-
+      if (!db) return;
       await addDoc(collection(db, 'pdf_downloads'), {
-        email: emailValue.toLowerCase().trim(),
-        nombre: nombreValue.trim(),
+        email: emailVal,
+        nombre: nombreVal,
         downloadedAt: serverTimestamp(),
         pdfName: 'urologik-modelo-colaboracion.pdf',
         source: 'para-medicos-page',
         userAgent: navigator.userAgent,
       });
-
-      console.log('✅ Lead guardado en Firestore:', emailValue);
-      return true;
-    } catch (error) {
-      console.error('⚠️ Error al guardar en Firestore:', error);
-      return false;
+      console.log('✅ Lead guardado en Firestore');
+    } catch (e) {
+      // Error silencioso — no interrumpe la descarga
+      console.warn('⚠️ Firestore no disponible:', e.message);
     }
   };
 
-  // Función para loguear en Analytics (con manejo de errores)
-  const logToAnalytics = (eventName, params) => {
+  // Registrar evento en GA4 (no bloquea la descarga si falla)
+  const logAnalyticsEvent = async (emailVal, nombreVal) => {
     try {
+      const analytics = await getAnalytics();
       if (analytics) {
-        logEvent(analytics, eventName, params);
-        console.log('✅ Evento logueado en Analytics:', eventName);
-      } else {
-        console.warn('Analytics no está inicializado. Saltando log.');
+        analytics.logEvent(analytics.instance, 'pdf_download_lead', {
+          event_category: 'lead_generation',
+          event_label: 'guia_colaboracion_medicos',
+          pdf_name: 'urologik-modelo-colaboracion',
+          source: 'para-medicos-page',
+          // No enviar PII a GA4 — solo metadata
+          has_email: !!emailVal,
+          has_nombre: !!nombreVal,
+        });
+        console.log('✅ Evento GA4 registrado: pdf_download_lead');
       }
-    } catch (error) {
-      console.error('⚠️ Error al loguear en Analytics:', error);
+    } catch (e) {
+      console.warn('⚠️ Analytics no disponible:', e.message);
     }
   };
 
@@ -69,62 +90,43 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
     e.preventDefault();
     setError('');
 
-    // Validar nombre
+    // Validaciones
     if (!nombre || nombre.trim().length < 2) {
-      setError('Por favor ingresa tu nombre');
+      setError('Por favor ingresa tu nombre completo');
       return;
     }
-
-    // Validar email
-    if (!email) {
-      setError('Por favor ingresa tu email profesional');
-      return;
-    }
-
-    if (!validateEmail(email)) {
-      setError('Por favor ingresa un email válido');
+    if (!email || !validateEmail(email)) {
+      setError('Por favor ingresa un email profesional válido');
       return;
     }
 
     setIsSubmitting(true);
 
-    try {
-      const emailValue = email.toLowerCase().trim();
-      const nombreValue = nombre.trim();
+    const emailVal = email.toLowerCase().trim();
+    const nombreVal = nombre.trim();
 
-      // 1. Guardar lead en Firestore
-      await saveToFirestore(emailValue, nombreValue);
+    // PASO 1: Descargar el PDF PRIMERO — esto no puede fallar
+    downloadPDF();
 
-      // 2. Loguear en Analytics
-      logToAnalytics('pdf_download', {
-        email: emailValue,
-        nombre: nombreValue,
-        pdf_name: 'urologik-modelo-colaboracion',
-        source: 'para-medicos-page',
-      });
+    // PASO 2: Mostrar éxito inmediatamente
+    setSuccess(true);
 
-      // 3. Descargar PDF
-      downloadPDF();
+    // PASO 3: Guardar en Firestore y Analytics en paralelo (sin bloquear)
+    Promise.all([
+      saveLeadToFirestore(emailVal, nombreVal),
+      logAnalyticsEvent(emailVal, nombreVal),
+    ]).catch(() => {
+      // Silencioso — la descarga ya ocurrió
+    });
 
-      // 4. Cerrar modal después de 500ms
-      setTimeout(() => {
-        onClose();
-        setEmail('');
-        setNombre('');
-      }, 500);
-
-    } catch (error) {
-      console.error('Error inesperado:', error);
-      // Incluso si hay error, intentar descargar el PDF
-      downloadPDF();
-      setTimeout(() => {
-        onClose();
-        setEmail('');
-        setNombre('');
-      }, 500);
-    } finally {
+    // PASO 4: Cerrar modal después de 2s para que el usuario vea el mensaje de éxito
+    setTimeout(() => {
+      onClose();
+      setEmail('');
+      setNombre('');
+      setSuccess(false);
       setIsSubmitting(false);
-    }
+    }, 2000);
   };
 
   if (!isOpen) return null;
@@ -141,90 +143,113 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
           <X className="h-5 w-5" />
         </button>
 
-        {/* Icono y título */}
-        <div className="text-center mb-6">
-          <FileCheck className="h-16 w-16 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-foreground mb-2">
-            Guía Completa del Programa de Colaboración
-          </h2>
-          <p className="text-muted-foreground text-sm">
-            Ingresa tus datos para recibir los detalles completos del modelo de participación progresiva, honorarios por nivel y beneficios del programa.
-          </p>
-        </div>
-
-        {/* Formulario */}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Campo Nombre */}
-          <div>
-            <label htmlFor="nombre" className="block text-sm font-medium text-foreground mb-2">
-              Nombre completo
-            </label>
-            <input
-              type="text"
-              id="nombre"
-              value={nombre}
-              onChange={(e) => {
-                setNombre(e.target.value);
-                setError('');
-              }}
-              placeholder="Dr. Juan Pérez"
-              className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              autoFocus
-              disabled={isSubmitting}
-            />
-          </div>
-
-          {/* Campo Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-              Email profesional
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                  setError('');
-                }}
-                placeholder="tu.email@ejemplo.com"
-                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                disabled={isSubmitting}
-              />
+        {success ? (
+          /* Estado de éxito */
+          <div className="text-center py-6">
+            <div className="h-16 w-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+              <FileCheck className="h-8 w-8 text-green-600" />
             </div>
-            {error && (
-              <p className="text-sm text-red-500 mt-2">{error}</p>
-            )}
+            <h2 className="text-2xl font-bold text-foreground mb-2">
+              ¡Descarga iniciada!
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              La guía se está descargando. Si no inicia automáticamente,
+              revisa tu carpeta de descargas.
+            </p>
           </div>
+        ) : (
+          <>
+            {/* Icono y título */}
+            <div className="text-center mb-6">
+              <FileCheck className="h-16 w-16 text-primary mx-auto mb-4" />
+              <h2 className="text-2xl font-bold text-foreground mb-2">
+                Guía Completa del Programa de Colaboración
+              </h2>
+              <p className="text-muted-foreground text-sm">
+                Honorarios por nivel, requisitos de avance y ejemplos de ingresos mensuales.
+                Ingresa tus datos para descargar.
+              </p>
+            </div>
 
-          {/* Botón de envío */}
-          <Button
-            type="submit"
-            className="w-full"
-            size="lg"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? (
-              <>
-                <span className="animate-spin mr-2">⏳</span>
-                Preparando descarga...
-              </>
-            ) : (
-              <>
-                <FileCheck className="mr-2 h-5 w-5" />
-                Descargar Guía Completa
-              </>
-            )}
-          </Button>
-        </form>
+            {/* Formulario */}
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Campo Nombre */}
+              <div>
+                <label htmlFor="pdf-nombre" className="block text-sm font-medium text-foreground mb-2">
+                  Nombre completo
+                </label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <input
+                    type="text"
+                    id="pdf-nombre"
+                    value={nombre}
+                    onChange={(e) => { setNombre(e.target.value); setError(''); }}
+                    placeholder="Dr. Juan Pérez"
+                    className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
+                    autoFocus
+                    disabled={isSubmitting}
+                    autoComplete="name"
+                  />
+                </div>
+              </div>
 
-        {/* Nota de privacidad */}
-        <p className="text-xs text-muted-foreground text-center mt-4">
-          Tu información solo se usará para enviarte contenido relevante sobre el programa de colaboración.
-          Ver <a href="/aviso-privacidad" className="text-primary hover:underline">Aviso de Privacidad</a>.
-        </p>
+              {/* Campo Email */}
+              <div>
+                <label htmlFor="pdf-email" className="block text-sm font-medium text-foreground mb-2">
+                  Email profesional
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <input
+                    type="email"
+                    id="pdf-email"
+                    value={email}
+                    onChange={(e) => { setEmail(e.target.value); setError(''); }}
+                    placeholder="tu.email@hospital.com"
+                    className="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent bg-background"
+                    disabled={isSubmitting}
+                    autoComplete="email"
+                  />
+                </div>
+                {error && (
+                  <p className="text-sm text-red-500 mt-2 flex items-center gap-1">
+                    <span>⚠</span> {error}
+                  </p>
+                )}
+              </div>
+
+              {/* Botón de envío */}
+              <Button
+                type="submit"
+                className="w-full"
+                size="lg"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span className="animate-spin mr-2 inline-block">⏳</span>
+                    Iniciando descarga...
+                  </>
+                ) : (
+                  <>
+                    <FileCheck className="mr-2 h-5 w-5" />
+                    Descargar Guía Completa
+                  </>
+                )}
+              </Button>
+            </form>
+
+            {/* Nota de privacidad */}
+            <p className="text-xs text-muted-foreground text-center mt-4">
+              Tu información solo se usará para enviarte contenido relevante sobre el programa.
+              Ver{' '}
+              <a href="/aviso-privacidad" className="text-primary hover:underline">
+                Aviso de Privacidad
+              </a>.
+            </p>
+          </>
+        )}
       </div>
     </div>
   );
