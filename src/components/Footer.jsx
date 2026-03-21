@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Phone, Mail, Clock, Facebook, Instagram } from 'lucide-react'
+import { Phone, Mail, Facebook, Instagram, Building2, Stethoscope, Users, Wrench } from 'lucide-react'
 import urologikLogo from '../assets/urologik-logo.png'
 import useAnalytics from '@/hooks/useAnalytics'
 
@@ -20,8 +20,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
-              Salud con I.A. Biomédica para estudios urológicos especializados. 
-              Acercando diagnósticos de vanguardia con I.A. biomédica.
+              Infraestructura tecnológica urológica para hospitales y médicos. Renta de equipo de alta especialidad con soporte técnico integral en CDMX.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/share/1Cxxwe14nj/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
@@ -33,45 +32,62 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Servicios */}
+          {/* Renta de Equipo — Prioridad #1 */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Servicios</h3>
+            <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Building2 className="h-4 w-4 text-primary" />
+              Renta de Equipo
+            </h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/servicios" className="text-muted-foreground hover:text-primary transition-colors">
-                  Uroflujometría
+                <Link to="/renta/laser-holmio-lumenis" className="text-muted-foreground hover:text-primary transition-colors">
+                  Láser de Holmio Lumenis
                 </Link>
               </li>
               <li>
-                <Link to="/servicios" className="text-muted-foreground hover:text-primary transition-colors">
-                  Urodinamia
+                <Link to="/renta/torre-urologia-stryker" className="text-muted-foreground hover:text-primary transition-colors">
+                  Torre de Urología Stryker
                 </Link>
               </li>
               <li>
-                <Link to="/servicios" className="text-muted-foreground hover:text-primary transition-colors">
-                  Consulta Especializada
+                <Link to="/renta/instrumental-y-consumibles" className="text-muted-foreground hover:text-primary transition-colors">
+                  Instrumental y Consumibles
+                </Link>
+              </li>
+              <li>
+                <Link to="/contacto?service=cotizacion-equipo" className="text-primary font-medium hover:underline transition-colors">
+                  Solicitar Cotización →
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Enlaces Útiles */}
+          {/* Servicios y Portales */}
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Enlaces Útiles</h3>
+            <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
+              <Stethoscope className="h-4 w-4 text-primary" />
+              Servicios
+            </h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/contacto" className="text-muted-foreground hover:text-primary transition-colors">
-                  Agendar Cita
-                </Link>
-              </li>
-              <li>
-                <Link to="/para-medicos" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link to="/para-medicos" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
+                  <Users className="h-3 w-3" />
                   Para Médicos
                 </Link>
               </li>
               <li>
-                <Link to="/nosotros" className="text-muted-foreground hover:text-primary transition-colors">
-                  Nosotros
+                <Link to="/para-pacientes" className="text-muted-foreground hover:text-primary transition-colors">
+                  Para Pacientes
+                </Link>
+              </li>
+              <li>
+                <Link to="/representantes/comisiones" className="text-muted-foreground hover:text-primary transition-colors">
+                  Representantes Médicos
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">
+                  Blog
                 </Link>
               </li>
               <li>
@@ -93,44 +109,50 @@ const Footer = () => {
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-muted-foreground hover:text-primary transition-colors"
-                  onClick={() => trackLead('paciente', 'whatsapp', { source: 'footer' })}
+                  onClick={() => trackLead('general', 'whatsapp', { source: 'footer' })}
                 >
                   55-35-05-59-83
                 </a>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-primary flex-shrink-0" />
-                <a href="/contacto#formulario-contacto" className="text-muted-foreground hover:text-primary transition-colors">contactourologik@gmail.com</a>
+                <a 
+                  href="mailto:contactourologik@gmail.com" 
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  contactourologik@gmail.com
+                </a>
               </div>
-              <div className="flex items-start space-x-2">
-                <Clock className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-muted-foreground">Lunes - Viernes: 9:00 am a 6:00 pm</p>
-                  <p className="text-muted-foreground">Sábado: 9:00 am a 2:00 pm</p>
-                </div>
+              <div className="text-muted-foreground text-xs mt-3 space-y-1">
+                <p className="font-medium text-foreground">Cobertura</p>
+                <p>CDMX y Área Metropolitana</p>
+                <p>Hospitales Benito Juárez, Cuauhtémoc y más</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
+        {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-muted-foreground text-sm">
-              © 2025 Urologik. Todos los derechos reservados.
+              © {new Date().getFullYear()} Urologik. Todos los derechos reservados.
             </p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <Link to="/aviso-de-privacidad" className="text-muted-foreground hover:text-primary text-sm transition-colors">
+            <div className="flex flex-wrap gap-4 text-sm">
+              <Link to="/aviso-de-privacidad" className="text-muted-foreground hover:text-primary transition-colors">
                 Aviso de Privacidad
               </Link>
-              <Link to="/terminos-de-uso" className="text-muted-foreground hover:text-primary text-sm transition-colors">
+              <Link to="/terminos-de-uso" className="text-muted-foreground hover:text-primary transition-colors">
                 Términos de Uso
               </Link>
-              <Link to="/politica-de-cookies" className="text-muted-foreground hover:text-primary text-sm transition-colors">
-                Cookies
+              <Link to="/politica-de-cookies" className="text-muted-foreground hover:text-primary transition-colors">
+                Política de Cookies
               </Link>
             </div>
           </div>
+          <p className="text-xs text-muted-foreground mt-4 text-center">
+            Urologik es una empresa de servicios de renta de equipo médico. No somos una institución de salud ni prestamos servicios médicos directos. Todos los procedimientos son realizados por médicos certificados. Cumplimiento COFEPRIS.
+          </p>
         </div>
       </div>
     </footer>

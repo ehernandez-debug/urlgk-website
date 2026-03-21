@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, XCircle, Star, Award, Zap, Users, Package } from 'lucide-react';
@@ -30,8 +31,8 @@ const LpLaserHolmio = () => {
                   <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary">Láser de Holmio para Urología: Renta por Procedimiento con Soporte Integral</h1>
                   <p className="mt-4 text-lg md:text-xl text-muted-foreground">Realiza procedimientos de HoLEP y litiasis con tecnología de punta. <strong className="text-primary">Complementa tu diagnóstico con nuestros estudios de urodinamia.</strong> Sin inversión, sin mantenimiento, con asistencia técnica in-situ.</p>
                   <div className="mt-8 flex gap-4 justify-center md:justify-start">
-                      <Button size="lg" asChild><a href="/contacto?service=demo-laser-holmio">Agendar Demo</a></Button>
-                      <Button size="lg" variant="outline" asChild><a href="/contacto?service=cotizacion-laser-holmio">Solicitar Cotización</a></Button>
+                      <Link to="/contacto?service=demo-laser-holmio"><Button size="lg">Agendar Demo</Button></Link>
+                      <Link to="/contacto?service=cotizacion-laser-holmio"><Button size="lg" variant="outline">Solicitar Cotización</Button></Link>
                   </div>
               </div>
               <div>
@@ -77,7 +78,7 @@ const LpLaserHolmio = () => {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button size="lg" asChild><a href="/contacto?program=champions">Unirme al Programa</a></Button>
+            <Link to="/contacto?program=champions"><Button size="lg">Unirme al Programa</Button></Link>
           </div>
         </div>
       </section>

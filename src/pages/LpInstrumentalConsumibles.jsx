@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -25,8 +26,8 @@ const LpInstrumentalConsumibles = () => {
                   <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary">Instrumental y Consumibles para Todo Procedimiento Urológico</h1>
                   <p className="mt-4 text-lg md:text-xl text-muted-foreground">Catálogo completo de marcas premium (Karl Storz, Cook Medical, Laborie). Incluyendo todo lo necesario para estudios de urodinamia de alta complejidad. Disponible en 24 horas.</p>
                   <div className="mt-8 flex gap-4 justify-center md:justify-start">
-                      <Button size="lg" asChild><a href="/contacto?service=catalogo-instrumental">Solicitar Catálogo Completo</a></Button>
-                      <Button size="lg" variant="outline" asChild><a href="/contacto?service=especialista-instrumental">Hablar con un Especialista</a></Button>
+                      <Link to="/contacto?service=catalogo-instrumental"><Button size="lg">Solicitar Catálogo Completo</Button></Link>
+                      <Link to="/contacto?service=especialista-instrumental"><Button size="lg" variant="outline">Hablar con un Especialista</Button></Link>
                   </div>
               </div>
               <div className="grid grid-cols-2 grid-rows-2 gap-2">
@@ -111,7 +112,7 @@ const LpInstrumentalConsumibles = () => {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button size="lg" asChild><a href="/contacto?program=champions">Unirme al Programa</a></Button>
+            <Link to="/contacto?program=champions"><Button size="lg">Unirme al Programa</Button></Link>
           </div>
         </div>
       </section>

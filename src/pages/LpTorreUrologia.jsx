@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CheckCircle, XCircle, Star, Award, Zap, Users, Package, Video, Wrench } from 'lucide-react';
@@ -30,8 +31,8 @@ const LpTorreUrologia = () => {
                   <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary">Torre de Urología Stryker: Visualización HD para tus Procedimientos</h1>
                   <p className="mt-4 text-lg md:text-xl text-muted-foreground">Sistema completo de video-endoscopia. Ideal para diagnósticos precisos y procedimientos guiados por imagen. Soporte técnico integral.</p>
                   <div className="mt-8 flex gap-4 justify-center md:justify-start">
-                      <Button size="lg" asChild><a href="/contacto?service=demo-torre-urologia">Agendar Demo</a></Button>
-                      <Button size="lg" variant="outline" asChild><a href="/contacto?service=cotizacion-torre-urologia">Solicitar Cotización Institucional</a></Button>
+                      <Link to="/contacto?service=demo-torre-urologia"><Button size="lg">Agendar Demo</Button></Link>
+                      <Link to="/contacto?service=cotizacion-torre-urologia"><Button size="lg" variant="outline">Solicitar Cotización Institucional</Button></Link>
                   </div>
               </div>
               <div>
@@ -76,7 +77,7 @@ const LpTorreUrologia = () => {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button size="lg" asChild><a href="/contacto?program=champions">Unirme al Programa</a></Button>
+            <Link to="/contacto?program=champions"><Button size="lg">Unirme al Programa</Button></Link>
           </div>
         </div>
       </section>

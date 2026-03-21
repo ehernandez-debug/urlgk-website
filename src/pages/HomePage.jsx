@@ -1,328 +1,410 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { 
-  Calendar, 
-  Users, 
-  Award, 
-  MapPin, 
-  Clock,
-  CheckCircle,
+import { Helmet } from 'react-helmet-async'
+import {
+  Building2,
   Stethoscope,
-  Handshake,
-  FileCheck
+  Users,
+  CheckCircle,
+  ArrowRight,
+  Wrench,
+  TrendingUp,
+  Shield,
+  Zap,
+  Phone,
+  MessageCircle,
+  ChevronRight
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import useAnalytics from '@/hooks/useAnalytics'
 
 const HomePage = () => {
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.href = "https://assets.calendly.com/assets/external/widget.css";
-    link.rel = "stylesheet";
-    document.head.appendChild(link);
+  const { trackEvent, trackLead } = useAnalytics()
 
-    const script = document.createElement('script');
-    script.src = "https://assets.calendly.com/assets/external/widget.js";
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-        document.head.removeChild(link);
-        document.head.removeChild(script);
-    }
-  }, [])
-
-  const pasosColaboracion = [
+  const equiposRenta = [
     {
-      title: 'Paso 1: Refiere a tu Paciente',
-      description: 'Tú realizas el diagnóstico clínico y nos refieres a tu paciente con un clic.',
-      icon: <Stethoscope className="h-8 w-8 text-primary" />
+      title: 'Láser de Holmio Lumenis Pulse 100H',
+      subtitle: 'Litotripsia, ablación y enucleación prostática',
+      href: '/renta/laser-holmio-lumenis',
+      icon: <Zap className="h-8 w-8 text-primary" />,
+      features: ['Potencia hasta 100W', 'Fibras incluidas', 'Técnico biomédico in-situ'],
+      badge: 'Alta Demanda',
+      badgeColor: 'bg-orange-100 text-orange-700'
     },
     {
-      title: 'Paso 2: Nosotros Gestionamos Todo',
-      description: 'Coordinamos la cita, realizamos el estudio con equipo de punta y personal certificado.',
-      icon: <Handshake className="h-8 w-8 text-primary" />
+      title: 'Torre de Urología Stryker 1588/1688',
+      subtitle: 'Video-endoscopia HD para diagnóstico y cirugía',
+      href: '/renta/torre-urologia-stryker',
+      icon: <Building2 className="h-8 w-8 text-primary" />,
+      features: ['Sistema completo HD', 'Cistoscopios incluidos', 'Soporte técnico integral'],
+      badge: 'Más Solicitado',
+      badgeColor: 'bg-blue-100 text-blue-700'
     },
     {
-      title: 'Paso 3: Recibes el Reporte y tus Honorarios',
-      description: 'Te entregamos un reporte profesional en 24-48h y depositamos tus honorarios por colaboración diagnóstica.',
-      icon: <FileCheck className="h-8 w-8 text-primary" />
-    }
+      title: 'Instrumental y Consumibles',
+      subtitle: 'Catéteres Albyn/Mediplus y accesorios urológicos',
+      href: '/renta/instrumental-y-consumibles',
+      icon: <Wrench className="h-8 w-8 text-primary" />,
+      features: ['Catéteres de alta calidad', 'Entrega en hospital', 'Stock garantizado'],
+      badge: 'Disponible 24h',
+      badgeColor: 'bg-green-100 text-green-700'
+    },
   ]
 
-  const respaldoProfesional = [
+  const propuestaValor = [
     {
-      title: 'Calidad Certificada',
-      description: 'Operamos con ingenieros biomédicos certificados y equipos de última generación.'
+      icon: <TrendingUp className="h-6 w-6 text-primary" />,
+      title: 'Sin Inversión CAPEX',
+      desc: 'Accede a tecnología de última generación sin comprar ni depreciar equipo. Paga solo por procedimiento.'
     },
     {
-      title: 'Cumplimiento Normativo',
-      description: 'Seguimos estrictos protocolos de seguridad y manejo de datos (HIPAA).'
+      icon: <Shield className="h-6 w-6 text-primary" />,
+      title: 'Soporte Técnico Incluido',
+      desc: 'Ingeniero biomédico presente en cada procedimiento. Mantenimiento preventivo y correctivo sin costo adicional.'
     },
     {
-      title: 'Alianza Ética',
-      description: 'Nuestro modelo se basa en la colaboración diagnóstica activa, no en comisiones por referencia.'
-    }
+      icon: <Zap className="h-6 w-6 text-primary" />,
+      title: 'Logística Completa CDMX',
+      desc: 'Entrega, instalación y recolección en tu hospital. Cobertura en toda la CDMX y área metropolitana.'
+    },
+    {
+      icon: <Users className="h-6 w-6 text-primary" />,
+      title: 'Proveedor Certificado',
+      desc: 'Alta como proveedor en hospitales públicos y privados. Cumplimiento COFEPRIS y normativas vigentes.'
+    },
   ]
 
-  const ubicaciones = [
+  const audiencias = [
     {
-      id: "hospital-angeles-lindavista",
-      nombre: 'Hospital Ángeles Lindavista',
-      direccion: 'Riobamba 639, Magdalena de las Salinas, Gustavo A. Madero, CDMX',
-      horario: 'Lunes - Viernes: 9:00 am a 17:00 pm<br/>Sábado: 9:00 am a 1:00 pm',
-      especialidad: 'Urología general y Uroginecología'
+      icon: <Building2 className="h-10 w-10 text-primary" />,
+      title: 'Hospitales e Instituciones',
+      priority: 'Prioridad #1',
+      priorityColor: 'bg-primary text-white',
+      desc: 'Accede a equipo de alta especialidad sin inversión CAPEX. Reduce costos operativos y elimina la obsolescencia tecnológica.',
+      cta: 'Solicitar Cotización Institucional',
+      ctaHref: '/contacto?service=cotizacion-equipo',
+      ctaStyle: 'cta-button',
+      items: ['Láser de Holmio', 'Torre de Urología', 'Cistoscopios y lentes', 'Torre de Laparoscopia']
     },
     {
-      id: "hospital-infantil",
-      nombre: 'Hospital Infantil Privado',
-      direccion: 'Especializado en pediatría',
-      horario: 'Lunes - Viernes: 9:00 am a 17:00 pm<br/>Sábado: 9:00 am a 1:00 pm',
-      especialidad: 'Urología pediátrica'
-    }
+      icon: <Stethoscope className="h-10 w-10 text-primary" />,
+      title: 'Médicos Urólogos',
+      priority: 'Prioridad #2',
+      priorityColor: 'bg-secondary text-secondary-foreground',
+      desc: 'Amplía tu oferta de servicios con equipo de vanguardia. Modelo de colaboración progresiva con ingresos garantizados.',
+      cta: 'Conocer Programa de Colaboración',
+      ctaHref: '/para-medicos',
+      ctaStyle: 'variant-outline',
+      items: ['Estudios de urodinamia', 'Acceso a equipo de renta', 'Modelo de participación progresiva', 'Ingresos por colaboración']
+    },
+    {
+      icon: <Users className="h-10 w-10 text-primary" />,
+      title: 'Pacientes',
+      priority: 'Prioridad #3',
+      priorityColor: 'bg-muted text-muted-foreground',
+      desc: 'Estudios de urodinamia especializados en CDMX. Atención personalizada, reportes en 24-48h y tecnología de punta.',
+      cta: 'Agendar Estudio',
+      ctaHref: '/para-pacientes',
+      ctaStyle: 'variant-outline',
+      items: ['Uroflujometría', 'Urodinamia multicanal', 'Videourodinamia', 'Atención pediátrica']
+    },
   ]
-
-  // Testimonios removidos - pendiente de documentación real
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section Principal */}
-      <section className="hero-section bg-gradient-to-br from-primary/10 via-background to-secondary/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <div className="flex items-center space-x-4">
-                <Stethoscope className="h-12 w-12 text-primary" />
-                <span className="text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
-                  Modelo B2B para urólogos aliados
-                </span>
+    <>
+      <Helmet>
+        <title>Urologik | Infraestructura Tecnológica Urológica para Hospitales y Médicos</title>
+        <meta name="description" content="Renta de equipo médico urológico de alta especialidad en CDMX: Láser de Holmio Lumenis, Torre Stryker, cistoscopios. Sin inversión CAPEX, soporte técnico incluido. Proveedor certificado para hospitales." />
+        <meta name="keywords" content="renta equipo urológico, láser holmio CDMX, torre urología Stryker, cistoscopio renta, equipo médico urología México" />
+      </Helmet>
+
+      <div className="min-h-screen">
+
+        {/* HERO B2B PRINCIPAL */}
+        <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-16 lg:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+                  <Building2 className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold text-primary">
+                    Infraestructura Tecnológica para Hospitales y Médicos
+                  </span>
+                </div>
+
+                <h1 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                  Tecnología Urológica de Punta.{' '}
+                  <span className="text-primary">Sin Inversión CAPEX.</span>
+                </h1>
+
+                <p className="text-xl text-muted-foreground leading-relaxed">
+                  Proveemos infraestructura tecnológica integral a hospitales y médicos: renta de equipo médico de alta especialidad con soporte técnico completo en CDMX.
+                </p>
+
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    'Láser de Holmio Lumenis',
+                    'Torre Stryker 1588/1688',
+                    'Cistoscopios y lentes',
+                    'Técnico biomédico in-situ'
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                  <Link
+                    to="/contacto?service=cotizacion-equipo"
+                    onClick={() => trackEvent('cta_click', { cta_type: 'solicitar_cotizacion', source: 'hero' })}
+                  >
+                    <Button size="lg" className="cta-button text-base px-8 py-4 w-full sm:w-auto">
+                      <Building2 className="h-5 w-5 mr-2" />
+                      Solicitar Cotización Institucional
+                    </Button>
+                  </Link>
+                  <Link
+                    to="/renta/laser-holmio-lumenis"
+                    onClick={() => trackEvent('cta_click', { cta_type: 'ver_equipos', source: 'hero' })}
+                  >
+                    <Button size="lg" variant="outline" className="text-base px-8 py-4 w-full sm:w-auto">
+                      Ver Equipos Disponibles
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </Link>
+                </div>
+
+                <div className="flex items-center gap-4 pt-2 text-sm text-muted-foreground">
+                  <button
+                    onClick={() => {
+                      trackLead('hospital', 'whatsapp', { source: 'hero' })
+                      window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20renta%20de%20equipo%20urologico', '_blank', 'noopener,noreferrer')
+                    }}
+                    className="flex items-center gap-1 hover:text-primary transition-colors"
+                  >
+                    <MessageCircle className="h-4 w-4" />
+                    WhatsApp directo
+                  </button>
+                  <span>·</span>
+                  <a href="tel:5535055983" className="flex items-center gap-1 hover:text-primary transition-colors">
+                    <Phone className="h-4 w-4" />
+                    55-35-05-59-83
+                  </a>
+                </div>
               </div>
-              
-              <h1 className="text-3xl lg:text-5xl font-bold text-foreground leading-tight">
-                Ofrece Estudios Urológicos de Vanguardia. Sin Inversión. Sin Operación.
-              </h1>
-              
-              <p className="text-lg text-primary font-semibold">
-                Convierte tu consultorio en un centro de diagnóstico urológico sin inversión, sin operación y sin riesgo. Gana más, trabaja menos.
-              </p>
-              
-              <p className="text-base text-muted-foreground leading-relaxed">
-                Nosotros nos encargamos de la tecnología, la logística y el personal. Tú te enfocas en tus pacientes y aumentas tus ingresos.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/para-medicos">
-                  <Button size="lg" className="cta-button text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
-                    Descubre el Modelo de Colaboración
-                  </Button>
-                </Link>
-                <Link to="/servicios">
-                  <Button size="lg" variant="outline" className="text-lg px-8 py-4 w-full sm:w-auto transform hover:scale-105 transition-transform">
-                    Ver Servicios Disponibles
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="relative">
-              <div className="medical-card p-8 bg-gradient-to-br from-white to-secondary/10">
-                <h3 className="text-2xl font-bold text-foreground mb-4">
-                  Beneficios para tu práctica
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Sin inversión en equipo ni infraestructura</span>
+
+              <div className="relative">
+                <div className="medical-card p-8 bg-gradient-to-br from-white to-primary/5 space-y-6">
+                  <h3 className="text-xl font-bold text-foreground">
+                    ¿Por qué elegir Urologik?
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[
+                      { value: '80-85%', label: 'Margen en renta de equipo', color: 'text-primary' },
+                      { value: '2-3', label: 'Procedimientos mínimos para rentabilidad', color: 'text-accent' },
+                      { value: '100%', label: 'Soporte técnico incluido', color: 'text-primary' },
+                      { value: '24h', label: 'Entrega en CDMX y área metro', color: 'text-accent' },
+                    ].map((stat) => (
+                      <div key={stat.label} className="text-center p-3 bg-muted/30 rounded-lg">
+                        <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
+                        <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
+                      </div>
+                    ))}
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Operación completa con personal certificado</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Reportes profesionales en 24-48h</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <CheckCircle className="h-5 w-5 text-accent" />
-                    <span className="text-muted-foreground">Honorarios por colaboración diagnóstica</span>
+                  <div className="border-t border-border pt-4">
+                    <p className="text-sm text-muted-foreground text-center">
+                      Proveedor certificado · Cumplimiento COFEPRIS · CDMX y área metropolitana
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Cómo funciona la colaboración */}
-      <section className="section-padding bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              ¿Cómo funciona la colaboración?
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Un modelo simple para crecer tu práctica sin añadir carga operativa.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pasosColaboracion.map((paso, index) => (
-              <Card key={index} className="medical-card">
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-2">
-                    {paso.icon}
-                    <CardTitle className="text-xl">{paso.title}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">
-                    {paso.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent />
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Confianza y Respaldo Profesional */}
-      <section className="section-padding bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Confianza y Respaldo Profesional
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Preparamos el espacio para testimonios reales mientras destacamos los pilares que respaldan la colaboración.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {respaldoProfesional.map((item, index) => (
-              <Card key={index} className="medical-card">
-                <CardHeader>
-                  <CardTitle className="text-xl">{item.title}</CardTitle>
-                  <CardDescription className="text-base">
-                    {item.description}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent />
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Ubicaciones */}
-      <section className="section-padding bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Nuestras Ubicaciones
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Nuestros centros de diagnóstico están convenientemente ubicados en la Ciudad de México: Hospital Ángeles Lindavista para adultos y uroginecología, y Hospital Infantil Privado Star Médica para pediatría.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {ubicaciones.map((ubicacion, index) => (
-              <Card key={index} className="medical-card">
-                <CardHeader>
-                  <div className="flex items-center space-x-3 mb-2">
-                    <MapPin className="h-6 w-6 text-primary" />
-                    <CardTitle className="text-xl">{ubicacion.nombre}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">
-                    {ubicacion.direccion}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground" dangerouslySetInnerHTML={{ __html: ubicacion.horario }}></span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <Award className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{ubicacion.especialidad}</span>
-                    </div>
-                  </div>
-                  {ubicacion.id === 'hospital-infantil' ? (
-                    <Button 
-                      className="w-full mt-4 cta-button transform hover:scale-105 transition-transform"
-                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/cita-hospital-infantil-privado?hide_gdpr_banner=1'})}
-                    >
-                      <Calendar className="h-4 w-4 mr-2" />
-                      Agendar en esta ubicación
-                    </Button>
-                  ) : (
-                    <Button 
-                      className="w-full mt-4 cta-button transform hover:scale-105 transition-transform"
-                      onClick={() => window.Calendly.initPopupWidget({url: 'https://calendly.com/urologik/cita-colonia-del-valle?hide_gdpr_banner=1'})}
-                    >
-                      <Calendar className="h-4 w-4 mr-2" />
-                      Agendar en esta ubicación
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonios - Temporalmente deshabilitado hasta obtener testimonios documentados */}
-      {/* <section className="section-padding bg-background">
-        ...
-      </section> */}
-
-      {/* CTA para Médicos */}
-      <section className="section-padding bg-muted/30">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="medical-card p-8 text-center border-2 border-primary/20">
-            <div className="inline-block px-4 py-2 bg-primary/10 rounded-full mb-4">
-              <span className="text-primary font-semibold text-sm">¿Eres urólogo?</span>
+        {/* EQUIPOS DISPONIBLES */}
+        <section className="py-16 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full mb-4">
+                <Building2 className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">Renta de Equipo Médico</span>
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Equipos Disponibles para Renta
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Tecnología de alta especialidad urológica con soporte técnico completo. Disponible en hospitales de CDMX y área metropolitana.
+              </p>
             </div>
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Descubre Nuestros Modelos de Colaboración
-            </h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              Únete a nuestra red de especialistas y ofrece a tus pacientes acceso a tecnología de vanguardia en estudios urodinámicos.
-            </p>
-            <Link to="/para-medicos">
-              <Button size="lg" className="cta-button text-lg px-8 py-4 transform hover:scale-105 transition-transform">
-                <Users className="h-5 w-5 mr-2" />
-                Conocer Programa de Colaboración
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
 
-      {/* CTA Final */}
-      <section className="section-padding bg-gradient-to-r from-primary to-accent">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            ¿Listo para impulsar tu práctica?
-          </h2>
-          <p className="text-xl text-white/90 mb-8">
-            Conoce el modelo de colaboración y habilita estudios urológicos avanzados sin inversión.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/para-medicos">
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-4 transform hover:scale-105 transition-transform">
-                Descubre el Modelo
-              </Button>
-            </Link>
-            <Link to="/contacto">
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary transform hover:scale-105 transition-transform">
-                Hablar con un especialista
-              </Button>
-            </Link>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {equiposRenta.map((equipo) => (
+                <Card key={equipo.href} className="medical-card hover:shadow-lg transition-shadow">
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="p-3 bg-primary/10 rounded-lg">
+                        {equipo.icon}
+                      </div>
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${equipo.badgeColor}`}>
+                        {equipo.badge}
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl leading-tight">{equipo.title}</CardTitle>
+                    <CardDescription className="text-sm">{equipo.subtitle}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <ul className="space-y-2">
+                      {equipo.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      to={equipo.href}
+                      onClick={() => trackEvent('cta_click', { cta_type: 'ver_equipo', source: 'home_equipos' })}
+                      className="block"
+                    >
+                      <Button className="w-full" variant="outline">
+                        Ver detalles y cotizar
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-10">
+              <Link to="/contacto?service=cotizacion-equipo">
+                <Button size="lg" className="cta-button text-base px-10">
+                  <Building2 className="h-5 w-5 mr-2" />
+                  Solicitar Cotización Institucional
+                </Button>
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+
+        {/* PROPUESTA DE VALOR */}
+        <section className="py-16 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                El Modelo que Elimina el CAPEX
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Accede a tecnología de punta sin las cargas de propiedad. Nosotros gestionamos el equipo; tú te enfocas en los procedimientos.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {propuestaValor.map((item) => (
+                <div key={item.title} className="medical-card p-6 text-center space-y-3">
+                  <div className="inline-flex p-3 bg-primary/10 rounded-full">
+                    {item.icon}
+                  </div>
+                  <h3 className="font-bold text-foreground">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* AUDIENCIAS / PORTALES */}
+        <section className="py-16 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Soluciones para Cada Audiencia
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Desde hospitales que necesitan equipo hasta pacientes que requieren estudios diagnósticos.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {audiencias.map((aud) => (
+                <Card key={aud.title} className="medical-card flex flex-col">
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="p-3 bg-primary/10 rounded-lg">
+                        {aud.icon}
+                      </div>
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${aud.priorityColor}`}>
+                        {aud.priority}
+                      </span>
+                    </div>
+                    <CardTitle className="text-xl">{aud.title}</CardTitle>
+                    <CardDescription className="text-sm leading-relaxed">{aud.desc}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between space-y-4">
+                    <ul className="space-y-1">
+                      {aud.items.map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <CheckCircle className="h-3 w-3 text-accent flex-shrink-0" />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link to={aud.ctaHref} onClick={() => trackEvent('cta_click', { cta_type: aud.cta, source: 'home_audiencias' })}>
+                      <Button
+                        className={`w-full ${aud.ctaStyle === 'cta-button' ? 'cta-button' : ''}`}
+                        variant={aud.ctaStyle === 'cta-button' ? 'default' : 'outline'}
+                      >
+                        {aud.cta}
+                        <ArrowRight className="h-4 w-4 ml-2" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA FINAL B2B */}
+        <section className="py-16 bg-gradient-to-r from-primary to-accent">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+              ¿Listo para acceder a tecnología de punta sin inversión?
+            </h2>
+            <p className="text-xl text-white/90 mb-8">
+              Contáctanos hoy y recibe una cotización personalizada para tu hospital o consulta. Respuesta en menos de 24 horas.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/contacto?service=cotizacion-equipo"
+                onClick={() => trackEvent('cta_click', { cta_type: 'solicitar_cotizacion', source: 'cta_final' })}
+              >
+                <Button size="lg" variant="secondary" className="text-base px-8 py-4">
+                  <Building2 className="h-5 w-5 mr-2" />
+                  Solicitar Cotización
+                </Button>
+              </Link>
+              <Button
+                size="lg"
+                variant="outline"
+                className="text-base px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary"
+                onClick={() => {
+                  trackLead('hospital', 'whatsapp', { source: 'cta_final' })
+                  window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20renta%20de%20equipo%20urologico', '_blank', 'noopener,noreferrer')
+                }}
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                Escribir por WhatsApp
+              </Button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </>
   )
 }
 
