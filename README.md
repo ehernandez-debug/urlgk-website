@@ -1,67 +1,107 @@
 # Urologik Web Application
 
-This is a Vite + React + Tailwind CSS project for Urologik, a company providing urological diagnostic services.
+Este es el repositorio oficial del sitio web de **Urologik** (urologik.com), una plataforma integral de servicios urológicos que provee infraestructura tecnológica para hospitales y médicos, así como estudios diagnósticos especializados.
 
-## Project Structure
+El proyecto está construido con **Vite + React + Tailwind CSS** y desplegado en **Firebase Hosting**.
 
-The main files are located in the `src` directory:
+## 🏗️ Arquitectura y Estrategia de Negocio
 
-- `main.jsx`: The entry point of the application.
-- `App.jsx`: The main router, defining all the application routes.
-- `components/`: Reusable components used throughout the application.
-- `pages/`: The main pages of the application.
-- `lib/`: Utility functions and data.
+El sitio web refleja el modelo de negocio balanceado (50/50) de Urologik, dividido en dos pilares principales:
 
-## Managing Services
+1. **Renta de Equipo Médico (B2B):** Provisión de infraestructura tecnológica (Láser de Holmio, Torre de Urología, Instrumental) para hospitales y médicos sin inversión CAPEX.
+2. **Estudios Diagnósticos:** Servicios especializados de urodinamia, uroflujometría y videourodinamia para pacientes y médicos referentes.
 
-To add or modify services, you need to edit the `src/lib/servicios-data.js` file. This file contains an object with two main keys: `pediatria` and `adultos`. Each of these keys contains an object with the services for that category.
+La navegación y estructura de la página principal (`HomePage`) están diseñadas para atender a tres audiencias clave:
+- **Hospitales e Instituciones (Prioridad #1):** Enfoque en renta de equipo y reducción de costos.
+- **Médicos Urólogos (Prioridad #2):** Enfoque en colaboración, renta de equipo y referencia de estudios.
+- **Pacientes (Prioridad #3):** Enfoque educativo y agendamiento de estudios diagnósticos.
 
-To add a new service, you need to add a new key to the corresponding category object. The key should be the service slug, and the value should be an object with the following structure:
+## 📂 Estructura del Proyecto
 
-```javascript
-{
-  title: 'Service Title',
-  subtitle: 'Service Subtitle',
-  icon: <IconComponent />,
-  description: 'Service description.',
-  duracion: 'Service duration',
-  preparacion: 'Service preparation',
-  precio: 'Service price',
-  indicaciones: ['Indication 1', 'Indication 2'],
-  proceso: ['Step 1', 'Step 2'],
-  ventajas: ['Advantage 1', 'Advantage 2'],
-  faq: [
-    {
-      question: 'Frequently asked question?',
-      answer: 'Answer to the question.'
-    }
-  ]
-}
+El código fuente principal se encuentra en el directorio `src/`:
+
+```text
+src/
+├── App.jsx                 # Enrutador principal (React Router)
+├── main.jsx                # Punto de entrada de la aplicación
+├── components/             # Componentes reutilizables (UI, Layout, Navbar, Footer)
+│   ├── ui/                 # Componentes base (shadcn/ui)
+│   └── tracking/           # Componentes con tracking integrado (WhatsApp, Calendly)
+├── pages/                  # Páginas principales de la aplicación
+│   ├── HomePage.jsx        # Landing principal (Balance 50/50)
+│   ├── ContactoPage.jsx    # Formulario dinámico B2B y B2C
+│   ├── Lp*.jsx             # Landing Pages de Renta de Equipo (Láser, Torre, Instrumental)
+│   ├── LpUro*.jsx          # Landing Pages de Estudios (Uroflujometría, Urodinamia, etc.)
+│   └── legales/            # Páginas de compliance (Aviso de Privacidad, Términos)
+├── lib/                    # Utilidades, configuración de Firebase y datos estáticos
+└── hooks/                  # Custom hooks (ej. useAnalytics para GA4)
 ```
 
-## Managing Commissions
+## 🚀 Guía de Desarrollo y Despliegue
 
-To adjust the commission rates for the operational models, you need to edit the `src/pages/MedicosPage.jsx` file. Inside the `OperationalModels` component, you will find two `CommissionTable` components. You can edit the `data` prop of these components to adjust the commission rates.
+### Requisitos Previos
+- Node.js (v18 o superior)
+- npm o yarn
+- Firebase CLI (`npm install -g firebase-tools`)
 
-## Available Scripts
+### Instalación Local
 
-In the project directory, you can run:
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/ehernandez-debug/urlgk-website.git
+   cd urlgk-website
+   ```
 
-### `npm run dev`
+2. Instalar dependencias:
+   ```bash
+   npm install
+   ```
 
-Runs the app in the development mode.
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+3. Configurar variables de entorno:
+   Copiar el archivo `.env.example` a `.env.local` y agregar las credenciales de Firebase.
 
-### `npm run build`
+4. Iniciar el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+   El sitio estará disponible en `http://localhost:5173`.
 
-Builds the app for production to the `dist` folder.
+### Scripts Disponibles
 
-### `npm run lint`
+- `npm run dev`: Inicia el servidor de desarrollo.
+- `npm run build`: Compila la aplicación para producción en la carpeta `dist/`.
+- `npm run lint`: Ejecuta ESLint para encontrar y corregir problemas en el código.
+- `npm run preview`: Sirve la versión compilada localmente para pruebas.
 
-Lints the code to find and fix problems.
+### ☁️ Despliegue a Firebase Hosting
 
-### `npm run preview`
+El sitio está configurado para desplegarse en Firebase Hosting bajo el proyecto `urologik-mainwebsite`.
 
-Serves the production build locally.
+Para desplegar manualmente desde la CLI:
 
-11 de diciembre del 2025
+1. Autenticarse en Firebase (si no lo has hecho):
+   ```bash
+   firebase login
+   ```
+
+2. Compilar el proyecto:
+   ```bash
+   npm run build
+   ```
+
+3. Desplegar a producción:
+   ```bash
+   firebase deploy --only hosting
+   ```
+
+## 📊 Tracking y Analytics
+
+El proyecto incluye integración nativa con Google Analytics 4 (GA4) a través de Firebase Analytics. Se utiliza un custom hook `useAnalytics.js` para registrar eventos clave:
+
+- `trackLead`: Generación de leads (WhatsApp, Calendly, Formularios).
+- `trackEvent`: Eventos genéricos (clics en CTAs, descargas de PDF).
+- `trackServiceView`: Visualización de detalles de servicios.
+
+## 🛡️ Compliance y Legal
+
+El sitio cumple con los lineamientos de COFEPRIS, incluyendo secciones claras para el Aviso de Privacidad, Términos de Uso y Política de Cookies, ubicadas en `src/pages/legales/`.
