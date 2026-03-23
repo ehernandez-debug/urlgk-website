@@ -9,16 +9,13 @@ import {
   Shield,
   ArrowRight,
   MessageCircle,
-  Zap,
-  RefreshCw,
-  Target,
-  TrendingUp,
   Microscope,
   CircuitBoard,
   BrainCircuit,
   Stethoscope,
   BarChart2,
-  FileText
+  FileText,
+  Target
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -86,24 +83,6 @@ const TecnologiaPage = () => {
       title: 'Uroginecología',
       description: 'Evaluación de incontinencia urinaria femenina con tecnología portátil. Diagnóstico accesible fuera del hospital, en el consultorio del médico.',
       highlight: 'Alta necesidad insatisfecha en atención primaria.'
-    }
-  ];
-
-  const simbioticoCycle = [
-    {
-      icon: <TrendingUp className="h-8 w-8 text-white" />,
-      title: 'Renta de Equipo',
-      description: 'Genera caja operativa mensual recurrente'
-    },
-    {
-      icon: <Zap className="h-8 w-8 text-white" />,
-      title: 'Caja Operativa',
-      description: 'Financia investigación y desarrollo del dispositivo'
-    },
-    {
-      icon: <Target className="h-8 w-8 text-white" />,
-      title: 'Dispositivo Propio',
-      description: 'Diferencia la oferta de renta y abre mercado nuevo'
     }
   ];
 
@@ -316,47 +295,6 @@ const TecnologiaPage = () => {
               </div>
             </CardContent>
           </Card>
-        </div>
-      </section>
-
-      {/* El Modelo Simbiótico */}
-      <section className="section-padding bg-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <RefreshCw className="h-12 w-12 mx-auto mb-4 opacity-90" />
-            <h2 className="text-3xl lg:text-4xl font-bold">El Modelo Simbiótico</h2>
-            <p className="text-white/80 mt-3 max-w-2xl mx-auto">
-              Un ciclo virtuoso donde cada componente alimenta al siguiente.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-            {simbioticoCycle.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center h-full border border-white/20 hover:bg-white/15 transition-all duration-300">
-                  <div className="mx-auto w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-4">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-white/80 text-sm">{step.description}</p>
-                </div>
-                {index < simbioticoCycle.length - 1 && (
-                  <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
-                    <ArrowRight className="h-8 w-8 text-white/60" />
-                  </div>
-                )}
-                {index === simbioticoCycle.length - 1 && (
-                  <div className="hidden md:block absolute -bottom-8 left-1/2 -translate-x-1/2">
-                    <RefreshCw className="h-6 w-6 text-white/40" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-white/60 text-sm mt-12">
-            El ciclo se repite: la renta financia la innovación, y la innovación diferencia la renta.
-          </p>
         </div>
       </section>
 
