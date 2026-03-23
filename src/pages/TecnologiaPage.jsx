@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import {
-  Cpu,
-  Wifi,
-  Activity,
   CheckCircle,
   Clock,
   Lightbulb,
@@ -13,14 +10,15 @@ import {
   ArrowRight,
   MessageCircle,
   Zap,
-  Database,
-  Code,
-  Server,
   RefreshCw,
   Target,
   TrendingUp,
   Microscope,
-  CircuitBoard
+  CircuitBoard,
+  BrainCircuit,
+  Stethoscope,
+  BarChart2,
+  FileText
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -31,54 +29,46 @@ const TecnologiaPage = () => {
 
   const deviceFeatures = [
     {
-      icon: <Cpu className="h-8 w-8 text-primary" />,
-      title: 'ESP32-S3 + HX711',
-      description: 'Microcontrolador de alto rendimiento con celda de carga de precisión para mediciones confiables.'
+      icon: <Stethoscope className="h-8 w-8 text-primary" />,
+      title: 'Medición Precisa y No Invasiva',
+      description: 'El dispositivo registra el flujo urinario del paciente de forma cómoda, sin cables ni procedimientos molestos. El estudio tarda menos de 5 minutos.'
     },
     {
-      icon: <Wifi className="h-8 w-8 text-primary" />,
-      title: 'Transmisión WiFi a Cloud',
-      description: 'Datos en tiempo real enviados a la nube para almacenamiento seguro y acceso inmediato.'
+      icon: <BrainCircuit className="h-8 w-8 text-primary" />,
+      title: 'Análisis con Inteligencia Artificial',
+      description: 'Las señales captadas durante el estudio son procesadas por algoritmos de IA que identifican patrones clínicos relevantes, apoyando al médico en la interpretación.'
     },
     {
-      icon: <Activity className="h-8 w-8 text-primary" />,
-      title: 'Uroflujometría + EMG No Invasivo',
-      description: 'Enfoque actual en uroflujometría con electromiografía no invasiva integrada.'
+      icon: <BarChart2 className="h-8 w-8 text-primary" />,
+      title: 'Resultados Instantáneos en la Nube',
+      description: 'Al finalizar el estudio, los resultados quedan disponibles de forma inmediata en la plataforma digital de Urologik, accesibles desde cualquier dispositivo.'
     },
     {
       icon: <Microscope className="h-8 w-8 text-primary" />,
-      title: 'Validaciones Clínicas en Curso',
-      description: 'Protocolo de validación activo con médicos aliados en hospitales de la CDMX.'
+      title: 'Validación Clínica en Hospitales',
+      description: 'El dispositivo está siendo validado con médicos aliados en hospitales de la CDMX para garantizar su precisión diagnóstica antes de su lanzamiento.'
     }
-  ];
-
-  const dataPoints = [
-    { label: 'flow_rate', desc: 'Tasa de flujo en tiempo real (mL/s)' },
-    { label: 'Qmax', desc: 'Flujo máximo alcanzado' },
-    { label: 'Qavg', desc: 'Flujo promedio del estudio' },
-    { label: 'Vvoid', desc: 'Volumen total vaciado (mL)' },
-    { label: 'duration_sec', desc: 'Duración total de la micción' }
   ];
 
   const roadmap = [
     {
       phase: 'Fase Actual',
       title: 'Uroflujómetro Portátil',
-      description: 'Validación clínica del dispositivo con ESP32-S3 y celda de carga HX711. Pruebas con médicos aliados en hospitales sede.',
+      description: 'Validación clínica del dispositivo portátil con médicos aliados en hospitales sede. Pruebas de precisión y usabilidad en entorno real.',
       status: 'current',
       icon: <CircuitBoard className="h-6 w-6" />
     },
     {
       phase: 'Medio Plazo',
       title: 'Urodinamia Completa con IA',
-      description: 'Integración de algoritmos de inteligencia artificial para análisis predictivo y urodinamia completa automatizada.',
+      description: 'Integración de inteligencia artificial para análisis predictivo y automatización del reporte urodinámico completo.',
       status: 'upcoming',
       icon: <Lightbulb className="h-6 w-6" />
     },
     {
       phase: 'Visión',
-      title: 'Dispositivo Clase II COFEPRIS',
-      description: 'Registro como dispositivo médico clase II ante COFEPRIS para distribución nacional e internacional.',
+      title: 'Dispositivo Certificado COFEPRIS',
+      description: 'Registro como dispositivo médico ante COFEPRIS para distribución nacional e internacional.',
       status: 'future',
       icon: <Shield className="h-6 w-6" />
     }
@@ -88,23 +78,15 @@ const TecnologiaPage = () => {
     {
       icon: <Baby className="h-10 w-10 text-primary" />,
       title: 'Uropediatría',
-      description: 'Diagnóstico no invasivo para niños. Nuestro dispositivo permite evaluaciones cómodas y precisas adaptadas a pacientes pediátricos.',
+      description: 'Diagnóstico no invasivo para niños. El dispositivo permite evaluaciones cómodas y precisas adaptadas a pacientes pediátricos, sin necesidad de procedimientos complejos.',
       highlight: 'Alto valor clínico, baja competencia en el mercado.'
     },
     {
       icon: <Heart className="h-10 w-10 text-primary" />,
       title: 'Uroginecología',
-      description: 'Evaluación de incontinencia urinaria femenina con tecnología portátil. Diagnóstico accesible fuera del hospital.',
+      description: 'Evaluación de incontinencia urinaria femenina con tecnología portátil. Diagnóstico accesible fuera del hospital, en el consultorio del médico.',
       highlight: 'Alta necesidad insatisfecha en atención primaria.'
     }
-  ];
-
-  const stackTech = [
-    { icon: <Server className="h-6 w-6 text-primary" />, category: 'Cloud', items: 'GCP (BigQuery, Cloud Run, Cloud Functions)' },
-    { icon: <Code className="h-6 w-6 text-primary" />, category: 'App', items: 'React + TypeScript + Firebase Auth' },
-    { icon: <Cpu className="h-6 w-6 text-primary" />, category: 'IoT', items: 'PlatformIO + Arduino (migración a ESP-IDF)' },
-    { icon: <Database className="h-6 w-6 text-primary" />, category: 'Datos', items: 'HL7/FHIR compatible' },
-    { icon: <Shield className="h-6 w-6 text-primary" />, category: 'Compliance', items: 'NOM-024, LFPDPPP' }
   ];
 
   const simbioticoCycle = [
@@ -125,6 +107,24 @@ const TecnologiaPage = () => {
     }
   ];
 
+  const asistenteMedico = [
+    {
+      icon: <FileText className="h-6 w-6 text-primary" />,
+      title: 'Reporte Automatizado',
+      description: 'El asistente genera un borrador del reporte clínico con los hallazgos del estudio, listo para que el médico lo revise y firme en minutos.'
+    },
+    {
+      icon: <BrainCircuit className="h-6 w-6 text-primary" />,
+      title: 'Sugerencias Diagnósticas',
+      description: 'Basándose en los patrones del estudio y la historia del paciente, el asistente propone posibles diagnósticos para que el médico los evalúe.'
+    },
+    {
+      icon: <Stethoscope className="h-6 w-6 text-primary" />,
+      title: 'Historial del Paciente',
+      description: 'Acceso inmediato al historial de estudios previos del paciente, facilitando el seguimiento y la comparación de resultados a lo largo del tiempo.'
+    }
+  ];
+
   const handleCTAClick = () => {
     trackEvent('cta_click', {
       cta_name: 'tecnologia_conocer_mas',
@@ -136,8 +136,8 @@ const TecnologiaPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Tecnología e Innovación | Urologik — Desarrollamos Tecnología Médica con IA</title>
-        <meta name="description" content="Urologik desarrolla tecnología médica con inteligencia artificial. Conoce nuestro uroflujómetro portátil con ESP32, transmisión WiFi a cloud y validación clínica en curso." />
+        <title>Tecnología e Innovación | Urologik — Diagnóstico Urológico con Inteligencia Artificial</title>
+        <meta name="description" content="Urologik desarrolla tecnología médica con inteligencia artificial para el diagnóstico urológico. Uroflujómetro portátil con IA, asistente inteligente para médicos y validación clínica en curso." />
       </Helmet>
 
       {/* Hero Section */}
@@ -148,11 +148,11 @@ const TecnologiaPage = () => {
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32 text-center relative z-10">
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6">
-            <Cpu className="h-4 w-4" />
+            <BrainCircuit className="h-4 w-4" />
             Innovación Médica Mexicana
           </div>
           <h1 className="text-4xl lg:text-6xl font-extrabold text-foreground tracking-tight mb-6 leading-tight">
-            Desarrollamos Tecnología Médica
+            Diagnóstico Urológico
             <span className="text-primary block mt-2">con Inteligencia Artificial</span>
           </h1>
           <p className="text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto">
@@ -174,7 +174,7 @@ const TecnologiaPage = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {deviceFeatures.map((feature, index) => (
               <Card key={index} className="medical-card group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardHeader>
@@ -187,46 +187,54 @@ const TecnologiaPage = () => {
               </Card>
             ))}
           </div>
+        </div>
+      </section>
 
-          {/* Datos que captura */}
-          <Card className="medical-card bg-muted/30 border-primary/20">
-            <CardHeader className="text-center">
-              <CardTitle className="text-xl flex items-center justify-center gap-2">
-                <Database className="h-5 w-5 text-primary" />
-                Datos que Captura el Dispositivo
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                {dataPoints.map((point, index) => (
-                  <div key={index} className="text-center p-4 bg-background rounded-lg border">
-                    <code className="text-primary font-mono font-bold text-sm">{point.label}</code>
-                    <p className="text-xs text-muted-foreground mt-2">{point.desc}</p>
+      {/* Asistente Inteligente para Médicos */}
+      <section className="section-padding bg-muted/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <BrainCircuit className="h-12 w-12 text-primary mx-auto mb-4" />
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              Asistente Inteligente para el Médico
+            </h2>
+            <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+              Dentro de la plataforma de Urologik para Médicos, el asistente con IA apoya al especialista en cada paso del proceso diagnóstico.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {asistenteMedico.map((item, index) => (
+              <Card key={index} className="medical-card group hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <CardHeader>
+                  <div className="mb-2 w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    {item.icon}
                   </div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+                  <CardTitle className="text-lg">{item.title}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">{item.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Roadmap Tecnológico */}
-      <section className="section-padding bg-muted/30">
+      <section className="section-padding">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Roadmap Tecnológico</h2>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Hoja de Ruta</h2>
             <p className="text-muted-foreground mt-3">Nuestra ruta hacia el dispositivo médico del futuro.</p>
           </div>
 
           <div className="relative">
-            {/* Timeline line */}
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-primary/20 -translate-y-1/2" />
-
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {roadmap.map((phase, index) => (
                 <div key={index} className="relative">
-                  {/* Mobile connector */}
                   {index < roadmap.length - 1 && (
                     <div className="lg:hidden absolute left-1/2 -bottom-4 w-0.5 h-8 bg-primary/20" />
                   )}
@@ -254,7 +262,7 @@ const TecnologiaPage = () => {
                       <CardTitle className="text-lg">{phase.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <p className="text-sm text-muted-foreground">{phase.description}</p>
+                      <p className="text-muted-foreground text-sm">{phase.description}</p>
                     </CardContent>
                   </Card>
                 </div>
@@ -265,13 +273,13 @@ const TecnologiaPage = () => {
       </section>
 
       {/* Subespecialidades */}
-      <section className="section-padding">
+      <section className="section-padding bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <Lightbulb className="h-12 w-12 text-primary mx-auto mb-4" />
             <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Subespecialidades de Alto Impacto</h2>
             <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-              Nichos con baja competencia, alto valor clínico y alta necesidad insatisfecha.
+              Áreas con alta necesidad clínica y poca oferta tecnológica especializada en México.
             </p>
           </div>
 
@@ -332,13 +340,11 @@ const TecnologiaPage = () => {
                   <h3 className="text-xl font-bold mb-2">{step.title}</h3>
                   <p className="text-white/80 text-sm">{step.description}</p>
                 </div>
-                {/* Arrow connector */}
                 {index < simbioticoCycle.length - 1 && (
                   <div className="hidden md:flex absolute top-1/2 -right-4 -translate-y-1/2 z-10">
                     <ArrowRight className="h-8 w-8 text-white/60" />
                   </div>
                 )}
-                {/* Loop arrow on last item */}
                 {index === simbioticoCycle.length - 1 && (
                   <div className="hidden md:block absolute -bottom-8 left-1/2 -translate-x-1/2">
                     <RefreshCw className="h-6 w-6 text-white/40" />
@@ -354,37 +360,12 @@ const TecnologiaPage = () => {
         </div>
       </section>
 
-      {/* Stack Tecnológico */}
-      <section className="section-padding">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <Code className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">Stack Tecnológico</h2>
-            <p className="text-muted-foreground mt-3">Infraestructura de grado empresarial para datos médicos.</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-            {stackTech.map((tech, index) => (
-              <Card key={index} className="medical-card text-center hover:shadow-md transition-all duration-300">
-                <CardContent className="pt-6">
-                  <div className="mx-auto w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3">
-                    {tech.icon}
-                  </div>
-                  <p className="font-bold text-sm text-foreground mb-1">{tech.category}</p>
-                  <p className="text-xs text-muted-foreground">{tech.items}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA Final */}
       <section className="section-padding bg-muted/30">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <MessageCircle className="h-12 w-12 text-primary mx-auto mb-4" />
           <h2 className="text-3xl font-bold text-foreground mb-4">
-            Quieres saber más sobre nuestra tecnología
+            ¿Quieres saber más sobre nuestra tecnología?
           </h2>
           <p className="text-muted-foreground mb-8">
             Platiquemos sobre cómo la innovación médica mexicana puede transformar tu práctica urológica.
@@ -396,8 +377,8 @@ const TecnologiaPage = () => {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg">
-              <Link to="/servicios">
-                Ver Servicios <Activity className="h-4 w-4 ml-2" />
+              <Link to="/para-medicos">
+                Para Médicos <Stethoscope className="h-4 w-4 ml-2" />
               </Link>
             </Button>
           </div>

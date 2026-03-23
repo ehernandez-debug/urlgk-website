@@ -20,7 +20,7 @@ const FAQGenerales = () => {
     {
       question: '¿Entregan los resultados al momento?',
       answer:
-        'Uroflujometrías: Se entregan inmediatamente al terminar (digital), tanto al médico referidor como al paciente. Urodinamias: El reporte técnico completo se envía a tu médico y a ti por WhatsApp/Email en un lapso máximo de 48 horas, ya que requiere interpretación especializada.',
+        'Uroflujometrías: Se entregan inmediatamente al terminar (digital), tanto al médico referidor como al paciente. Urodinamias: El reporte técnico completo se envía a tu médico y a ti por WhatsApp/Email en un lapso de 48 a 72 horas, ya que requiere interpretación especializada.',
     },
     {
       question: '¿Es un consultorio o un laboratorio?',

@@ -9,7 +9,7 @@ import WhatsAppButton from '@/components/tracking/WhatsAppButton';
 const steps = [
   {
     title: 'Agenda tu Cita',
-    description: 'Elige la fecha y hora que mejor te convenga en nuestro portal seguro.',
+    description: 'Escríbenos por WhatsApp o elige la fecha y hora que mejor te convenga en nuestro portal de agendamiento. Respondemos en menos de 30 minutos.',
     icon: Calendar,
   },
   {
@@ -26,7 +26,7 @@ const steps = [
   {
     title: 'Resultados Rápidos',
     description:
-      'Tu médico recibirá los resultados de tu estudio en formato digital en menos de 48 horas.',
+      'Tu médico recibirá los resultados de tu estudio en formato digital en un lapso de 48 a 72 horas, dependiendo del tipo de estudio.',
     icon: FileCheck,
   },
 ];
