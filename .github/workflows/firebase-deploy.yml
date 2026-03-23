@@ -24,8 +24,7 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10.4.1
+        # La versión se toma automáticamente del campo "packageManager" en package.json
 
       - name: Get pnpm store directory
         id: pnpm-cache
