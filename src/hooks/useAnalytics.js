@@ -119,6 +119,52 @@ export const useAnalytics = () => {
     });
   }, [trackEvent]);
 
+  /**
+   * Registra la visualización de una landing page de estudio diagnóstico
+   * @param {string} studyType - Tipo de estudio: 'uroflujometria', 'urodinamia', 'videourodinamia', 'uroflujometria-pediatrica'
+   */
+  const trackStudyView = useCallback((studyType) => {
+    trackEvent('view_study_details', {
+      study_type: studyType,
+      timestamp: new Date().toISOString()
+    });
+  }, [trackEvent]);
+
+  /**
+   * Registra un CTA de agendar estudio diagnóstico
+   * @param {string} studyType - Tipo de estudio
+   * @param {string} source - Fuente del CTA
+   */
+  const trackAgendarEstudio = useCallback((studyType, source) => {
+    trackEvent('cta_agendar_estudio', {
+      study_type: studyType,
+      source: source,
+      timestamp: new Date().toISOString()
+    });
+  }, [trackEvent]);
+
+  /**
+   * Registra la visita a la página de tecnología
+   */
+  const trackTechnologyView = useCallback(() => {
+    trackEvent('view_technology', {
+      timestamp: new Date().toISOString()
+    });
+  }, [trackEvent]);
+
+  /**
+   * Registra la visualización de un post del blog
+   * @param {string} postSlug - Slug del post
+   * @param {string} postTitle - Título del post
+   */
+  const trackBlogView = useCallback((postSlug, postTitle) => {
+    trackEvent('blog_view', {
+      post_slug: postSlug,
+      post_title: postTitle,
+      timestamp: new Date().toISOString()
+    });
+  }, [trackEvent]);
+
   return {
     trackEvent,
     trackLead,
@@ -126,7 +172,11 @@ export const useAnalytics = () => {
     trackCalculation,
     trackServiceView,
     trackSocialClick,
-    trackCalendlyOpen
+    trackCalendlyOpen,
+    trackStudyView,
+    trackAgendarEstudio,
+    trackTechnologyView,
+    trackBlogView
   };
 };
 

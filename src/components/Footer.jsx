@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Phone, Mail, Facebook, Instagram, Building2, Stethoscope, Users, Wrench } from 'lucide-react'
+import { Phone, Mail, Facebook, Instagram, Building2, Stethoscope, Users, Wrench, Cpu } from 'lucide-react'
 import urologikLogo from '../assets/urologik-logo.png'
 import useAnalytics from '@/hooks/useAnalytics'
 
@@ -20,7 +20,7 @@ const Footer = () => {
               />
             </Link>
             <p className="text-muted-foreground text-sm mb-4">
-              Infraestructura tecnológica urológica para hospitales y médicos. Renta de equipo de alta especialidad con soporte técnico integral en CDMX.
+              Infraestructura tecnológica urológica integral: renta de equipo médico de alta especialidad y diagnóstico urodinámico de vanguardia en CDMX.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.facebook.com/share/1Cxxwe14nj/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
@@ -46,7 +46,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/renta/torre-urologia-stryker" className="text-muted-foreground hover:text-primary transition-colors">
-                  Torre de Urología Stryker
+                  Torre de Urología
                 </Link>
               </li>
               <li>
@@ -62,27 +62,53 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Servicios y Portales */}
+          {/* Diagnóstico Urológico */}
           <div>
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
               <Stethoscope className="h-4 w-4 text-primary" />
-              Servicios
+              Diagnóstico Urológico
             </h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/para-medicos" className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-1">
-                  <Users className="h-3 w-3" />
+                <Link to="/estudios/uroflujometria" className="text-muted-foreground hover:text-primary transition-colors">
+                  Uroflujometría
+                </Link>
+              </li>
+              <li>
+                <Link to="/estudios/urodinamia-multicanal" className="text-muted-foreground hover:text-primary transition-colors">
+                  Urodinamia Multicanal
+                </Link>
+              </li>
+              <li>
+                <Link to="/estudios/videourodinamia" className="text-muted-foreground hover:text-primary transition-colors">
+                  Videourodinamia
+                </Link>
+              </li>
+              <li>
+                <Link to="/estudios/uroflujometria-pediatrica" className="text-muted-foreground hover:text-primary transition-colors">
+                  Uroflujometría Pediátrica
+                </Link>
+              </li>
+              <li>
+                <Link to="/para-pacientes" className="text-primary font-medium hover:underline transition-colors">
+                  Agendar Estudio →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Más */}
+          <div className="lg:hidden">
+            <h3 className="font-semibold text-foreground mb-4">Más</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link to="/para-medicos" className="text-muted-foreground hover:text-primary transition-colors">
                   Para Médicos
                 </Link>
               </li>
               <li>
-                <Link to="/para-pacientes" className="text-muted-foreground hover:text-primary transition-colors">
-                  Para Pacientes
-                </Link>
-              </li>
-              <li>
-                <Link to="/representantes/comisiones" className="text-muted-foreground hover:text-primary transition-colors">
-                  Representantes Médicos
+                <Link to="/tecnologia" className="text-muted-foreground hover:text-primary transition-colors">
+                  Tecnología
                 </Link>
               </li>
               <li>
@@ -151,7 +177,7 @@ const Footer = () => {
             </div>
           </div>
           <p className="text-xs text-muted-foreground mt-4 text-center">
-            Urologik es una empresa de servicios de renta de equipo médico. No somos una institución de salud ni prestamos servicios médicos directos. Todos los procedimientos son realizados por médicos certificados. Cumplimiento COFEPRIS.
+            Urologik es una empresa de tecnología médica urológica que ofrece renta de equipo y servicios de diagnóstico urodinámico. Todos los estudios y procedimientos son realizados por profesionales de salud certificados. Cumplimiento COFEPRIS.
           </p>
         </div>
       </div>

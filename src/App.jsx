@@ -24,6 +24,15 @@ const LpInstrumentalConsumibles = lazy(() => import('./pages/LpInstrumentalConsu
 const BlogPage = lazy(() => import('./pages/BlogPage'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 
+// Estudios Diagnósticos Landing Pages
+const LpUroflujometria = lazy(() => import('./pages/LpUroflujometria'));
+const LpUrodinamia = lazy(() => import('./pages/LpUrodinamia'));
+const LpVideourodinamia = lazy(() => import('./pages/LpVideourodinamia'));
+const LpUroflujometriaPediatrica = lazy(() => import('./pages/LpUroflujometriaPediatrica'));
+
+// Tecnología
+const TecnologiaPage = lazy(() => import('./pages/TecnologiaPage'));
+
 // Legal Pages
 const AvisoPrivacidadPage = lazy(() => import('./pages/legales/AvisoPrivacidadPage'));
 const TerminosUsoPage = lazy(() => import('./pages/legales/TerminosUsoPage'));
@@ -53,6 +62,15 @@ function App() {
                 <Route path="torre-urologia-stryker" element={<LpTorreUrologia />} />
                 <Route path="instrumental-y-consumibles" element={<LpInstrumentalConsumibles />} />
               </Route>
+
+              <Route path="estudios">
+                <Route path="uroflujometria" element={<LpUroflujometria />} />
+                <Route path="urodinamia-multicanal" element={<LpUrodinamia />} />
+                <Route path="videourodinamia" element={<LpVideourodinamia />} />
+                <Route path="uroflujometria-pediatrica" element={<LpUroflujometriaPediatrica />} />
+              </Route>
+
+              <Route path="tecnologia" element={<TecnologiaPage />} />
 
               <Route path="blog">
                 <Route index element={<BlogPage />} />

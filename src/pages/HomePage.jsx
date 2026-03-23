@@ -12,7 +12,12 @@ import {
   Zap,
   Phone,
   MessageCircle,
-  ChevronRight
+  ChevronRight,
+  Activity,
+  Baby,
+  MonitorPlay,
+  Cpu,
+  Lightbulb
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
@@ -32,7 +37,7 @@ const HomePage = () => {
       badgeColor: 'bg-orange-100 text-orange-700'
     },
     {
-      title: 'Torre de Urología Stryker 1588/1688',
+      title: 'Torre de Urología',
       subtitle: 'Video-endoscopia HD para diagnóstico y cirugía',
       href: '/renta/torre-urologia-stryker',
       icon: <Building2 className="h-8 w-8 text-primary" />,
@@ -48,6 +53,45 @@ const HomePage = () => {
       features: ['Catéteres de alta calidad', 'Entrega en hospital', 'Stock garantizado'],
       badge: 'Disponible 24h',
       badgeColor: 'bg-green-100 text-green-700'
+    },
+  ]
+
+  const estudios = [
+    {
+      title: 'Uroflujometría',
+      subtitle: 'Diagnóstico no invasivo del flujo urinario',
+      href: '/estudios/uroflujometria',
+      icon: <Activity className="h-8 w-8 text-primary" />,
+      precio: 'Desde $2,260 MXN',
+      badge: 'No Invasivo',
+      badgeColor: 'bg-green-100 text-green-700'
+    },
+    {
+      title: 'Urodinamia Multicanal',
+      subtitle: 'Evaluación completa del tracto urinario inferior',
+      href: '/estudios/urodinamia-multicanal',
+      icon: <Stethoscope className="h-8 w-8 text-primary" />,
+      precio: '$12,927 MXN',
+      badge: 'Estudio Completo',
+      badgeColor: 'bg-blue-100 text-blue-700'
+    },
+    {
+      title: 'Videourodinamia',
+      subtitle: 'Visualización en tiempo real de la función vesical',
+      href: '/estudios/videourodinamia',
+      icon: <MonitorPlay className="h-8 w-8 text-primary" />,
+      precio: 'Desde $24,943 MXN',
+      badge: 'Gold Standard',
+      badgeColor: 'bg-purple-100 text-purple-700'
+    },
+    {
+      title: 'Uroflujometría Pediátrica + EMG',
+      subtitle: 'Diagnóstico especializado para niños — no invasivo',
+      href: '/estudios/uroflujometria-pediatrica',
+      icon: <Baby className="h-8 w-8 text-primary" />,
+      precio: '$3,500 MXN',
+      badge: 'Pediátrico',
+      badgeColor: 'bg-pink-100 text-pink-700'
     },
   ]
 
@@ -78,8 +122,6 @@ const HomePage = () => {
     {
       icon: <Building2 className="h-10 w-10 text-primary" />,
       title: 'Hospitales e Instituciones',
-      priority: 'Prioridad #1',
-      priorityColor: 'bg-primary text-white',
       desc: 'Accede a equipo de alta especialidad sin inversión CAPEX. Reduce costos operativos y elimina la obsolescencia tecnológica.',
       cta: 'Solicitar Cotización Institucional',
       ctaHref: '/contacto?service=cotizacion-equipo',
@@ -89,19 +131,15 @@ const HomePage = () => {
     {
       icon: <Stethoscope className="h-10 w-10 text-primary" />,
       title: 'Médicos Urólogos',
-      priority: 'Prioridad #2',
-      priorityColor: 'bg-secondary text-secondary-foreground',
-      desc: 'Amplía tu oferta de servicios con equipo de vanguardia. Modelo de colaboración progresiva con ingresos garantizados.',
+      desc: 'Amplía tu oferta con equipo de vanguardia y estudios de urodinamia. Modelo de colaboración progresiva con ingresos garantizados.',
       cta: 'Conocer Programa de Colaboración',
       ctaHref: '/para-medicos',
       ctaStyle: 'variant-outline',
-      items: ['Estudios de urodinamia', 'Acceso a equipo de renta', 'Modelo de participación progresiva', 'Ingresos por colaboración']
+      items: ['Acceso a equipo de renta', 'Estudios de urodinamia', 'Modelo de participación progresiva', 'Referir pacientes a estudios']
     },
     {
       icon: <Users className="h-10 w-10 text-primary" />,
       title: 'Pacientes',
-      priority: 'Prioridad #3',
-      priorityColor: 'bg-muted text-muted-foreground',
       desc: 'Estudios de urodinamia especializados en CDMX. Atención personalizada, reportes en 24-48h y tecnología de punta.',
       cta: 'Agendar Estudio',
       ctaHref: '/para-pacientes',
@@ -113,112 +151,70 @@ const HomePage = () => {
   return (
     <>
       <Helmet>
-        <title>Urologik | Infraestructura Tecnológica Urológica para Hospitales y Médicos</title>
-        <meta name="description" content="Renta de equipo médico urológico de alta especialidad en CDMX: Láser de Holmio Lumenis, Torre Stryker, cistoscopios. Sin inversión CAPEX, soporte técnico incluido. Proveedor certificado para hospitales." />
-        <meta name="keywords" content="renta equipo urológico, láser holmio CDMX, torre urología Stryker, cistoscopio renta, equipo médico urología México" />
+        <title>Urologik | Infraestructura Tecnológica Urológica Integral</title>
+        <meta name="description" content="Equipo médico urológico de alta especialidad + Diagnóstico urodinámico de vanguardia en CDMX. Renta de Láser de Holmio, Torre de Urología. Uroflujometría, urodinamia, videourodinamia. Sin inversión CAPEX." />
+        <meta name="keywords" content="renta equipo urológico, láser holmio CDMX, torre urología, uroflujometría, urodinamia, videourodinamia, uroflujometría pediátrica, diagnóstico urológico México" />
       </Helmet>
 
       <div className="min-h-screen">
 
-        {/* HERO B2B PRINCIPAL */}
+        {/* HERO DUAL */}
         <section className="bg-gradient-to-br from-primary/10 via-background to-secondary/5 py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
-                  <Building2 className="h-4 w-4 text-primary" />
-                  <span className="text-sm font-semibold text-primary">
-                    Infraestructura Tecnológica para Hospitales y Médicos
-                  </span>
-                </div>
-
-                <h1 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
-                  Tecnología Urológica de Punta.{' '}
-                  <span className="text-primary">Sin Inversión CAPEX.</span>
-                </h1>
-
-                <p className="text-xl text-muted-foreground leading-relaxed">
-                  Proveemos infraestructura tecnológica integral a hospitales y médicos: renta de equipo médico de alta especialidad con soporte técnico completo en CDMX.
-                </p>
-
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    'Láser de Holmio Lumenis',
-                    'Torre Stryker 1588/1688',
-                    'Cistoscopios y lentes',
-                    'Técnico biomédico in-situ'
-                  ].map((item) => (
-                    <div key={item} className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{item}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                  <Link
-                    to="/contacto?service=cotizacion-equipo"
-                    onClick={() => trackEvent('cta_click', { cta_type: 'solicitar_cotizacion', source: 'hero' })}
-                  >
-                    <Button size="lg" className="cta-button text-base px-8 py-4 w-full sm:w-auto">
-                      <Building2 className="h-5 w-5 mr-2" />
-                      Solicitar Cotización Institucional
-                    </Button>
-                  </Link>
-                  <Link
-                    to="/renta/laser-holmio-lumenis"
-                    onClick={() => trackEvent('cta_click', { cta_type: 'ver_equipos', source: 'hero' })}
-                  >
-                    <Button size="lg" variant="outline" className="text-base px-8 py-4 w-full sm:w-auto">
-                      Ver Equipos Disponibles
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
-                  </Link>
-                </div>
-
-                <div className="flex items-center gap-4 pt-2 text-sm text-muted-foreground">
-                  <button
-                    onClick={() => {
-                      trackLead('hospital', 'whatsapp', { source: 'hero' })
-                      window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20renta%20de%20equipo%20urologico', '_blank', 'noopener,noreferrer')
-                    }}
-                    className="flex items-center gap-1 hover:text-primary transition-colors"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    WhatsApp directo
-                  </button>
-                  <span>·</span>
-                  <a href="tel:5535055983" className="flex items-center gap-1 hover:text-primary transition-colors">
-                    <Phone className="h-4 w-4" />
-                    55-35-05-59-83
-                  </a>
-                </div>
+            <div className="text-center space-y-6 max-w-4xl mx-auto">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full">
+                <Cpu className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">
+                  Infraestructura Tecnológica Urológica Integral
+                </span>
               </div>
 
-              <div className="relative">
-                <div className="medical-card p-8 bg-gradient-to-br from-white to-primary/5 space-y-6">
-                  <h3 className="text-xl font-bold text-foreground">
-                    ¿Por qué elegir Urologik?
-                  </h3>
-                  <div className="grid grid-cols-2 gap-4">
-                    {[
-                      { value: '80-85%', label: 'Margen en renta de equipo', color: 'text-primary' },
-                      { value: '2-3', label: 'Procedimientos mínimos para rentabilidad', color: 'text-accent' },
-                      { value: '100%', label: 'Soporte técnico incluido', color: 'text-primary' },
-                      { value: '24h', label: 'Entrega en CDMX y área metro', color: 'text-accent' },
-                    ].map((stat) => (
-                      <div key={stat.label} className="text-center p-3 bg-muted/30 rounded-lg">
-                        <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-                        <p className="text-xs text-muted-foreground mt-1">{stat.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t border-border pt-4">
-                    <p className="text-sm text-muted-foreground text-center">
-                      Proveedor certificado · Cumplimiento COFEPRIS · CDMX y área metropolitana
-                    </p>
-                  </div>
-                </div>
+              <h1 className="text-4xl lg:text-5xl font-bold text-foreground leading-tight">
+                Equipo Médico de Alta Especialidad +{' '}
+                <span className="text-primary">Diagnóstico Urodinámico de Vanguardia</span>
+              </h1>
+
+              <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                Dos líneas de negocio integradas para hospitales, médicos y pacientes en CDMX. Tecnología de punta sin inversión CAPEX y estudios diagnósticos especializados.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                <Link
+                  to="/renta/laser-holmio-lumenis"
+                  onClick={() => trackEvent('cta_click', { cta_type: 'equipo_medico', source: 'hero_dual' })}
+                >
+                  <Button size="lg" className="cta-button text-base px-8 py-4 w-full sm:w-auto">
+                    <Building2 className="h-5 w-5 mr-2" />
+                    Equipo Médico
+                  </Button>
+                </Link>
+                <Link
+                  to="/estudios/uroflujometria"
+                  onClick={() => trackEvent('cta_click', { cta_type: 'estudios_diagnosticos', source: 'hero_dual' })}
+                >
+                  <Button size="lg" variant="outline" className="text-base px-8 py-4 w-full sm:w-auto border-primary text-primary hover:bg-primary hover:text-white">
+                    <Stethoscope className="h-5 w-5 mr-2" />
+                    Estudios Diagnósticos
+                  </Button>
+                </Link>
+              </div>
+
+              <div className="flex items-center gap-4 justify-center pt-2 text-sm text-muted-foreground">
+                <button
+                  onClick={() => {
+                    trackLead('general', 'whatsapp', { source: 'hero' })
+                    window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Urologik', '_blank', 'noopener,noreferrer')
+                  }}
+                  className="flex items-center gap-1 hover:text-primary transition-colors"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  WhatsApp directo
+                </button>
+                <span>·</span>
+                <a href="tel:5535055983" className="flex items-center gap-1 hover:text-primary transition-colors">
+                  <Phone className="h-4 w-4" />
+                  55-35-05-59-83
+                </a>
               </div>
             </div>
           </div>
@@ -290,8 +286,67 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* PROPUESTA DE VALOR */}
+        {/* ESTUDIOS DIAGNÓSTICOS */}
         <section className="py-16 bg-muted/30">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full mb-4">
+                <Stethoscope className="h-4 w-4 text-primary" />
+                <span className="text-sm font-semibold text-primary">Diagnóstico Urológico</span>
+              </div>
+              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                Estudios Diagnósticos Especializados
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Urodinamia y uroflujometría con tecnología de vanguardia. Atención para adultos y niños en CDMX.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {estudios.map((estudio) => (
+                <Card key={estudio.href} className="medical-card hover:shadow-lg transition-shadow">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="p-3 bg-primary/10 rounded-lg">
+                        {estudio.icon}
+                      </div>
+                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${estudio.badgeColor}`}>
+                        {estudio.badge}
+                      </span>
+                    </div>
+                    <CardTitle className="text-lg leading-tight">{estudio.title}</CardTitle>
+                    <CardDescription className="text-sm">{estudio.subtitle}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-lg font-bold text-primary">{estudio.precio}</p>
+                    <Link
+                      to={estudio.href}
+                      onClick={() => trackEvent('cta_click', { cta_type: 'ver_estudio', source: 'home_estudios' })}
+                      className="block"
+                    >
+                      <Button className="w-full" variant="outline">
+                        Ver detalles
+                        <ChevronRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-10">
+              <Link to="/para-pacientes">
+                <Button size="lg" variant="outline" className="text-base px-10 border-primary text-primary hover:bg-primary hover:text-white">
+                  <Stethoscope className="h-5 w-5 mr-2" />
+                  Agendar Estudio
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* PROPUESTA DE VALOR */}
+        <section className="py-16 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
@@ -316,6 +371,74 @@ const HomePage = () => {
           </div>
         </section>
 
+        {/* BANNER INNOVACIÓN */}
+        <section className="py-16 bg-gradient-to-r from-primary/5 to-secondary/10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full">
+                  <Lightbulb className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold text-primary">Innovación</span>
+                </div>
+                <h2 className="text-3xl lg:text-4xl font-bold text-foreground leading-tight">
+                  Desarrollando el Futuro del Diagnóstico Urológico
+                </h2>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Estamos desarrollando un uroflujómetro portátil con inteligencia artificial: dispositivo ESP32 con celda de carga, transmisión WiFi a la nube y análisis automatizado. La renta de equipo financia la innovación; la innovación diferencia la renta.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {[
+                    'Uroflujómetro portátil con IA',
+                    'Transmisión WiFi a cloud',
+                    'Validaciones clínicas en curso',
+                    'Uropediatría y uroginecología'
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-accent flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground">{item}</span>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  to="/tecnologia"
+                  onClick={() => trackEvent('cta_click', { cta_type: 'ver_tecnologia', source: 'home_innovacion' })}
+                >
+                  <Button variant="outline" size="lg" className="border-primary text-primary hover:bg-primary hover:text-white">
+                    <Cpu className="h-5 w-5 mr-2" />
+                    Conocer Nuestra Tecnología
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </Link>
+              </div>
+              <div className="medical-card p-8 bg-gradient-to-br from-white to-primary/5 space-y-6">
+                <h3 className="text-xl font-bold text-foreground">El Modelo Simbiótico</h3>
+                <div className="space-y-4">
+                  {[
+                    { step: '1', label: 'Renta de equipo', desc: 'Genera caja operativa' },
+                    { step: '2', label: 'Caja operativa', desc: 'Financia I+D del dispositivo' },
+                    { step: '3', label: 'Dispositivo con IA', desc: 'Diferencia la oferta + abre mercado nuevo' },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-4">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                        <span className="text-sm font-bold text-primary">{item.step}</span>
+                      </div>
+                      <div>
+                        <p className="font-semibold text-foreground">{item.label}</p>
+                        <p className="text-sm text-muted-foreground">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-t border-border pt-4 text-center">
+                  <p className="text-sm text-muted-foreground font-medium">
+                    Ciclo virtuoso: cada procedimiento financia la innovación
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* AUDIENCIAS / PORTALES */}
         <section className="py-16 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -336,9 +459,6 @@ const HomePage = () => {
                       <div className="p-3 bg-primary/10 rounded-lg">
                         {aud.icon}
                       </div>
-                      <span className={`text-xs font-semibold px-2 py-1 rounded-full ${aud.priorityColor}`}>
-                        {aud.priority}
-                      </span>
                     </div>
                     <CardTitle className="text-xl">{aud.title}</CardTitle>
                     <CardDescription className="text-sm leading-relaxed">{aud.desc}</CardDescription>
@@ -368,14 +488,14 @@ const HomePage = () => {
           </div>
         </section>
 
-        {/* CTA FINAL B2B */}
+        {/* CTA FINAL */}
         <section className="py-16 bg-gradient-to-r from-primary to-accent">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              ¿Listo para acceder a tecnología de punta sin inversión?
+              Infraestructura Urológica Integral
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Contáctanos hoy y recibe una cotización personalizada para tu hospital o consulta. Respuesta en menos de 24 horas.
+              Equipo médico para hospitales + estudios diagnósticos para pacientes. Contáctanos hoy y recibe respuesta en menos de 24 horas.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
@@ -384,7 +504,16 @@ const HomePage = () => {
               >
                 <Button size="lg" variant="secondary" className="text-base px-8 py-4">
                   <Building2 className="h-5 w-5 mr-2" />
-                  Solicitar Cotización
+                  Cotizar Equipo
+                </Button>
+              </Link>
+              <Link
+                to="/para-pacientes"
+                onClick={() => trackEvent('cta_click', { cta_type: 'agendar_estudio', source: 'cta_final' })}
+              >
+                <Button size="lg" variant="outline" className="text-base px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary">
+                  <Stethoscope className="h-5 w-5 mr-2" />
+                  Agendar Estudio
                 </Button>
               </Link>
               <Button
@@ -392,12 +521,12 @@ const HomePage = () => {
                 variant="outline"
                 className="text-base px-8 py-4 bg-white/10 border-white text-white hover:bg-white hover:text-primary"
                 onClick={() => {
-                  trackLead('hospital', 'whatsapp', { source: 'cta_final' })
-                  window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20renta%20de%20equipo%20urologico', '_blank', 'noopener,noreferrer')
+                  trackLead('general', 'whatsapp', { source: 'cta_final' })
+                  window.open('https://wa.me/5215535055983?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20Urologik', '_blank', 'noopener,noreferrer')
                 }}
               >
                 <MessageCircle className="h-5 w-5 mr-2" />
-                Escribir por WhatsApp
+                WhatsApp
               </Button>
             </div>
           </div>

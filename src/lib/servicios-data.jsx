@@ -99,7 +99,7 @@ export const servicesData = {
         description: 'Mide la cantidad de orina, la velocidad del flujo y el patrón de la micción, mientras que la Electromiografía (EMG) de superficie registra la actividad de los músculos del piso pélvico. Es ideal como primer paso diagnóstico por no ser invasivo.',
         duracion: '30 minutos - 1 hora',
         preparacion: 'El niño debe llegar con muchas ganas de orinar. No requiere ayuno.',
-        precio: '$2,544 MXN',
+        precio: '$2,500 MXN',
         nota_precio: 'Precio con IVA incluido',
         indicaciones: [
             'Estudio inicial de enuresis (mojar la cama).',
@@ -267,7 +267,7 @@ export const servicesData = {
       title: 'Uroflujometría Pediátrica con EMG',
       id: 'uroflujometria-pediatrica-emg',
       description: 'Mide el flujo y volumen de la orina, con electromiografía para analizar la actividad muscular durante la micción. Es un estudio no invasivo clave para el diagnóstico inicial.',
-      precio: '$2,544 MXN',
+      precio: '$2,500 MXN',
       nota_precio: 'Precio con IVA incluido',
       indicaciones: ['Enuresis nocturna', 'Infecciones urinarias recurrentes', 'Patrón de micción anormal'],
     },

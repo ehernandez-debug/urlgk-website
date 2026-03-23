@@ -22,22 +22,32 @@ const serviceLabels = {
   'cotizacion-equipo': 'Cotización de Equipo Médico (General)',
   'cotizacion-laser-holmio': 'Cotización — Láser de Holmio Lumenis Pulse 100H',
   'demo-laser-holmio': 'Demo — Láser de Holmio Lumenis Pulse 100H',
-  'cotizacion-torre-urologia': 'Cotización — Torre de Urología Stryker 1588/1688',
-  'demo-torre-urologia': 'Demo — Torre de Urología Stryker 1588/1688',
+  'cotizacion-torre-urologia': 'Cotización — Torre de Urología',
+  'demo-torre-urologia': 'Demo — Torre de Urología',
   'catalogo-instrumental': 'Catálogo — Instrumental y Consumibles',
   'especialista-instrumental': 'Consulta con Especialista — Instrumental',
   'champions': 'Programa de Aliados Estratégicos',
+  'agendar-uroflujometria': 'Agendar Uroflujometría',
+  'agendar-urodinamia': 'Agendar Urodinamia Multicanal',
+  'agendar-videourodinamia': 'Agendar Videourodinamia',
+  'agendar-uroflujometria-ped': 'Agendar Uroflujometría Pediátrica con EMG',
+  'info-tecnologia': 'Información sobre Tecnología Urologik',
 };
 
 const serviceWhatsAppMessages = {
   'cotizacion-equipo': 'Hola, me interesa recibir una cotización de equipo médico urológico para mi hospital/consultorio.',
   'cotizacion-laser-holmio': 'Hola, me interesa una cotización para la renta del Láser de Holmio Lumenis Pulse 100H.',
   'demo-laser-holmio': 'Hola, me gustaría agendar una demo del Láser de Holmio Lumenis Pulse 100H.',
-  'cotizacion-torre-urologia': 'Hola, me interesa una cotización institucional para la Torre de Urología Stryker 1588/1688.',
-  'demo-torre-urologia': 'Hola, me gustaría agendar una demo de la Torre de Urología Stryker.',
+  'cotizacion-torre-urologia': 'Hola, me interesa una cotización institucional para la Torre de Urología.',
+  'demo-torre-urologia': 'Hola, me gustaría agendar una demo de la Torre de Urología.',
   'catalogo-instrumental': 'Hola, me interesa recibir el catálogo completo de instrumental y consumibles urológicos.',
   'especialista-instrumental': 'Hola, me gustaría hablar con un especialista sobre instrumental y consumibles urológicos.',
   'champions': 'Hola, me interesa conocer más sobre el Programa de Aliados Estratégicos de Urologik.',
+  'agendar-uroflujometria': 'Hola, me gustaría agendar un estudio de Uroflujometría.',
+  'agendar-urodinamia': 'Hola, me gustaría agendar un estudio de Urodinamia Multicanal.',
+  'agendar-videourodinamia': 'Hola, me gustaría agendar un estudio de Videourodinamia.',
+  'agendar-uroflujometria-ped': 'Hola, me gustaría agendar una Uroflujometría Pediátrica con EMG para mi hijo/a.',
+  'info-tecnologia': 'Hola, me interesa conocer más sobre la tecnología e innovación de Urologik.',
 };
 
 const ContactoPage = () => {
@@ -55,6 +65,7 @@ const ContactoPage = () => {
   const serviceParam = searchParams.get('service') || '';
   const serviceLabel = serviceLabels[serviceParam] || 'Consulta General';
   const isB2B = serviceParam.includes('cotizacion') || serviceParam.includes('demo') || serviceParam.includes('catalogo') || serviceParam.includes('champions');
+  const isEstudio = serviceParam.includes('agendar-');
 
   useEffect(() => {
     const script = document.createElement('script');

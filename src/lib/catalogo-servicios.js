@@ -45,7 +45,7 @@ export const catalogoServicios = {
       id: 'uroflujometria-pediatrica',
       nombre: 'Uroflujometría Pediátrica con EMG',
       categoria: 'pediatricos',
-      precio: 2544,
+      precio: 3500,
       descripcion: 'Mide el flujo y volumen de la orina, con electromiografía para analizar la actividad muscular durante la micción. Es un estudio no invasivo clave para el diagnóstico inicial.',
       incluye: [
         'Estudio de uroflujometría con electromiografía (EMG)',

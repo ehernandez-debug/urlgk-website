@@ -28,7 +28,7 @@ const LpTorreUrologia = () => {
       <section className="relative pt-20 pb-10 md:pt-32 md:pb-20">
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
               <div className="text-center md:text-left">
-                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary">Torre de Urología Stryker: Visualización HD para tus Procedimientos</h1>
+                  <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary">Torre de Urología: Visualización HD para tus Procedimientos</h1>
                   <p className="mt-4 text-lg md:text-xl text-muted-foreground">Sistema completo de video-endoscopia. Ideal para diagnósticos precisos y procedimientos guiados por imagen. Soporte técnico integral.</p>
                   <div className="mt-8 flex gap-4 justify-center md:justify-start">
                       <Link to="/contacto?service=demo-torre-urologia"><Button size="lg">Agendar Demo</Button></Link>
@@ -36,7 +36,7 @@ const LpTorreUrologia = () => {
                   </div>
               </div>
               <div>
-                  <img src="/images/equipos/torre_urologia_stryker_1588_1.jpg" alt="Torre de Urología Stryker 1588" className="rounded-lg shadow-xl mx-auto" />
+                  <img src="/images/equipos/torre_urologia_stryker_1588_1.jpg" alt="Torre de Urología" className="rounded-lg shadow-xl mx-auto" />
               </div>
           </div>
       </section>
@@ -48,7 +48,7 @@ const LpTorreUrologia = () => {
                   <h2 className="text-3xl md:text-4xl font-bold">Una Solución de Diagnóstico y Tratamiento Completa</h2>
               </div>
               <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 text-center">
-                  <Card><CardHeader><Video className="h-10 w-10 mx-auto text-primary" /><CardTitle className="mt-2">Torre Completa</CardTitle></CardHeader><CardContent>Sistema Stryker 1588/1688 con todos sus componentes.</CardContent></Card>
+                  <Card><CardHeader><Video className="h-10 w-10 mx-auto text-primary" /><CardTitle className="mt-2">Torre Completa</CardTitle></CardHeader><CardContent>Sistema completo de video-endoscopia HD con todos sus componentes.</CardContent></Card>
                   <Card><CardHeader><Wrench className="h-10 w-10 mx-auto text-primary" /><CardTitle className="mt-2">Instrumental Complementario</CardTitle></CardHeader><CardContent>Cistoscopios, ureteroscopios y accesorios disponibles.</CardContent></Card>
                   <Card><CardHeader><Users className="h-10 w-10 mx-auto text-primary" /><CardTitle className="mt-2">Asistencia Técnica In-Situ</CardTitle></CardHeader><CardContent>Ingeniero biomédico presente en tu procedimiento.</CardContent></Card>
                   <Card><CardHeader><Award className="h-10 w-10 mx-auto text-primary" /><CardTitle className="mt-2">Capacitación y Soporte</CardTitle></CardHeader><CardContent>Entrenamiento para tu personal médico y de enfermería.</CardContent></Card>
@@ -126,15 +126,15 @@ const LpTorreUrologia = () => {
           <div className="container mx-auto px-4 space-y-12">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div>
-                    <h2 className="text-3xl font-bold mb-4">¿Por Qué la Torre Stryker?</h2>
-                    <p className="text-muted-foreground mb-4">La plataforma de cámara Stryker 1588 y 1688 AIM es el estándar de oro en visualización endoscópica. Ofrece una calidad de imagen superior y una funcionalidad avanzada que son cruciales para procedimientos urológicos de precisión.</p>
+                    <h2 className="text-3xl font-bold mb-4">¿Por Qué Nuestra Torre de Urología?</h2>
+                    <p className="text-muted-foreground mb-4">Nuestra torre de urología ofrece el estándar de oro en visualización endoscópica, con calidad de imagen superior y funcionalidad avanzada cruciales para procedimientos urológicos de precisión.</p>
                     <ul className="list-disc list-inside space-y-2">
                         <li><span className="font-semibold">Calidad de Imagen HD:</span> Claridad excepcional para una mejor anatomía y diagnóstico.</li>
                         <li><span className="font-semibold">Iluminación LED Brillante:</span> Visualización clara y consistente sin el calor de las fuentes de Xenón.</li>
                         <li><span className="font-semibold">Compatibilidad Universal:</span> Se adapta a una amplia gama de endoscopios rígidos y flexibles.</li>
                     </ul>
                 </div>
-                <img src="/images/equipos/stryker-1588-aim-cam.jpg" alt="Cámara Stryker 1588 AIM" className="rounded-lg shadow-lg mx-auto"/>
+                <img src="/images/equipos/stryker-1588-aim-cam.jpg" alt="Cámara de torre de urología" className="rounded-lg shadow-lg mx-auto"/>
               </div>
               <div className="text-center bg-muted p-8 rounded-lg">
                   <h2 className="text-3xl font-bold mb-4">Ideal para Médicos que Operan en Múltiples Hospitales</h2>
