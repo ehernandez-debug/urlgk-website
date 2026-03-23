@@ -6,14 +6,17 @@ El proyecto está construido con **Vite + React + Tailwind CSS** y desplegado en
 
 ## 🏗️ Arquitectura y Estrategia de Negocio
 
-El sitio web refleja el modelo de negocio balanceado (50/50) de Urologik, dividido en dos pilares principales:
+El sitio web refleja el modelo de negocio estratégico de Urologik, enfocado en ser una empresa B2B de servicios integrales. El análisis de facturación revela que el **85% de los ingresos provienen de la renta de equipo médico**, mientras que los estudios de urodinamia funcionan como un "lead magnet" estratégico.
 
-1. **Renta de Equipo Médico (B2B):** Provisión de infraestructura tecnológica (Láser de Holmio, Torre de Urología, Instrumental) para hospitales y médicos sin inversión CAPEX.
-2. **Estudios Diagnósticos:** Servicios especializados de urodinamia, uroflujometría y videourodinamia para pacientes y médicos referentes.
+### Líneas de Negocio Principales:
 
-La navegación y estructura de la página principal (`HomePage`) están diseñadas para atender a tres audiencias clave:
-- **Hospitales e Instituciones (Prioridad #1):** Enfoque en renta de equipo y reducción de costos.
-- **Médicos Urólogos (Prioridad #2):** Enfoque en colaboración, renta de equipo y referencia de estudios.
+1. **Renta de Equipo Médico (B2B - 85% Ingresos):** Provisión de infraestructura tecnológica (Láser de Holmio, Torre de Urología, Instrumental) para hospitales y médicos sin inversión CAPEX.
+2. **Estudios Diagnósticos (10% Ingresos):** Servicios especializados de urodinamia, uroflujometría y videourodinamia para pacientes y médicos referentes.
+
+### Audiencias Clave:
+
+- **Hospitales e Instituciones (Prioridad #1):** Enfoque en renta de equipo de última generación y reducción de costos (CAPEX).
+- **Médicos Urólogos (Prioridad #2):** Enfoque en modelo de colaboración progresiva, renta de equipo y referencia de estudios.
 - **Pacientes (Prioridad #3):** Enfoque educativo y agendamiento de estudios diagnósticos.
 
 ## 📂 Estructura del Proyecto
@@ -28,7 +31,7 @@ src/
 │   ├── ui/                 # Componentes base (shadcn/ui)
 │   └── tracking/           # Componentes con tracking integrado (WhatsApp, Calendly)
 ├── pages/                  # Páginas principales de la aplicación
-│   ├── HomePage.jsx        # Landing principal (Balance 50/50)
+│   ├── HomePage.jsx        # Landing principal
 │   ├── ContactoPage.jsx    # Formulario dinámico B2B y B2C
 │   ├── Lp*.jsx             # Landing Pages de Renta de Equipo (Láser, Torre, Instrumental)
 │   ├── LpUro*.jsx          # Landing Pages de Estudios (Uroflujometría, Urodinamia, etc.)
@@ -41,7 +44,7 @@ src/
 
 ### Requisitos Previos
 - Node.js (v18 o superior)
-- npm o yarn
+- pnpm (recomendado) o npm
 - Firebase CLI (`npm install -g firebase-tools`)
 
 ### Instalación Local
@@ -54,7 +57,7 @@ src/
 
 2. Instalar dependencias:
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Configurar variables de entorno:
@@ -62,42 +65,32 @@ src/
 
 4. Iniciar el servidor de desarrollo:
    ```bash
-   npm run dev
+   pnpm run dev
    ```
    El sitio estará disponible en `http://localhost:5173`.
 
 ### Scripts Disponibles
-
-- `npm run dev`: Inicia el servidor de desarrollo.
-- `npm run build`: Compila la aplicación para producción en la carpeta `dist/`.
-- `npm run lint`: Ejecuta ESLint para encontrar y corregir problemas en el código.
-- `npm run preview`: Sirve la versión compilada localmente para pruebas.
+- `pnpm run dev`: Inicia el servidor de desarrollo.
+- `pnpm run build`: Compila la aplicación para producción en la carpeta `dist/`.
+- `pnpm run lint`: Ejecuta ESLint para encontrar y corregir problemas en el código.
+- `pnpm run preview`: Sirve la versión compilada localmente para pruebas.
 
 ### ☁️ Despliegue a Firebase Hosting
 
 El sitio está configurado para desplegarse en Firebase Hosting bajo el proyecto `urologik-mainwebsite`.
 
+**Despliegue Automático (CI/CD):**
+El repositorio cuenta con GitHub Actions configurado para desplegar automáticamente a Firebase Hosting cada vez que se hace un push a la rama `main`.
+
+**Despliegue Manual:**
 Para desplegar manualmente desde la CLI:
-
-1. Autenticarse en Firebase (si no lo has hecho):
-   ```bash
-   firebase login
-   ```
-
-2. Compilar el proyecto:
-   ```bash
-   npm run build
-   ```
-
-3. Desplegar a producción:
-   ```bash
-   firebase deploy --only hosting
-   ```
+1. Autenticarse en Firebase: `firebase login`
+2. Compilar el proyecto: `pnpm run build`
+3. Desplegar a producción: `firebase deploy --only hosting`
 
 ## 📊 Tracking y Analytics
 
 El proyecto incluye integración nativa con Google Analytics 4 (GA4) a través de Firebase Analytics. Se utiliza un custom hook `useAnalytics.js` para registrar eventos clave:
-
 - `trackLead`: Generación de leads (WhatsApp, Calendly, Formularios).
 - `trackEvent`: Eventos genéricos (clics en CTAs, descargas de PDF).
 - `trackServiceView`: Visualización de detalles de servicios.
