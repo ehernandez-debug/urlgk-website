@@ -34,34 +34,37 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
   const downloadPDF = () => {
     try {
       const link = document.createElement('a');
-      link.href = '/urologik-modelo-colaboracion.pdf';
-      link.download = 'Urologik-Modelo-Colaboracion.pdf';
+      link.href = '/urologik-onepager-colaboracion-v4.pdf';
+      link.download = 'Urologik-OnePager-Colaboracion.pdf';
       link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     } catch (e) {
       // Fallback: abrir en nueva pestaña
-      window.open('/urologik-modelo-colaboracion.pdf', '_blank');
+      window.open('/urologik-onepager-colaboracion-v4.pdf', '_blank');
     }
   };
 
   // Guardar lead en Firestore (no bloquea la descarga si falla)
   const saveLeadToFirestore = async (emailVal, nombreVal) => {
     try {
-      if (!db) return;
+      if (!db) {
+        console.error('❌ Firestore db no inicializado — lead NO guardado');
+        return;
+      }
       await addDoc(collection(db, 'pdf_downloads'), {
         email: emailVal,
         nombre: nombreVal,
         downloadedAt: serverTimestamp(),
-        pdfName: 'urologik-modelo-colaboracion.pdf',
+        pdfName: 'urologik-onepager-colaboracion-v4.pdf',
         source: 'para-medicos-page',
+        pdfVersion: 'v4',
         userAgent: navigator.userAgent,
       });
       console.log('✅ Lead guardado en Firestore');
     } catch (e) {
-      // Error silencioso — no interrumpe la descarga
-      console.warn('⚠️ Firestore no disponible:', e.message);
+      console.error('❌ Error al guardar lead en Firestore:', e.code, e.message);
     }
   };
 
@@ -73,7 +76,7 @@ const PdfDownloadModal = ({ isOpen, onClose }) => {
         analytics.logEvent(analytics.instance, 'pdf_download_lead', {
           event_category: 'lead_generation',
           event_label: 'guia_colaboracion_medicos',
-          pdf_name: 'urologik-modelo-colaboracion',
+          pdf_name: 'urologik-onepager-colaboracion-v4',
           source: 'para-medicos-page',
           // No enviar PII a GA4 — solo metadata
           has_email: !!emailVal,

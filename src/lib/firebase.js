@@ -40,17 +40,23 @@ if (typeof window !== 'undefined') {
   });
 }
 
-// In dev, permitir token debug solo si VITE_APPCHECK_DEBUG === "true"
+// App Check — solo inicializar si tenemos una key válida de reCAPTCHA (no la de testing)
+const recaptchaKey = import.meta.env.VITE_RECAPTCHA_V3_KEY || "";
+const isTestKey = recaptchaKey === "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+
 if (import.meta.env.VITE_APPCHECK_DEBUG === "true") {
   // @ts-ignore
   self.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
 }
 
-initializeAppCheck(app, {
-  provider: new ReCaptchaV3Provider(
-    import.meta.env.VITE_RECAPTCHA_V3_KEY || ""
-  ),
-  isTokenAutoRefreshEnabled: true,
-});
+if (recaptchaKey && !isTestKey) {
+  initializeAppCheck(app, {
+    provider: new ReCaptchaV3Provider(recaptchaKey),
+    isTokenAutoRefreshEnabled: true,
+  });
+  console.log('✅ App Check initialized with reCAPTCHA v3');
+} else {
+  console.warn('⚠️ App Check NOT initialized — reCAPTCHA key is missing or is the Google testing key. Firestore writes will work without App Check enforcement.');
+}
 
 export { db, analytics };

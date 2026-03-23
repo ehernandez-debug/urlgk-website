@@ -88,7 +88,7 @@ exports.onPdfDownloadLead = functions
               <div class="label">Fuente</div>
               <div class="value">${source || "para-medicos-page"}</div>
               <div class="label">Documento descargado</div>
-              <div class="value">${pdfName || "urologik-modelo-colaboracion.pdf"}</div>
+              <div class="value">${pdfName || "urologik-onepager-colaboracion-v4.pdf"}</div>
               <hr class="divider">
               <p style="font-size:14px; color:#555; margin-bottom: 20px;">
                 Este médico ha mostrado interés en el <strong>Programa de Colaboración de Urologik</strong>.
